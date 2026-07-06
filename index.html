@@ -70,6 +70,24 @@
   .recap-latest .latest-arrow { color: rgba(255,255,255,0.2); font-size: 1.4em; transition: all 0.2s; }
   .recap-latest:hover .latest-arrow { color: #22c55e; transform: translateX(4px); }
 
+  /* 盘后专区紫色主题：用class替代内联style，规避legacy Pages构建器对内联rgba样式的解析失败 */
+  .recap-zone.purple {
+    background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(56,189,248,0.06));
+    border-color: rgba(168,85,247,0.25);
+  }
+  .recap-zone.purple .section-icon { background: rgba(168,85,247,0.15); }
+  .recap-zone.purple .section-label { color: #a855f7; }
+  .recap-latest.purple {
+    background: rgba(168,85,247,0.08); border-color: rgba(168,85,247,0.15);
+  }
+  .recap-latest.purple:hover {
+    background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.3);
+    transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,85,247,0.1);
+  }
+  .recap-latest.purple .latest-arrow { color: rgba(168,85,247,0.4); }
+  .recap-latest.purple:hover .latest-arrow { color: #a855f7; transform: translateX(4px); }
+  .recap-zone.purple .recap-history-item .hist-arrow { color: rgba(168,85,247,0.35); }
+
   .recap-history { margin-top: 16px; }
   .recap-history-title { font-size: 0.82em; color: rgba(255,255,255,0.35); margin-bottom: 8px; font-weight: 600; }
   .recap-history-item {
@@ -154,7 +172,8 @@
   <!-- 导航栏 -->
   <div class="navbar">
     <a class="nav-btn active" href="index.html">🏠 首页</a>
-    <a class="nav-btn" href="market-recap/latest.html">📈 最新复盘</a>
+    <a class="nav-btn" href="market-recap/latest.html">📈 早盘复盘</a>
+    <a class="nav-btn" href="market-recap/latest-after.html">📊 盘后复盘</a>
     <div class="nav-spacer"></div>
     <div class="nav-breadcrumb">
       <a href="index.html">🏠 首页</a>
@@ -170,7 +189,7 @@
         <div class="stat-label">深度报告</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" style="color:#22c55e;" id="recapCount">1</div>
+        <div class="stat-num" style="color:#22c55e;" id="recapCount">2</div>
         <div class="stat-label">复盘次数</div>
       </div>
       <div class="stat-item">
@@ -204,6 +223,36 @@
         <a class="recap-history-item" href="market-recap/2026-07-04.html">
           <span class="hist-date">2026-07-04</span>
           <span class="hist-title">全球股市早盘复盘：道指新高、黄金创纪录、非农爆冷</span>
+          <span class="hist-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== A股盘后深度复盘专区 ========== -->
+  <div class="recap-zone purple">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div class="section-label">A股盘后深度复盘</div>
+      <div class="section-desc">每个交易日 15:30 自动更新</div>
+    </div>
+
+    <a class="recap-latest purple" href="market-recap/latest-after.html">
+      <div class="latest-icon">📊</div>
+      <div class="latest-info">
+        <div class="latest-date">2026-07-03（周五）</div>
+        <div class="latest-title">A股盘后深度复盘：缩量反抽，风格切换进入深水区</div>
+        <div class="latest-summary">指数全景、成交情绪、板块结构、资金流向、早盘预判验证、次日展望</div>
+      </div>
+      <div class="latest-arrow">→</div>
+    </a>
+
+    <div class="recap-history">
+      <div class="recap-history-title">📅 历史复盘</div>
+      <div id="afterHistory">
+        <a class="recap-history-item" href="market-recap/2026-07-03-after.html">
+          <span class="hist-date">2026-07-03</span>
+          <span class="hist-title">A股盘后深度复盘：机器人涨停潮VS半导体跌停潮</span>
           <span class="hist-arrow">→</span>
         </a>
       </div>

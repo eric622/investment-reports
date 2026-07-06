@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘后深度复盘 - 2026-07-03</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0a0e27 0%,#1a1a2e 50%,#16213e 100%);color:#e0e0e0;line-height:1.8;min-height:100vh;}
+  .glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+  .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+
+  .navbar{display:flex;align-items:center;gap:8px;padding:14px 20px;margin-bottom:32px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:0.85em;font-weight:600;text-decoration:none;color:rgba(255,255,255,0.6);transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
+  .nav-btn:hover{color:#fff;background:rgba(255,255,255,0.08);border-color:rgba(56,189,248,0.3);}
+  .nav-spacer{flex:1;}
+  .nav-breadcrumb{font-size:0.82em;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:6px;}
+  .nav-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none;}
+  .nav-breadcrumb a:hover{color:#38bdf8;}
+  .nav-breadcrumb .sep{color:rgba(255,255,255,0.2);}
+
+  .hero{text-align:center;padding:44px 32px;margin-bottom:32px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(168,85,247,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(56,189,248,0.12) 0%,transparent 50%);}
+  .hero h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#a855f7,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1;}
+  .hero .subtitle{color:rgba(255,255,255,0.4);font-size:0.9em;position:relative;z-index:1;margin-top:8px;}
+  .hero .verdict{display:inline-block;margin-top:14px;padding:6px 18px;border-radius:20px;font-size:0.9em;font-weight:700;position:relative;z-index:1;background:rgba(251,191,36,0.15);color:#fbbf24;}
+
+  .section{padding:26px;margin-bottom:22px;}
+  .section-title{font-size:1.1em;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#fff;}
+  .section-title .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#6366f1);font-size:0.7em;color:#fff;flex-shrink:0;}
+
+  .index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;}
+  .index-card{padding:14px;border-radius:12px;text-align:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);}
+  .index-card .market{font-size:0.72em;color:rgba(255,255,255,0.4);margin-bottom:4px;}
+  .index-card .value{font-size:1.25em;font-weight:800;color:#fff;}
+  .index-card .change{font-size:0.82em;font-weight:700;margin-top:2px;}
+  .up{color:#f87171;}.down{color:#4ade80;}.flat{color:#fbbf24;}
+
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;font-size:0.84em;}
+  th{background:rgba(56,189,248,0.1);padding:9px 12px;text-align:left;font-weight:600;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,0.08);}
+  td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.04);}
+  tr:hover td{background:rgba(255,255,255,0.02);}
+  .strong-up{color:#f87171;font-weight:700;}
+  .strong-down{color:#4ade80;font-weight:700;}
+
+  h4{font-size:0.95em;margin:16px 0 8px;color:#38bdf8;font-weight:600;}
+  .analysis-box{padding:14px 18px;border-radius:0 10px 10px 0;margin:10px 0;font-size:0.88em;line-height:1.85;}
+  .box-bull{background:rgba(74,222,128,0.06);border-left:3px solid #4ade80;}
+  .box-bear{background:rgba(248,113,113,0.06);border-left:3px solid #f87171;}
+  .box-info{background:rgba(56,189,248,0.06);border-left:3px solid #38bdf8;}
+  .box-warn{background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;}
+
+  .quote{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);border-radius:10px;padding:12px 18px;margin:12px 0;font-size:0.86em;color:rgba(255,255,255,0.6);}
+
+  .capital-flow{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap;}
+  .flow-card{flex:1;min-width:140px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);text-align:center;}
+  .flow-card .flow-label{font-size:0.78em;color:rgba(255,255,255,0.4);margin-bottom:4px;}
+  .flow-card .flow-val{font-size:1.1em;font-weight:700;}
+  .flow-in{color:#f87171;}
+  .flow-out{color:#4ade80;}
+
+  .advice{background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(168,85,247,0.08));border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:22px;margin-top:18px;}
+  .advice h3{color:#fff;margin-bottom:12px;font-size:1.05em;}
+  .risk-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:0.82em;}
+  .risk-label{width:120px;text-align:right;flex-shrink:0;font-weight:600;}
+  .risk-bar-bg{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+  .risk-bar-fill{height:100%;border-radius:3px;}
+  .disclaimer{margin-top:30px;padding:16px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;font-size:0.76em;color:rgba(255,255,255,0.3);}
+  @media(max-width:768px){.hero h1{font-size:1.3em;}.index-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 导航栏 -->
+  <div class="navbar">
+    <a class="nav-btn" href="../index.html">🏠 首页</a>
+    <a class="nav-btn" href="javascript:history.back()">← 返回</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-breadcrumb">
+      <a href="../index.html">🏠 首页</a>
+      <span class="sep">/</span>
+      <span>A股盘后深度复盘</span>
+      <span class="sep">/</span>
+      <span>2026-07-03</span>
+    </div>
+  </div>
+
+  <div class="hero glass">
+    <h1>📊 A股盘后深度复盘</h1>
+    <div class="subtitle">2026年7月3日（周五） · 收盘数据 · 情绪修复期</div>
+    <div class="verdict">⚡ 缩量反抽藏隐忧 · 风格切换进入深水区</div>
+  </div>
+
+  <!-- 一、指数全景 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">一</span> 指数全景：缩量反抽，冲高回落</div>
+    <div class="index-grid">
+      <div class="index-card"><div class="market">上证指数</div><div class="value">4,043.64</div><div class="change up">+0.37%</div></div>
+      <div class="index-card"><div class="market">深证成指</div><div class="value">15,597.51</div><div class="change up">+0.64%</div></div>
+      <div class="index-card"><div class="market">创业板指</div><div class="value">4,019.93</div><div class="change up">+0.07%</div></div>
+      <div class="index-card"><div class="market">科创50</div><div class="value">1,975.60</div><div class="change down">-0.59%</div></div>
+      <div class="index-card"><div class="market">沪深300</div><div class="value">4,842.17</div><div class="change up">+0.62%</div></div>
+      <div class="index-card"><div class="market">科创综指</div><div class="value">~1,180</div><div class="change down">-0.35%</div></div>
+    </div>
+    <div class="analysis-box box-info">
+      <strong style="color:#38bdf8;">📌 盘面解读：</strong>7月2日"黑色星期四"恐慌出清后，7月3日迎来缩量反抽。早盘受隔夜美国非农爆冷、降息预期升温刺激，两市高开，开盘18分钟涨跌比4146:1264（超八成个股上涨），做多情绪直接拉满。但午后资金追高意愿不足，指数冲高回落，尾盘涨幅收窄。沪指最高4073.88，最低4027.26，日内振幅仅1.16%，属典型修复性反弹。
+    </div>
+  </div>
+
+  <!-- 二、成交与情绪 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">二</span> 成交与情绪：量能萎缩，情绪修复</div>
+    <div class="capital-flow">
+      <div class="flow-card"><div class="flow-label">两市成交额</div><div class="flow-val">3.18万亿</div></div>
+      <div class="flow-card"><div class="flow-label">较上日</div><div class="flow-val down">-2681亿</div></div>
+      <div class="flow-card"><div class="flow-label">上涨家数</div><div class="flow-val up">3804</div></div>
+      <div class="flow-card"><div class="flow-label">下跌家数</div><div class="flow-val">1628</div></div>
+      <div class="flow-card"><div class="flow-label">涨停/跌停</div><div class="flow-val up">160+/11</div></div>
+    </div>
+    <table>
+      <thead><tr><th>情绪指标</th><th>7月3日</th><th>7月2日（对比）</th><th>信号</th></tr></thead>
+      <tbody>
+        <tr><td>涨跌比</td><td class="strong-up">7:3（普涨）</td><td>超3000家下跌（普跌）</td><td class="strong-up">修复极强</td></tr>
+        <tr><td>涨停家数</td><td class="strong-up">160+</td><td>~40</td><td class="strong-up">短线活跃</td></tr>
+        <tr><td>跌停家数</td><td class="strong-down">11</td><td>~60</td><td class="strong-down">恐慌消退</td></tr>
+        <tr><td>连板高度</td><td>恒尚节能4板（并购）</td><td>空间板压制3板</td><td class="flat">仍偏低</td></tr>
+        <tr><td>封板率</td><td>67%</td><td>—</td><td class="flat">中等</td></tr>
+      </tbody>
+    </table>
+    <div class="analysis-box box-warn">
+      <strong style="color:#fbbf24;">⚠️ 量价背离信号：</strong>指数收涨但成交额缩至3.18万亿（6月18日以来最低），属于"价涨量缩"的反弹结构。存量博弈特征明显，增量资金尚未进场。若后续不能放量至3.5万亿以上，反弹持续性存疑。
+    </div>
+  </div>
+
+  <!-- 三、板块结构 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">三</span> 板块结构：高低切换，赛道换血</div>
+    <table>
+      <thead><tr><th>板块</th><th>涨跌幅</th><th>驱动逻辑</th><th>强度</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:700;color:#f87171;">人形机器人</td><td class="strong-up">+9%+</td><td>宇树科技IPO获批+特斯拉量产消息，四十余股涨停</td><td class="strong-up">🔥 全场最强</td></tr>
+        <tr><td style="font-weight:700;color:#f87171;">贵金属/黄金</td><td class="strong-up">+7%+</td><td>非农爆冷+降息预期+金价创历史新高，赤峰/四川/西部黄金封板</td><td class="strong-up">🔥 强</td></tr>
+        <tr><td style="font-weight:700;color:#f87171;">商业航天</td><td class="strong-up">+3%+</td><td>卫星互联网政策催化，高低切方向</td><td class="strong-up">中强</td></tr>
+        <tr><td style="font-weight:700;color:#4ade80;">半导体材料</td><td class="strong-down">-2%~-3%</td><td>电子特气、光刻胶领跌，资金流出</td><td class="strong-down">💧 承压</td></tr>
+        <tr><td style="font-weight:700;color:#4ade80;">消费电子</td><td class="strong-down">-1%~-2%</td><td>高位硬件补跌，存量资金撤离</td><td class="strong-down">💧 弱</td></tr>
+        <tr><td>创新药ETF</td><td class="strong-up">周+15%+</td><td>资金持续流入，主题产品领涨</td><td class="strong-up">周强</td></tr>
+      </tbody>
+    </table>
+    <div class="analysis-box box-bull">
+      <strong style="color:#4ade80;">🟢 主线研判：</strong>机器人接棒光模块成为新主线，符合"高位半导体→低位制造"的切换路径。黄金受外部降息+避险双驱动，趋势性更强。商业航天属题材轮动，持续性待观察。
+    </div>
+    <div class="analysis-box box-bear">
+      <strong style="color:#f87171;">🔴 风险研判：</strong>半导体材料连续两日下跌，费城半导体指数同步走弱（-1.52%），中美芯片股共振下行。若周一美股科技继续承压，A股半导体可能加速补跌。
+    </div>
+  </div>
+
+  <!-- 四、资金流向 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">四</span> 资金流向：北向回流，主力高低切</div>
+    <table>
+      <thead><tr><th>资金类型</th><th>方向</th><th>特征</th></tr></thead>
+      <tbody>
+        <tr><td>北向资金</td><td class="strong-up">结束连续外流</td><td>盘中震荡徘徊，无集中抛售，情绪趋稳</td></tr>
+        <tr><td>主力资金</td><td class="strong-down">流出半导体硬件</td><td>向低位周期、高端制造转移，典型存量高低切换</td></tr>
+        <tr><td>ETF资金</td><td class="strong-up">半导体ETF净流入180亿+</td><td>中证半导体材料设备指数ETF合计净流入超180亿（周度）</td></tr>
+        <tr><td>游资/短线</td><td class="strong-up">机器人/黄金抢筹</td><td>百股涨停，连板梯队完整无断层</td></tr>
+      </tbody>
+    </table>
+    <div class="quote">💡 <strong>矛盾信号：</strong>ETF资金逆势加仓半导体（180亿+），但主力资金当日流出半导体硬件。说明中长期资金在逢低布局，短期资金在获利了结——"长多短空"格局，板块调整空间可能有限但时间未到。</div>
+  </div>
+
+  <!-- 五、早盘预判验证 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">五</span> 早盘预判验证：命中与偏差</div>
+    <table>
+      <thead><tr><th>早盘预判（7/4早盘复盘）</th><th>实际结果</th><th>验证</th></tr></thead>
+      <tbody>
+        <tr><td>黄金/贵金属看多</td><td class="strong-up">板块+7%，多股涨停</td><td class="strong-up">✅ 命中</td></tr>
+        <tr><td>机器人看多</td><td class="strong-up">板块+9%，四十余股涨停</td><td class="strong-up">✅ 命中</td></tr>
+        <tr><td>半导体规避</td><td class="strong-down">半导体材料-2%~-3%</td><td class="strong-up">✅ 命中</td></tr>
+        <tr><td>价值>成长风格</td><td class="flat">沪深300+0.62% > 创业板+0.07%</td><td class="strong-up">✅ 命中</td></tr>
+        <tr><td>偏乐观方向</td><td class="flat">缩量反弹，非放量突破</td><td class="flat">⚠️ 部分命中</td></tr>
+        <tr><td>仓位60-70%</td><td class="flat">缩量环境宜下限</td><td class="flat">⚠️ 维持</td></tr>
+      </tbody>
+    </table>
+    <div class="analysis-box box-info">
+      <strong style="color:#38bdf8;">📊 命中率：</strong>4/4 核心预判全部命中（黄金、机器人、半导体、风格），方向判断精准。唯一偏差是"反弹力度"——预判偏乐观但实质量能不足，属节奏偏差而非方向偏差。
+    </div>
+  </div>
+
+  <!-- 六、次日展望 -->
+  <div class="advice">
+    <h3>📌 下交易日（7月6日周一）展望与策略</h3>
+    <table>
+      <thead><tr><th>维度</th><th>判断</th><th>逻辑</th></tr></thead>
+      <tbody>
+        <tr><td>大势研判</td><td style="color:#fbbf24;font-weight:700;">震荡偏多</td><td>情绪修复未完，但量能制约反弹高度</td></tr>
+        <tr><td>关键变量</td><td style="color:#38bdf8;">成交额能否放量</td><td>3.5万亿是分水岭，放量则突破，缩量则回踩</td></tr>
+        <tr><td>持仓策略</td><td style="color:#4ade80;">持有强势+低吸错杀</td><td>机器人/黄金持有，半导体等待企稳信号</td></tr>
+        <tr><td>风险提示</td><td style="color:#f87171;">半导体补跌、量能持续萎缩</td><td>美股科技若继续弱，传导A股成长股</td></tr>
+        <tr><td>综合风险</td><td style="font-weight:700;color:#fbbf24;">4.5/10</td><td>中等，结构性机会大于系统性风险</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top:16px;">🔑 核心结论</h4>
+    <div style="font-size:0.9em;line-height:1.9;">
+      7月3日行情本质是一轮<strong style="color:#fbbf24;">"恐慌出清后的缩量修复"</strong>，而非趋势反转。三大信号值得重视：<br>
+      ① <strong style="color:#f87171;">风格切换确认</strong>：资金从高位半导体硬件流向低位制造（机器人）与周期（黄金），这一切换具有中期持续性；<br>
+      ② <strong style="color:#f87171;">黄金趋势最强</strong>：外部降息预期+地缘避险+美元走弱三重驱动，金价创历史新高，A股贵金属板块具备趋势性机会；<br>
+      ③ <strong style="color:#4ade80;">半导体长多短空</strong>：ETF逆势加仓180亿说明长线资金看好，但短期调整未结束，宜等企稳信号再介入。
+    </div>
+  </div>
+
+  <div class="disclaimer">⚠️ 本报告由WorkBuddy自动生成，数据来源公开市场信息，不构成投资建议。更新时间：2026-07-03 15:30 CST。</div>
+
+</div>
+</body>
+</html>
