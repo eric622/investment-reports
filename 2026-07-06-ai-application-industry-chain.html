@@ -11,6 +11,14 @@
     background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
     color: #e0e0e0; line-height: 1.8; min-height: 100vh;
   }
+  .navbar{display:flex;align-items:center;gap:8px;padding:14px 20px;margin-bottom:32px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:0.85em;font-weight:600;text-decoration:none;color:rgba(255,255,255,0.6);transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
+  .nav-btn:hover{color:#fff;background:rgba(255,255,255,0.08);border-color:rgba(56,189,248,0.3);}
+  .nav-spacer{flex:1;}
+  .nav-breadcrumb{font-size:0.82em;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:6px;}
+  .nav-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none;}
+  .nav-breadcrumb a:hover{color:#38bdf8;}
+  .nav-breadcrumb .sep{color:rgba(255,255,255,0.2);}
   .glass {
     background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
@@ -151,6 +159,20 @@
 <body>
 
 <div class="container">
+
+  <!-- 导航栏 -->
+  <div class="navbar">
+    <a class="nav-btn" href="index.html">🏠 首页</a>
+    <a class="nav-btn" href="javascript:history.back()">← 返回</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-breadcrumb">
+      <a href="index.html">🏠 首页</a>
+      <span class="sep">/</span>
+      <span>深度研究报告</span>
+      <span class="sep">/</span>
+      <span>AI应用产业链全景</span>
+    </div>
+  </div>
 
   <!-- Hero -->
   <div class="hero glass">

@@ -9,6 +9,14 @@
   body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0a0e27 0%,#1a1a2e 50%,#16213e 100%);color:#e0e0e0;line-height:1.8;min-height:100vh;}
   .glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);}
   .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  .navbar{display:flex;align-items:center;gap:8px;padding:14px 20px;margin-bottom:32px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:0.85em;font-weight:600;text-decoration:none;color:rgba(255,255,255,0.6);transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
+  .nav-btn:hover{color:#fff;background:rgba(255,255,255,0.08);border-color:rgba(56,189,248,0.3);}
+  .nav-spacer{flex:1;}
+  .nav-breadcrumb{font-size:0.82em;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:6px;}
+  .nav-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none;}
+  .nav-breadcrumb a:hover{color:#38bdf8;}
+  .nav-breadcrumb .sep{color:rgba(255,255,255,0.2);}
   .hero{text-align:center;padding:48px 32px;margin-bottom:36px;position:relative;overflow:hidden;}
   .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(34,197,94,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(56,189,248,0.12) 0%,transparent 50%);}
   .hero h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#22c55e,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1;}
@@ -43,6 +51,20 @@
 <body>
 
 <div class="container">
+
+  <!-- 导航栏 -->
+  <div class="navbar">
+    <a class="nav-btn" href="../index.html">🏠 首页</a>
+    <a class="nav-btn" href="javascript:history.back()">← 返回</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-breadcrumb">
+      <a href="../index.html">🏠 首页</a>
+      <span class="sep">/</span>
+      <span>全球股市复盘（早盘）</span>
+      <span class="sep">/</span>
+      <span>2026-07-04</span>
+    </div>
+  </div>
 
   <div class="hero glass">
     <h1>🌐 全球股市复盘（早盘）</h1>

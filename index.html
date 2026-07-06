@@ -116,6 +116,28 @@
 
   .footer { text-align: center; margin-top: 60px; padding: 20px; color: rgba(255,255,255,0.2); font-size: 0.8em; }
 
+  /* 导航栏 */
+  .navbar {
+    display: flex; align-items: center; gap: 8px; padding: 14px 20px; margin-bottom: 32px;
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+  }
+  .nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 10px; font-size: 0.85em; font-weight: 600;
+    text-decoration: none; color: rgba(255,255,255,0.6); transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+    cursor: pointer;
+  }
+  .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.08); border-color: rgba(56,189,248,0.3); }
+  .nav-btn.active { color: #38bdf8; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3); }
+  .nav-spacer { flex: 1; }
+  .nav-breadcrumb { font-size: 0.82em; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 6px; }
+  .nav-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .nav-breadcrumb a:hover { color: #38bdf8; }
+  .nav-breadcrumb .sep { color: rgba(255,255,255,0.2); }
+
   @media (max-width: 600px) {
     .hero h1 { font-size: 1.4em; }
     .report-card { flex-direction: column; align-items: flex-start; }
@@ -128,6 +150,16 @@
 <body>
 
 <div class="container">
+
+  <!-- 导航栏 -->
+  <div class="navbar">
+    <a class="nav-btn active" href="index.html">🏠 首页</a>
+    <a class="nav-btn" href="market-recap/latest.html">📈 最新复盘</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-breadcrumb">
+      <a href="index.html">🏠 首页</a>
+    </div>
+  </div>
 
   <div class="hero">
     <h1>📊 投资研究报告库</h1>
