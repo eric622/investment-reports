@@ -9,157 +9,119 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e0e0;
-    min-height: 100vh;
+    color: #e0e0e0; min-height: 100vh;
   }
   .container { max-width: 900px; margin: 0 auto; padding: 60px 24px 80px; }
-
-  /* 头部 */
   .hero {
-    text-align: center;
-    padding: 48px 32px;
-    margin-bottom: 48px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    position: relative;
-    overflow: hidden;
+    text-align: center; padding: 48px 32px; margin-bottom: 48px;
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
     background: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.12) 0%, transparent 50%),
                 radial-gradient(circle at 70% 50%, rgba(168,85,247,0.12) 0%, transparent 50%);
   }
   .hero h1 {
-    font-size: 2em;
-    font-weight: 700;
+    font-size: 2em; font-weight: 700;
     background: linear-gradient(135deg, #38bdf8, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-    z-index: 1;
-    margin-bottom: 12px;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    position: relative; z-index: 1; margin-bottom: 12px;
   }
-  .hero .subtitle {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.9em;
-    position: relative;
-    z-index: 1;
-  }
-  .hero .stat {
-    margin-top: 20px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-  .hero .stat-item {
-    text-align: center;
-  }
-  .hero .stat-num {
-    font-size: 1.8em;
-    font-weight: 800;
-    color: #38bdf8;
-  }
-  .hero .stat-label {
-    font-size: 0.8em;
-    color: rgba(255,255,255,0.4);
-  }
+  .hero .subtitle { color: rgba(255,255,255,0.4); font-size: 0.9em; position: relative; z-index: 1; }
+  .hero .stat { margin-top: 20px; position: relative; z-index: 1; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .hero .stat-item { text-align: center; }
+  .hero .stat-num { font-size: 1.8em; font-weight: 800; color: #38bdf8; }
+  .hero .stat-label { font-size: 0.8em; color: rgba(255,255,255,0.4); }
 
-  /* 报告卡片 */
+  .section-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; margin-top: 40px;
+  }
+  .section-header:first-of-type { margin-top: 0; }
+  .section-header .section-icon {
+    width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;
+  }
+  .section-header .section-label { font-size: 1.15em; font-weight: 700; color: #fff; }
+  .section-header .section-desc { font-size: 0.8em; color: rgba(255,255,255,0.35); margin-left: auto; }
+
+  .recap-zone {
+    padding: 24px; margin-bottom: 32px;
+    background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(56,189,248,0.06));
+    border: 1px solid rgba(34,197,94,0.2); border-radius: 16px;
+  }
+  .recap-zone .section-icon { background: rgba(34,197,94,0.15); }
+  .recap-zone .section-label { color: #22c55e; }
+  .recap-latest {
+    margin-top: 16px; padding: 16px 20px;
+    background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.15);
+    border-radius: 12px; display: flex; align-items: center; gap: 16px;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+  }
+  .recap-latest:hover {
+    background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3);
+    transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.1);
+  }
+  .recap-latest .latest-icon { font-size: 2em; flex-shrink: 0; }
+  .recap-latest .latest-info { flex: 1; }
+  .recap-latest .latest-date { font-size: 0.78em; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+  .recap-latest .latest-title { font-size: 1em; font-weight: 700; color: #fff; }
+  .recap-latest .latest-summary { font-size: 0.82em; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .recap-latest .latest-arrow { color: rgba(255,255,255,0.2); font-size: 1.4em; transition: all 0.2s; }
+  .recap-latest:hover .latest-arrow { color: #22c55e; transform: translateX(4px); }
+
+  .recap-history { margin-top: 16px; }
+  .recap-history-title { font-size: 0.82em; color: rgba(255,255,255,0.35); margin-bottom: 8px; font-weight: 600; }
+  .recap-history-item {
+    display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+    text-decoration: none; color: inherit; border-radius: 8px; transition: all 0.15s;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .recap-history-item:hover { background: rgba(255,255,255,0.05); }
+  .recap-history-item .hist-date { font-size: 0.82em; color: rgba(255,255,255,0.4); width: 85px; flex-shrink: 0; }
+  .recap-history-item .hist-title { font-size: 0.88em; color: rgba(255,255,255,0.65); flex: 1; }
+  .recap-history-item .hist-arrow { color: rgba(255,255,255,0.15); font-size: 0.9em; }
+
   .report-list { display: flex; flex-direction: column; gap: 16px; }
   .report-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 24px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.25s ease;
-    cursor: pointer;
+    display: flex; align-items: center; gap: 20px; padding: 20px 24px;
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; text-decoration: none; color: inherit;
+    transition: all 0.25s ease; cursor: pointer;
   }
   .report-card:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(56,189,248,0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(56,189,248,0.1);
+    background: rgba(255,255,255,0.1); border-color: rgba(56,189,248,0.3);
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.1);
   }
   .report-card .icon {
-    width: 48px; height: 48px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4em;
-    flex-shrink: 0;
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4em; flex-shrink: 0;
   }
   .report-card .info { flex: 1; }
-  .report-card .title {
-    font-size: 1.05em;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-  .report-card .meta {
-    font-size: 0.82em;
-    color: rgba(255,255,255,0.4);
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .report-card .arrow {
-    color: rgba(255,255,255,0.2);
-    font-size: 1.2em;
-    transition: all 0.2s;
-  }
+  .report-card .title { font-size: 1.05em; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .report-card .meta { font-size: 0.82em; color: rgba(255,255,255,0.4); display: flex; gap: 16px; flex-wrap: wrap; }
+  .report-card .arrow { color: rgba(255,255,255,0.2); font-size: 1.2em; transition: all 0.2s; }
   .report-card:hover .arrow { color: #38bdf8; transform: translateX(4px); }
 
-  /* 分类标签 */
   .tag {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 600;
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 0.75em; font-weight: 600;
   }
   .tag-stock { background: rgba(56,189,248,0.15); color: #38bdf8; }
   .tag-industry { background: rgba(168,85,247,0.15); color: #a855f7; }
   .tag-macro { background: rgba(74,222,128,0.15); color: #4ade80; }
   .tag-strategy { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tag-recap { background: rgba(34,197,94,0.12); color: #22c55e; }
 
-  /* 空状态 */
-  .empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: rgba(255,255,255,0.3);
-    font-size: 0.95em;
-  }
-
-  /* 底部 */
-  .footer {
-    text-align: center;
-    margin-top: 60px;
-    padding: 20px;
-    color: rgba(255,255,255,0.2);
-    font-size: 0.8em;
-  }
+  .footer { text-align: center; margin-top: 60px; padding: 20px; color: rgba(255,255,255,0.2); font-size: 0.8em; }
 
   @media (max-width: 600px) {
     .hero h1 { font-size: 1.4em; }
     .report-card { flex-direction: column; align-items: flex-start; }
     .report-card .arrow { display: none; }
+    .recap-latest { flex-direction: column; align-items: flex-start; }
+    .recap-latest .latest-arrow { display: none; }
   }
 </style>
 </head>
@@ -167,26 +129,62 @@
 
 <div class="container">
 
-  <!-- 头部 -->
   <div class="hero">
     <h1>📊 投资研究报告库</h1>
     <div class="subtitle">workbuddy · eric622 · 自动生成</div>
     <div class="stat">
       <div class="stat-item">
-        <div class="stat-num" id="reportCount">1</div>
-        <div class="stat-label">报告数量</div>
+        <div class="stat-num" id="reportCount">2</div>
+        <div class="stat-label">深度报告</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" style="color:#a855f7;" id="dateLabel">2026.07</div>
+        <div class="stat-num" style="color:#22c55e;" id="recapCount">1</div>
+        <div class="stat-label">复盘次数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="color:#a855f7;">2026.07</div>
         <div class="stat-label">最新更新</div>
       </div>
     </div>
   </div>
 
-  <!-- 报告列表 -->
-  <div class="report-list" id="reportList">
+  <!-- ========== 全球股市复盘（早盘）专区 ========== -->
+  <div class="recap-zone">
+    <div class="section-header">
+      <div class="section-icon">🌐</div>
+      <div class="section-label">全球股市复盘（早盘）</div>
+      <div class="section-desc">每个交易日 7:30 自动更新</div>
+    </div>
 
-    <!-- 手动维护：新增报告在这里加一行 -->
+    <a class="recap-latest" href="market-recap/latest.html">
+      <div class="latest-icon">📈</div>
+      <div class="latest-info">
+        <div class="latest-date">2026-07-04（周六）</div>
+        <div class="latest-title">全球股市早盘复盘：A股开盘决策参考</div>
+        <div class="latest-summary">美股收盘、亚太早盘、关键指标（DXY/美债/原油/黄金/比特币）、行业共振分析</div>
+      </div>
+      <div class="latest-arrow">→</div>
+    </a>
+
+    <div class="recap-history">
+      <div class="recap-history-title">📅 历史复盘</div>
+      <div id="recapHistory">
+        <a class="recap-history-item" href="market-recap/2026-07-04.html">
+          <span class="hist-date">2026-07-04</span>
+          <span class="hist-title">全球股市早盘复盘：道指新高、黄金创纪录、非农爆冷</span>
+          <span class="hist-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 深度研究报告 ========== -->
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(168,85,247,0.12);">📝</div>
+    <div class="section-label">深度研究报告</div>
+  </div>
+
+  <div class="report-list" id="reportList">
     <a class="report-card" href="2026-07-06-ai-application-industry-chain.html">
       <div class="icon" style="background:rgba(168,85,247,0.12);">🤖</div>
       <div class="info">
@@ -212,34 +210,14 @@
       </div>
       <div class="arrow">→</div>
     </a>
-
-    <!-- 模板：新增报告时复制以下区块，修改 href 和文字 -->
-    <!--
-    <a class="report-card" href="文件名.html">
-      <div class="icon" style="background:rgba(168,85,247,0.12);">📈</div>
-      <div class="info">
-        <div class="title">报告标题</div>
-        <div class="meta">
-          <span>2026-XX-XX</span>
-          <span class="tag tag-stock">个股研究</span>
-        </div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-    -->
-
   </div>
 
-  <div class="footer">
-    由 WorkBuddy 自动生成 · 最后更新：2026-07-06
-  </div>
-
+  <div class="footer">由 WorkBuddy 自动生成 · 最后更新：2026-07-06</div>
 </div>
 
 <script>
-  // 自动统计报告数量
-  const cards = document.querySelectorAll('.report-card');
-  document.getElementById('reportCount').textContent = cards.length;
+  document.getElementById('reportCount').textContent = document.querySelectorAll('.report-card').length;
+  document.getElementById('recapCount').textContent = document.querySelectorAll('.recap-history-item').length;
 </script>
 
 </body>
