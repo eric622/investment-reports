@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>算力回归电力与存储：长逻辑挖掘核心标的报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e0e0e0;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  /* 玻璃拟态卡片 */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* 头部 Hero */
+  .hero {
+    text-align: center;
+    padding: 60px 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+    animation: heroGlow 8s ease-in-out infinite;
+  }
+  @keyframes heroGlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-5%, 5%); }
+  }
+  .hero h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #38bdf8, #a855f7, #38bdf8);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient 5s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+  @keyframes gradient {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 200% center; }
+  }
+  .hero .subtitle {
+    font-size: 0.95em;
+    color: rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 1;
+  }
+  .hero .core-arg {
+    margin-top: 20px;
+    padding: 16px 24px;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    font-size: 0.92em;
+    color: rgba(255,255,255,0.7);
+    position: relative;
+    z-index: 1;
+  }
+  .hero .core-arg strong { color: #38bdf8; }
+
+  /* 章节 */
+  .section {
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    font-size: 0.7em;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  /* 逻辑链可视化 */
+  .logic-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 24px 0;
+    padding: 24px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    font-family: "Courier New", monospace;
+    font-size: 0.88em;
+    line-height: 2.2;
+    color: rgba(255,255,255,0.7);
+  }
+  .logic-chain .arrow { color: #38bdf8; }
+  .logic-chain .highlight { color: #a855f7; font-weight: 600; }
+
+  /* 表格 */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    font-size: 0.88em;
+  }
+  th {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #38bdf8;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  tr:hover td {
+    background: rgba(255,255,255,0.03);
+  }
+  .stock-name { font-weight: 600; color: #fff; }
+  .code { color: rgba(255,255,255,0.4); font-size: 0.85em; font-family: monospace; }
+  .tag-green { color: #4ade80; }
+  .tag-red { color: #f87171; }
+  .tag-yellow { color: #fbbf24; }
+  .tag-blue { color: #38bdf8; }
+  .tag-purple { color: #a855f7; }
+
+  /* 主线分隔 */
+  .main-line {
+    margin: 32px 0 16px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.05em;
+  }
+  .line-power { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: #38bdf8; }
+  .line-storage { background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); color: #a855f7; }
+  .line-export { background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.2); color: #4ade80; }
+
+  /* 多空辩论 */
+  .debate-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .debate-box {
+    padding: 24px;
+    border-radius: 14px;
+  }
+  .debate-box.bull {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+  }
+  .debate-box.bear {
+    background: rgba(248, 113, 113, 0.06);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+  }
+  .debate-box h3 {
+    font-size: 1.05em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .debate-box.bull h3 { color: #4ade80; }
+  .debate-box.bear h3 { color: #f87171; }
+  .debate-box ol {
+    padding-left: 20px;
+    font-size: 0.9em;
+    line-height: 1.9;
+  }
+  .debate-box li { margin-bottom: 6px; }
+
+  /* 风险评分条 */
+  .risk-bar-container {
+    margin: 20px 0;
+  }
+  .risk-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 0.88em;
+  }
+  .risk-name {
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .risk-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .risk-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+  .risk-low .risk-bar-fill { background: linear-gradient(90deg, #4ade80, #22c55e); }
+  .risk-mid .risk-bar-fill { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+  .risk-high .risk-bar-fill { background: linear-gradient(90deg, #f87171, #ef4444); }
+  .risk-score { width: 40px; font-weight: 700; font-size: 0.9em; }
+  .risk-low .risk-score { color: #4ade80; }
+  .risk-mid .risk-score { color: #fbbf24; }
+  .risk-high .risk-score { color: #f87171; }
+
+  /* 仓位建议 */
+  .position-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .pos-card {
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+  }
+  .pos-card .pos-level {
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .pos-card .pos-pct {
+    font-size: 2em;
+    font-weight: 800;
+    margin: 8px 0;
+  }
+  .pos-card .pos-detail {
+    font-size: 0.82em;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+  .pos-core .pos-level { color: #38bdf8; }
+  .pos-core .pos-pct { color: #38bdf8; }
+  .pos-main .pos-level { color: #a855f7; }
+  .pos-main .pos-pct { color: #a855f7; }
+  .pos-flex .pos-level { color: #fbbf24; }
+  .pos-flex .pos-pct { color: #fbbf24; }
+  .pos-cash .pos-level { color: rgba(255,255,255,0.4); }
+  .pos-cash .pos-pct { color: rgba(255,255,255,0.4); }
+
+  /* 结论 */
+  .conclusion {
+    padding: 32px;
+    margin: 32px 0;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(168, 85, 247, 0.08));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+  }
+  .conclusion h2 {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .conclusion .defend, .conclusion .attack {
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 0.92em;
+    line-height: 1.8;
+  }
+  .conclusion .defend { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+  .conclusion .attack { background: rgba(168, 85, 247, 0.08); border-left: 3px solid #a855f7; }
+  .conclusion .warning {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 10px;
+    font-size: 0.88em;
+    color: #fbbf24;
+  }
+
+  /* 风险提示 */
+  .disclaimer {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    font-size: 0.82em;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+  }
+
+  /* 星星评分 */
+  .stars { color: #fbbf24; letter-spacing: 2px; }
+
+  /* 打印 */
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .glass { background: #fff; border: 1px solid #e0e0e0; }
+    .hero h1 { -webkit-text-fill-color: #1a1a1a; background: none; }
+    th { background: #f0f0f0; color: #1a1a1a; }
+    .debate-box.bull { background: #f0fff4; border-color: #4ade80; }
+    .debate-box.bear { background: #fff5f5; border-color: #f87171; }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.5em; }
+    .debate-container { grid-template-columns: 1fr; }
+    .position-cards { grid-template-columns: 1fr 1fr; }
+    table { font-size: 0.8em; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero glass">
+    <h1>算力回归电力与存储<br>长逻辑核心标的挖掘报告</h1>
+    <div class="subtitle">报告日期：2026年7月6日 &nbsp;|&nbsp; 分析框架：多空辩论 + 风险矩阵</div>
+    <div class="core-arg">
+      <strong>核心论点：</strong>算力的尽头是电力与内存存储，二者构成长周期逻辑；叠加全球能源重构（俄炼油厂被破坏 → 电源供给缺口 → 中国电力/电力设备出口），具备 <strong>3-5 年确定性主线</strong>
+    </div>
+  </div>
+
+  <!-- 一、长逻辑三层架构 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">一</span> 长逻辑三层架构验证</div>
+
+    <p style="color:rgba(255,255,255,0.6); font-size:0.9em; margin-bottom:16px;">算力 = 电力 + 存储，第一性原理拆解：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>层级</th>
+          <th>核心要素</th>
+          <th>2026年验证信号</th>
+          <th>确定性</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tag-blue" style="font-weight:700;">电力侧</td>
+          <td>AIDC单机柜功率从30kW→800kW跃迁；全球AI数据中心2026年新增15-16GW缺口</td>
+          <td>英伟达牵头800V HVDC架构落地；华为昇腾950量产，2026推出全球最强算力集群</td>
+          <td class="stars">★★★★★</td>
+        </tr>
+        <tr>
+          <td class="tag-purple" style="font-weight:700;">存储侧</td>
+          <td>AI训练/推理数据量指数级增长；HBM、DDR5、企业级SSD需求爆发</td>
+          <td>江波龙中报预增622-744倍；三星60万亿韩元AI产业集群配套存储扩产</td>
+          <td class="stars">★★★★★</td>
+        </tr>
+        <tr>
+          <td class="tag-green" style="font-weight:700;">出口侧</td>
+          <td>俄罗斯炼油厂1-5月遭袭38次，转向进口汽油；全球能源重构催生电力/电力设备出口</td>
+          <td>IEA预计俄炼油影响持续至2026中期；中国特高压、变压器出口中东/东南亚/南美</td>
+          <td class="stars" style="color:rgba(255,255,255,0.4);">★★★★☆</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="logic-chain">
+      <span>算力扩张</span>
+      <span class="arrow">  ↓</span>
+      <span>电力需求暴涨<span class="highlight">（AIDC + 全球能源缺口）</span></span>
+      <span class="arrow">  ↓</span>
+      <span>存储需求暴涨<span class="highlight">（HBM + DDR5 + SSD）</span></span>
+      <span class="arrow">  ↓</span>
+      <span>中国电力/电力设备全球出口<span class="highlight">（如同中东出口石油）</span></span>
+      <span class="arrow">  ↓</span>
+      <span style="color:rgba(255,255,255,0.9); font-weight:700;">长逻辑3-5年，非一日行情</span>
+    </div>
+
+    <div style="margin-top:16px; padding:16px 20px; background:rgba(0,0,0,0.2); border-radius:10px; font-size:0.88em; color:rgba(255,255,255,0.6); line-height:2;">
+      <div style="color:rgba(255,255,255,0.8); font-weight:700; margin-bottom:8px;">校验结论：逻辑链成立。关键补充——</div>
+      • 华为昇腾全球布局（910C量产、950发布、384超节点）→ 国产算力链确定性高于英伟达链<br>
+      • 俄罗斯炼油厂被破坏 → 短期利好中国成品油/电力设备出口，中期利好新能源替代加速<br>
+      • "电力出口如同中东出口石油" → <span style="color:#38bdf8;">特高压 + 柔性直流 + 变压器</span> 是核心载体
+    </div>
+  </div>
+
+  <!-- 二、核心标的矩阵 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">二</span> 核心标的矩阵：三大主线 × 十只标的</div>
+
+    <!-- 主线一 -->
+    <div class="main-line line-power">⚡ 主线一：算力电源（AIDC直接受益，弹性最大）</div>
+    <table>
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>代码</th>
+          <th>核心逻辑</th>
+          <th>2026中报催化</th>
+          <th>估值/风险</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="stock-name">麦格米特</span><br><span class="code">002851</span></td>
+          <td class="tag-blue">★★★★★</td>
+          <td>英伟达大陆唯一AI电源核心供应商，GB200/GB300的5.5kW/12kW方案；800V HVDC模块；已获超4000机柜订单</td>
+          <td>AI电源业务同比<span class="tag-green">+66%</span>；2025净利下滑72%（研发），2026H1反转</td>
+          <td>PE约35倍，技术卡位强但研发侵蚀利润</td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">欧陆通</span><br><span class="code">300870</span></td>
+          <td class="tag-blue">★★★★☆</td>
+          <td>英伟达官方认证HVDC核心供应商，GB200电源份额20%；深度绑定浪潮</td>
+          <td>服务器电源营收龙头，高功率PSU放量</td>
+          <td>PE约40倍，<span class="tag-yellow">客户集中度高</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">英维克</span><br><span class="code">002837</span></td>
+          <td class="tag-red">★★☆☆☆</td>
+          <td>液冷龙头，但2026Q1净利<span class="tag-red">暴跌82%</span>，竞争加剧+价格战</td>
+          <td>业绩底部，反转待观察</td>
+          <td>PE约50倍，<span class="tag-red">短期规避</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">科士达</span><br><span class="code">002518</span></td>
+          <td class="tag-green">★★★☆☆</td>
+          <td>国内UPS行业龙头，IDC电源+储能双轮</td>
+          <td>UPS稳定，储能弹性</td>
+          <td>PE约25倍，<span class="tag-green">防御型</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 主线二 -->
+    <div class="main-line line-storage">💾 主线二：存储芯片（景气周期+国产替代，业绩最硬）</div>
+    <table>
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>代码</th>
+          <th>核心逻辑</th>
+          <th>2026中报催化</th>
+          <th>估值/风险</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="stock-name">江波龙</span><br><span class="code">301308</span></td>
+          <td class="tag-purple">★★★★☆</td>
+          <td>存储模组龙头，NAND+企业级SSD；库存增值弹性最大</td>
+          <td><span class="tag-green" style="font-weight:700;">中报预增622-744倍</span>，净利92-110亿</td>
+          <td>PE约25倍（景气期合理），<span class="tag-yellow">周期顶点风险</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">兆易创新</span><br><span class="code">603986</span></td>
+          <td class="tag-purple">★★★★★</td>
+          <td>NOR Flash全球前三+利基DRAM+EEPROM全品类；车规+工控稳定现金流</td>
+          <td>量价齐升，产能突围</td>
+          <td>PE约40倍，<span class="tag-green">机构底仓首选</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">澜起科技</span><br><span class="code">688008</span></td>
+          <td class="tag-purple">★★★★★</td>
+          <td>DDR5接口芯片全球市占率超40%，HBM控制器获英伟达认证</td>
+          <td>弱周期+高壁垒，<span class="tag-green">确定性最强</span></td>
+          <td>PE约35倍，<span class="tag-green">长线底仓</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">晶瑞电材</span><br><span class="code">300655</span></td>
+          <td class="tag-purple">★★★★☆</td>
+          <td>G5电子硫酸+光刻胶，长鑫存储隐形供应商；湿电子化学品18.5万吨产能</td>
+          <td>长鑫扩产直接带动订单，PE约25倍<span class="tag-green">低于行业40倍</span></td>
+          <td>低估值+国产替代，中期ArF光刻胶量产是关键</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 主线三 -->
+    <div class="main-line line-export">🌍 主线三：电力/电力设备出口（全球能源重构，长逻辑最纯）</div>
+    <table>
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>代码</th>
+          <th>核心逻辑</th>
+          <th>业绩催化</th>
+          <th>估值/风险</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="stock-name">国电南瑞</span><br><span class="code">600406</span></td>
+          <td class="tag-green">★★★★★</td>
+          <td>电网二次设备绝对龙头，特高压直流控制保护系统主导；2025年报分红10派4.75元</td>
+          <td>全球变压器产能紧张，西方扩产2027-2028才释放，<span class="tag-green">中国窗口期</span></td>
+          <td>PE约20倍，<span class="tag-green">国家队稳健</span></td>
+        </tr>
+        <tr>
+          <td><span class="stock-name">思源电气</span><br><span class="code">002028</span></td>
+          <td class="tag-green">★★★★☆</td>
+          <td>高端输配电+特高压设备出口，中东/南美/非洲布局</td>
+          <td>海外订单高增，综合覆盖</td>
+          <td>PE约25倍，<span class="tag-green">弹性优于南瑞</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 三、多空辩论 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">三</span> 多空辩论：挑战看涨观点</div>
+
+    <div class="debate-container">
+      <div class="debate-box bull">
+        <h3>🟢 多头观点（您的立场）</h3>
+        <ol>
+          <li>算力=电力+存储是第一性原理，不可证伪</li>
+          <li>全球AI资本开支2026年继续高增，电力缺口15-16GW</li>
+          <li>存储超级周期开启，江波龙业绩已验证</li>
+          <li>俄罗斯能源破坏 → 中国电力设备出口历史性机遇</li>
+          <li>华为昇腾国产链确定性高于英伟达链</li>
+        </ol>
+      </div>
+      <div class="debate-box bear">
+        <h3>🔴 空头挑战（风险主管视角）</h3>
+        <ol>
+          <li><strong>存储周期顶点风险</strong>：江波龙622倍预增是"周期顶部信号"而非"成长起点"，模组业务无护城河，PE 25倍已是景气期上限</li>
+          <li><strong>AI电源内卷加剧</strong>：英维克Q1净利暴跌82%证明赛道竞争白热化，麦格米特研发侵蚀利润</li>
+          <li><strong>电力出口逻辑过于宏大</strong>：中国电力出口受地缘政治制约，特高压出口订单周期长、回款慢</li>
+          <li><strong>俄罗斯能源破坏边际效用递减</strong>：俄已转向进口汽油，市场已充分定价；若俄乌停战将逆转逻辑</li>
+          <li><strong>估值已不便宜</strong>：兆易创新PE 40倍、欧陆通PE 40倍、英维克PE 50倍，长逻辑已被部分price-in</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四、风险评分矩阵 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">四</span> 风险评分矩阵（0-10，越低越安全）</div>
+
+    <div class="risk-bar-container">
+      <div class="risk-row risk-low">
+        <div class="risk-name">国电南瑞</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:33%;"></div></div>
+        <div class="risk-score">3.3</div>
+      </div>
+      <div class="risk-row risk-low">
+        <div class="risk-name">澜起科技</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:40%;"></div></div>
+        <div class="risk-score">4.0</div>
+      </div>
+      <div class="risk-row risk-low">
+        <div class="risk-name">晶瑞电材</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:40%;"></div></div>
+        <div class="risk-score">4.0</div>
+      </div>
+      <div class="risk-row risk-low">
+        <div class="risk-name">兆易创新</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:45%;"></div></div>
+        <div class="risk-score">4.5</div>
+      </div>
+      <div class="risk-row risk-low">
+        <div class="risk-name">麦格米特</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:45%;"></div></div>
+        <div class="risk-score">4.5</div>
+      </div>
+      <div class="risk-row risk-mid">
+        <div class="risk-name">思源电气</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:40%;"></div></div>
+        <div class="risk-score">4.0</div>
+      </div>
+      <div class="risk-row risk-mid">
+        <div class="risk-name">欧陆通</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:48%;"></div></div>
+        <div class="risk-score">4.8</div>
+      </div>
+      <div class="risk-row risk-mid">
+        <div class="risk-name">科士达</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:35%;"></div></div>
+        <div class="risk-score">3.5</div>
+      </div>
+      <div class="risk-row risk-mid">
+        <div class="risk-name">江波龙</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:55%;"></div></div>
+        <div class="risk-score">5.5</div>
+      </div>
+      <div class="risk-row risk-high">
+        <div class="risk-name">英维克</div>
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:60%;"></div></div>
+        <div class="risk-score">6.0</div>
+      </div>
+    </div>
+
+    <table style="margin-top:20px; font-size:0.85em;">
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>周期风险</th>
+          <th>估值风险</th>
+          <th>竞争风险</th>
+          <th>政策风险</th>
+          <th>综合风险</th>
+          <th>建议</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="stock-name">麦格米特</td><td>4</td><td>6</td><td>5</td><td>3</td><td class="tag-yellow" style="font-weight:700;">4.5</td><td class="tag-green">逢低配置</td></tr>
+        <tr><td class="stock-name">欧陆通</td><td>4</td><td>7</td><td>5</td><td>3</td><td class="tag-yellow" style="font-weight:700;">4.8</td><td class="tag-yellow">轻仓观望</td></tr>
+        <tr><td class="stock-name">英维克</td><td>5</td><td>8</td><td>8</td><td>3</td><td class="tag-red" style="font-weight:700;">6.0</td><td class="tag-red">规避</td></tr>
+        <tr><td class="stock-name">科士达</td><td>3</td><td>4</td><td>4</td><td>3</td><td class="tag-green" style="font-weight:700;">3.5</td><td class="tag-green">防御配置</td></tr>
+        <tr><td class="stock-name">江波龙</td><td>8</td><td>5</td><td>6</td><td>3</td><td class="tag-yellow" style="font-weight:700;">5.5</td><td class="tag-yellow">右侧止盈</td></tr>
+        <tr><td class="stock-name">兆易创新</td><td>5</td><td>6</td><td>4</td><td>3</td><td class="tag-yellow" style="font-weight:700;">4.5</td><td class="tag-green">底仓持有</td></tr>
+        <tr><td class="stock-name">澜起科技</td><td>3</td><td>6</td><td>3</td><td>4</td><td class="tag-green" style="font-weight:700;">4.0</td><td class="tag-green" style="font-weight:700;">核心底仓</td></tr>
+        <tr><td class="stock-name">晶瑞电材</td><td>4</td><td>3</td><td>5</td><td>4</td><td class="tag-green" style="font-weight:700;">4.0</td><td class="tag-green" style="font-weight:700;">低位布局</td></tr>
+        <tr><td class="stock-name">国电南瑞</td><td>3</td><td>3</td><td>3</td><td>4</td><td class="tag-green" style="font-weight:700;">3.3</td><td class="tag-green" style="font-weight:700;">长线底仓</td></tr>
+        <tr><td class="stock-name">思源电气</td><td>3</td><td>5</td><td>4</td><td>4</td><td class="tag-yellow" style="font-weight:700;">4.0</td><td class="tag-green">均衡配置</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 五、交易计划 -->
+  <div class="section glass">
+    <div class="section-title"><span class="num">五</span> 交易计划与仓位建议</div>
+
+    <p style="color:rgba(255,255,255,0.6); font-size:0.9em; margin-bottom:20px;">建议总仓位 60-70%，分层管理，留 35-40% 现金待回调加仓</p>
+
+    <div class="position-cards">
+      <div class="pos-card glass pos-core">
+        <div class="pos-level">压舱石 30%</div>
+        <div class="pos-pct">15% + 15%</div>
+        <div class="pos-detail">国电南瑞 + 澜起科技<br>长逻辑最纯，确定性最高，弱周期</div>
+      </div>
+      <div class="pos-card glass pos-main">
+        <div class="pos-level">主力 25%</div>
+        <div class="pos-pct">10% + 10% + 5%</div>
+        <div class="pos-detail">兆易创新 + 麦格米特 + 晶瑞电材<br>业绩+国产替代双驱动</div>
+      </div>
+      <div class="pos-card glass pos-flex">
+        <div class="pos-level">弹性 10%</div>
+        <div class="pos-pct">5% + 5%</div>
+        <div class="pos-detail">思源电气 + 江波龙<br>出口弹性+周期弹性，设止盈</div>
+      </div>
+      <div class="pos-card glass pos-cash">
+        <div class="pos-level">现金 35-40%</div>
+        <div class="pos-pct">等待</div>
+        <div class="pos-detail">留待回调加仓<br>避免追高</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px; padding:20px; background:rgba(0,0,0,0.25); border-radius:12px;">
+      <div style="font-weight:700; color:rgba(255,255,255,0.8); margin-bottom:12px;">关键操作纪律</div>
+      <table style="font-size:0.85em;">
+        <thead><tr><th>板块</th><th>标的</th><th>操作策略</th></tr></thead>
+        <tbody>
+          <tr><td class="tag-purple">存储股</td><td>江波龙、兆易创新</td><td>右侧交易，中报披露后若冲高<span class="tag-yellow">减仓1/3</span>，不追高</td></tr>
+          <tr><td class="tag-blue">电源股</td><td>麦格米特、欧陆通</td><td>左侧布局，<span class="tag-green">回调10-15%加仓</span></td></tr>
+          <tr><td class="tag-green">电力出口</td><td>南瑞、思源</td><td>定投思维，<span class="tag-green">3-6个月分批建仓</span></td></tr>
+          <tr><td class="tag-purple">半导体材料</td><td>晶瑞电材</td><td>低位埋伏，等<span class="tag-yellow">ArF光刻胶量产</span>催化</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 六、结论 -->
+  <div class="conclusion">
+    <div class="section-title" style="margin-bottom:20px;"><span class="num">六</span> 结论：长逻辑的"守"与"攻"</div>
+
+    <div class="defend">
+      <strong style="color:#38bdf8;">守</strong>：电力（国电南瑞）+ 存储（澜起科技）= 算力时代的"卖水人"，弱周期、高壁垒、全球化，是穿越波动的压舱石
+    </div>
+    <div class="attack">
+      <strong style="color:#a855f7;">攻</strong>：AI电源（麦格米特）+ 存储模组（江波龙）+ 半导体材料（晶瑞电材）= 业绩弹性最大，但需严守周期纪律
+    </div>
+    <div class="warning">
+      ⚠️ <strong>核心提醒</strong>：您说"一两天就跑的注定与牛无缘"——方向正确，但<strong>长逻辑 ≠ 长期持有不动</strong>。存储是周期股，电源是成长股，电力是价值股，三者仓位必须分层管理。最危险的不是错过牛市，而是把周期股当成长股拿过周期顶点。
+    </div>
+  </div>
+
+  <!-- 风险提示 -->
+  <div class="disclaimer">
+    ⚠️ <strong>风险提示</strong>：本报告基于公开信息分析，不构成投资建议。存储芯片周期波动剧烈，AI电源竞争加剧，电力出口受地缘政治影响，请结合自身风险承受能力决策。
+  </div>
+
+</div>
+
+</body>
+</html>
