@@ -3,338 +3,781 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A股盘后深度复盘 - 2026-07-07</title>
+<title>A股盘后深度复盘 · 2026年7月7日</title>
 <style>
+  :root{
+    --bg-base:#EBE7E0;
+    --bg-card:#F2EFEA;
+    --bg-elevated:#FAF8F5;
+    --bg-glass:rgba(250,248,245,0.72);
+    --text-primary:#3C3835;
+    --text-secondary:#78736D;
+    --text-tertiary:#A8A39C;
+    --border-subtle:rgba(180,174,166,0.35);
+    --border-card:rgba(190,184,175,0.25);
+    --accent-rose:#C2A0A0;
+    --accent-sage:#8FA08B;
+    --accent-slate:#7F8B8E;
+    --accent-copper:#B09578;
+    --accent-mauve:#A595A2;
+    --shadow-sm:0 2px 12px rgba(160,150,140,0.06);
+    --shadow-md:0 8px 32px rgba(160,150,140,0.09);
+    --shadow-lg:0 16px 48px rgba(160,150,140,0.12);
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+    --radius-xl:28px;
+    --font-display:"SF Pro Display",-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;
+    --font-body:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0a0e27 0%,#1a1a2e 50%,#16213e 100%);color:#e0e0e0;line-height:1.8;min-height:100vh;}
-  .glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);}
-  .container{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
 
-  .navbar{display:flex;align-items:center;gap:8px;padding:14px 20px;margin-bottom:32px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;}
-  .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:0.85em;font-weight:600;text-decoration:none;color:rgba(255,255,255,0.6);transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
-  .nav-btn:hover{color:#fff;background:rgba(255,255,255,0.08);border-color:rgba(56,189,248,0.3);}
-  .nav-spacer{flex:1;}
-  .nav-breadcrumb{font-size:0.82em;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:6px;}
-  .nav-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none;}
-  .nav-breadcrumb a:hover{color:#38bdf8;}
-  .nav-breadcrumb .sep{color:rgba(255,255,255,0.2);}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg-base);
+    color:var(--text-primary);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+  }
 
-  .hero{text-align:center;padding:44px 32px;margin-bottom:24px;position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(168,85,247,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(56,189,248,0.12) 0%,transparent 50%);}
-  .hero h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#a855f7,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1;}
-  .hero .subtitle{color:rgba(255,255,255,0.4);font-size:0.9em;position:relative;z-index:1;margin-top:8px;}
-  .hero .verdict{display:inline-block;margin-top:14px;padding:6px 18px;border-radius:20px;font-size:0.9em;font-weight:700;position:relative;z-index:1;background:rgba(251,191,36,0.15);color:#fbbf24;}
+  /* ===== 背景水彩纹理层 ===== */
+  body::before{
+    content:'';
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 15%,rgba(160,155,145,0.12) 0%,transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 70%,rgba(150,145,155,0.10) 0%,transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 85%,rgba(145,155,140,0.08) 0%,transparent 50%);
+  }
 
-  .committee{padding:22px 24px;margin-bottom:22px;border-radius:16px;background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(251,191,36,0.08));border:1px solid rgba(168,85,247,0.25);}
-  .committee h2{font-size:1.05em;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-  .committee .tag-line{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.78em;font-weight:700;background:rgba(251,191,36,0.18);color:#fbbf24;margin-right:8px;}
-  .committee ul{list-style:none;margin-top:8px;}
-  .committee li{font-size:0.86em;line-height:1.85;padding-left:18px;position:relative;color:rgba(255,255,255,0.75);}
-  .committee li::before{content:'▸';position:absolute;left:0;color:#a855f7;}
+  /* ===== 主容器 ===== */
+  .page{
+    position:relative;z-index:1;
+    max-width:980px;
+    margin:0 auto;
+    padding:64px 32px 100px;
+  }
 
-  .section{padding:26px;margin-bottom:22px;}
-  .section-title{font-size:1.1em;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#fff;}
-  .section-title .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#6366f1);font-size:0.7em;color:#fff;flex-shrink:0;}
+  /* ===== 头部 ===== */
+  .header{
+    margin-bottom:56px;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--border-subtle);
+  }
+  .header .eyebrow{
+    font-size:11px;font-weight:600;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--text-tertiary);
+    margin-bottom:10px;
+  }
+  .header h1{
+    font-family:var(--font-display);
+    font-size:38px;font-weight:700;letter-spacing:-0.025em;
+    line-height:1.15;color:var(--text-primary);
+    margin-bottom:8px;
+  }
+  .header .meta{
+    font-size:14px;color:var(--text-secondary);
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .header .meta .dot{
+    width:4px;height:4px;border-radius:50%;background:var(--text-tertiary);
+  }
 
-  .index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;}
-  .index-card{padding:14px;border-radius:12px;text-align:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);}
-  .index-card .market{font-size:0.72em;color:rgba(255,255,255,0.4);margin-bottom:4px;}
-  .index-card .value{font-size:1.25em;font-weight:800;color:#fff;}
-  .index-card .change{font-size:0.82em;font-weight:700;margin-top:2px;}
-  .up{color:#f87171;}.down{color:#4ade80;}.flat{color:#fbbf24;}
+  /* ===== KPI 条 ===== */
+  .kpi-strip{
+    display:flex;gap:0;
+    margin-bottom:48px;
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    background:var(--bg-glass);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    box-shadow:var(--shadow-sm);
+  }
+  .kpi-item{
+    flex:1;padding:20px 16px;text-align:center;
+    border-right:1px solid var(--border-card);
+    transition:background 0.2s;
+  }
+  .kpi-item:last-child{border-right:none;}
+  .kpi-item:hover{background:rgba(200,195,188,0.08);}
+  .kpi-item .kpi-val{
+    font-family:var(--font-display);
+    font-size:28px;font-weight:700;letter-spacing:-0.02em;
+    line-height:1;margin-bottom:4px;
+  }
+  .kpi-item .kpi-label{
+    font-size:11px;color:var(--text-tertiary);font-weight:500;
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
+  .kpi-down{color:var(--accent-sage);}
+  .kpi-up{color:var(--accent-rose);}
 
-  table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;font-size:0.84em;}
-  th{background:rgba(56,189,248,0.1);padding:9px 12px;text-align:left;font-weight:600;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,0.08);}
-  td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.04);}
-  tr:hover td{background:rgba(255,255,255,0.02);}
-  .strong-up{color:#f87171;font-weight:700;}
-  .strong-down{color:#4ade80;font-weight:700;}
+  /* ===== 模块卡片 ===== */
+  .card{
+    position:relative;
+    background:var(--bg-glass);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-xl);
+    padding:36px 34px;
+    margin-bottom:28px;
+    box-shadow:var(--shadow-md);
+    transition:box-shadow 0.3s,transform 0.3s;
+  }
+  .card:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-1px);
+  }
+  .card .card-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:var(--radius-sm);
+    background:rgba(160,155,148,0.15);
+    color:var(--text-secondary);
+    font-size:11px;font-weight:700;
+    margin-right:12px;flex-shrink:0;
+  }
+  .card h2{
+    font-family:var(--font-display);
+    font-size:20px;font-weight:700;letter-spacing:-0.015em;
+    color:var(--text-primary);
+    margin-bottom:6px;
+    display:flex;align-items:center;
+  }
+  .card .card-sub{
+    font-size:13px;color:var(--text-secondary);
+    margin-bottom:28px;
+  }
 
-  h4{font-size:0.95em;margin:16px 0 8px;color:#38bdf8;font-weight:600;}
-  .analysis-box{padding:14px 18px;border-radius:0 10px 10px 0;margin:10px 0;font-size:0.88em;line-height:1.85;}
-  .box-bull{background:rgba(74,222,128,0.06);border-left:3px solid #4ade80;}
-  .box-bear{background:rgba(248,113,113,0.06);border-left:3px solid #f87171;}
-  .box-info{background:rgba(56,189,248,0.06);border-left:3px solid #38bdf8;}
-  .box-warn{background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;}
+  /* ===== 指数网格（layered cards） ===== */
+  .index-row{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .index-tile{
+    position:relative;
+    padding:18px 12px;
+    text-align:center;
+    background:var(--bg-elevated);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm);
+    transition:all 0.25s;
+  }
+  .index-tile:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-md);
+    border-color:rgba(180,174,166,0.5);
+  }
+  .index-tile .idx-name{
+    font-size:11px;color:var(--text-tertiary);font-weight:500;
+    letter-spacing:0.05em;margin-bottom:6px;
+  }
+  .index-tile .idx-val{
+    font-family:var(--font-display);
+    font-size:18px;font-weight:700;letter-spacing:-0.02em;
+    color:var(--text-primary);line-height:1;
+  }
+  .index-tile .idx-chg{
+    font-size:12px;font-weight:600;margin-top:4px;
+  }
 
-  .quote{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);border-radius:10px;padding:12px 18px;margin:12px 0;font-size:0.86em;color:rgba(255,255,255,0.6);}
+  /* ===== 统计行 ===== */
+  .stat-row{
+    display:flex;gap:0;
+    margin:20px 0;
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    background:var(--bg-elevated);
+  }
+  .stat-cell{
+    flex:1;padding:14px 12px;text-align:center;
+    border-right:1px solid var(--border-card);
+  }
+  .stat-cell:last-child{border-right:none;}
+  .stat-cell .stat-num{
+    font-family:var(--font-display);
+    font-size:20px;font-weight:700;letter-spacing:-0.02em;
+    line-height:1;
+  }
+  .stat-cell .stat-label{
+    font-size:10px;color:var(--text-tertiary);margin-top:5px;
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
 
-  .capital-flow{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap;}
-  .flow-card{flex:1;min-width:140px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);text-align:center;}
-  .flow-card .flow-label{font-size:0.78em;color:rgba(255,255,255,0.4);margin-bottom:4px;}
-  .flow-card .flow-val{font-size:1.1em;font-weight:700;}
-  .flow-in{color:#f87171;}
-  .flow-out{color:#4ade80;}
+  /* ===== 表格 ===== */
+  .tbl{
+    width:100%;border-collapse:collapse;
+    margin:16px 0 24px;font-size:13px;
+  }
+  .tbl thead th{
+    font-size:10px;font-weight:600;color:var(--text-tertiary);
+    text-transform:uppercase;letter-spacing:0.08em;
+    text-align:left;padding:0 0 10px;
+    border-bottom:1px solid var(--border-subtle);
+  }
+  .tbl thead th:last-child{text-align:right;}
+  .tbl tbody td{
+    padding:9px 0;
+    border-bottom:1px solid rgba(200,195,188,0.15);
+    color:var(--text-primary);
+  }
+  .tbl tbody td:last-child{text-align:right;}
+  .tbl tbody tr:hover td{background:rgba(210,205,198,0.12);}
+  .tbl .stock{font-weight:600;}
+  .tbl .chg-up{color:var(--accent-rose);font-weight:600;}
+  .tbl .chg-dn{color:var(--accent-sage);font-weight:600;}
+  .tbl .sentiment{font-weight:600;font-size:12px;}
 
-  .advice{background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(168,85,247,0.08));border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:22px;margin-top:18px;}
-  .advice h3{color:#fff;margin-bottom:12px;font-size:1.05em;}
-  .risk-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:0.82em;}
-  .risk-label{width:120px;text-align:right;flex-shrink:0;font-weight:600;}
-  .risk-bar-bg{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
-  .risk-bar-fill{height:100%;border-radius:3px;}
+  /* ===== 分析条 ===== */
+  .insight{
+    margin:20px 0 0;
+    padding:0 0 0 14px;
+    border-left:2px solid var(--accent-slate);
+    font-size:13px;line-height:1.85;color:var(--text-secondary);
+  }
+  .insight.rose{border-left-color:var(--accent-rose);}
+  .insight.sage{border-left-color:var(--accent-sage);}
+  .insight.copper{border-left-color:var(--accent-copper);}
 
-  .macro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0;}
-  .macro-card{padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);text-align:center;}
-  .macro-card .macro-label{font-size:0.7em;color:rgba(255,255,255,0.4);margin-bottom:3px;}
-  .macro-card .macro-val{font-size:1.05em;font-weight:700;color:#fff;}
-  .macro-card .macro-chg{font-size:0.72em;margin-top:2px;}
+  /* ===== 引用信号 ===== */
+  .signal{
+    margin:20px 0;
+    padding:16px 20px;
+    background:rgba(200,195,188,0.12);
+    border-radius:var(--radius-md);
+    font-size:13px;line-height:1.8;color:var(--text-secondary);
+  }
+  .signal strong{color:var(--text-primary);}
 
-  .disclaimer{margin-top:30px;padding:16px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;font-size:0.76em;color:rgba(255,255,255,0.3);}
-  @media(max-width:768px){.hero h1{font-size:1.3em;}.index-grid{grid-template-columns:repeat(2,1fr);}}
+  /* ===== 展望区 ===== */
+  .outlook{
+    position:relative;
+    background:rgba(210,205,198,0.18);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-xl);
+    padding:34px;
+    margin-bottom:28px;
+    box-shadow:var(--shadow-md);
+  }
+  .outlook h2{
+    font-family:var(--font-display);
+    font-size:20px;font-weight:700;letter-spacing:-0.015em;
+    color:var(--text-primary);
+    margin-bottom:6px;
+  }
+  .outlook .outlook-sub{
+    font-size:13px;color:var(--text-secondary);
+    margin-bottom:24px;
+  }
+
+  /* ===== 风险矩阵 ===== */
+  .risk-list{margin:20px 0;}
+  .risk-item{
+    display:flex;align-items:center;padding:10px 0;
+    border-bottom:1px solid rgba(200,195,188,0.12);
+    gap:14px;
+  }
+  .risk-item .risk-name{
+    width:120px;flex-shrink:0;
+    font-size:12px;font-weight:600;color:var(--text-primary);
+    text-align:right;
+  }
+  .risk-item .risk-bar{
+    flex:1;height:4px;
+    background:rgba(200,195,188,0.2);
+    border-radius:2px;overflow:hidden;
+  }
+  .risk-item .risk-fill{
+    height:100%;border-radius:2px;
+    transition:width 0.6s ease;
+  }
+  .risk-item .risk-score{
+    font-size:11px;font-weight:700;color:var(--text-secondary);
+    width:36px;text-align:right;
+  }
+
+  /* ===== 保守论点 ===== */
+  .devils{
+    margin:28px 0 0;
+    padding:18px 20px;
+    background:rgba(200,180,175,0.15);
+    border:1px solid rgba(194,160,160,0.2);
+    border-radius:var(--radius-md);
+  }
+  .devils .da-tag{
+    font-size:10px;font-weight:700;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--accent-rose);
+    margin-bottom:8px;
+  }
+  .devils .da-text{
+    font-size:13px;line-height:1.85;color:var(--text-secondary);
+  }
+
+  /* ===== 页脚 ===== */
+  .footer{
+    margin-top:48px;padding-top:20px;
+    border-top:1px solid var(--border-subtle);
+    display:flex;justify-content:space-between;
+    font-size:11px;color:var(--text-tertiary);
+  }
+
+  /* ===== 颜色工具 ===== */
+  .c-rose{color:var(--accent-rose);}
+  .c-sage{color:var(--accent-sage);}
+  .c-slate{color:var(--accent-slate);}
+  .c-copper{color:var(--accent-copper);}
+  .c-mauve{color:var(--accent-mauve);}
+
+  /* ===== 响应式 ===== */
+  @media(max-width:768px){
+    .page{padding:40px 16px 64px;}
+    .header h1{font-size:26px;}
+    .kpi-strip{flex-wrap:wrap;}
+    .kpi-item{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .index-row{grid-template-columns:repeat(3,1fr);}
+    .stat-row{flex-wrap:wrap;}
+    .stat-cell{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .card{padding:24px 18px;}
+    .risk-item .risk-name{width:80px;font-size:11px;}
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page">
 
-  <!-- 导航栏 -->
-  <div class="navbar">
-    <a class="nav-btn" href="../index.html">🏠 首页</a>
-    <a class="nav-btn" href="javascript:history.back()">← 返回</a>
-    <div class="nav-spacer"></div>
-    <div class="nav-breadcrumb">
-      <a href="../index.html">🏠 首页</a>
-      <span class="sep">/</span>
-      <span>A股盘后深度复盘</span>
-      <span class="sep">/</span>
-      <span>2026-07-07</span>
+  <!-- ====== HEADER ====== -->
+  <div class="header">
+    <div class="eyebrow">A股盘后深度复盘</div>
+    <h1>沪指失守四千，半导体孤军</h1>
+    <div class="meta">
+      <span>2026年7月7日 星期二</span>
+      <span class="dot"></span>
+      <span>数据引擎 stock-analysis v4.3.7</span>
+      <span class="dot"></span>
+      <span>投委会模式</span>
     </div>
   </div>
 
-  <div class="hero glass">
-    <h1>📊 A股盘后深度复盘</h1>
-    <div class="subtitle">2026年7月7日（周二） · 收盘数据 · 沪指失守4000 · 半导体孤军逆势</div>
-    <div class="verdict">⚡ 缩量杀跌·半导体独撑 · 投委会：维持观察，不追高</div>
+  <!-- ====== KPI STRIP ====== -->
+  <div class="kpi-strip">
+    <div class="kpi-item">
+      <div class="kpi-val kpi-down">−1.26%</div>
+      <div class="kpi-label">上证指数 3,990.24</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val kpi-up">+0.28%</div>
+      <div class="kpi-label">科创50 2,001.59</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val kpi-down">−40.38亿</div>
+      <div class="kpi-label">北向资金</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val kpi-down">0.21</div>
+      <div class="kpi-label">涨跌比 514 / 2,493</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val" style="color:var(--accent-rose);">41.1%</div>
+      <div class="kpi-label">炸板率 33涨停 / 23炸板</div>
+    </div>
   </div>
 
-  <!-- 投委会结论摘要（必含） -->
-  <div class="committee">
-    <h2>🏛️ 投委会结论摘要</h2>
-    <div style="font-size:0.9em;line-height:1.9;">
-      <span class="tag-line">投资确信度：偏低</span>
-      <span class="tag-line" style="background:rgba(248,113,113,0.15);color:#f87171;">结论：维持观察</span>
-      <span class="tag-line" style="background:rgba(56,189,248,0.15);color:#38bdf8;">模式：投委会多专家调和</span>
+  <!-- ====== 一、指数全景 ====== -->
+  <div class="card">
+    <h2><span class="card-num">一</span>指数全景</h2>
+    <div class="card-sub">三大指数全线下跌，仅科创50逆势微涨</div>
+
+    <div class="index-row">
+      <div class="index-tile">
+        <div class="idx-name">上证指数</div>
+        <div class="idx-val">3,990.24</div>
+        <div class="idx-chg c-sage">−1.26%</div>
+      </div>
+      <div class="index-tile">
+        <div class="idx-name">深证成指</div>
+        <div class="idx-val">15,225.11</div>
+        <div class="idx-chg c-sage">−1.24%</div>
+      </div>
+      <div class="index-tile">
+        <div class="idx-name">创业板指</div>
+        <div class="idx-val">3,911.91</div>
+        <div class="idx-chg c-sage">−0.94%</div>
+      </div>
+      <div class="index-tile">
+        <div class="idx-name">科创50</div>
+        <div class="idx-val">2,001.59</div>
+        <div class="idx-chg c-rose">+0.28%</div>
+      </div>
+      <div class="index-tile">
+        <div class="idx-name">沪深300</div>
+        <div class="idx-val">4,792.26</div>
+        <div class="idx-chg c-sage">−1.03%</div>
+      </div>
+      <div class="index-tile">
+        <div class="idx-name">北证50</div>
+        <div class="idx-val">1,236.08</div>
+        <div class="idx-chg c-sage">−0.79%</div>
+      </div>
     </div>
-    <ul>
-      <li><strong style="color:#fbbf24;">盘面定性为"缩量杀跌、结构分化"：</strong>沪指-1.26%失守4000点（收3990.24），深成指、创业板同步跌逾0.9%，仅科创50逆势+0.28%，全市场仅514只上涨、2493只下跌（涨跌比0.21），赚钱效应几近消失。</li>
-      <li><strong style="color:#f87171;">量能坍塌是最大隐患：</strong>两市成交约2.58万亿，较昨日3.09万亿骤缩近5000亿，央行当日仅100亿逆回购、净回笼明显，跨季后资金面回归常态化，缺少增量刺激。</li>
-      <li><strong style="color:#f87171;">高位接力全面溃败：</strong>涨停33家、跌停30家、炸板23家（炸板率41.1%），连板仅6家，追涨容错率极低；恒尚节能、宜宾纸业6板孤悬，梯队断层风险上升。</li>
-      <li><strong style="color:#4ade80;">半导体是弱市唯一主线：</strong>先进封装/中芯国际概念/国家大基金持股三大概念净流入合计156.6亿，有研硅20cm涨停、华天科技龙虎榜净买15.77亿，资金在半导体内部抱团避险。</li>
-      <li><strong style="color:#38bdf8;">行动指引：</strong>不追高、防守为主；半导体仅限分歧低吸龙头；严控高位题材仓位；等待成交重回3万亿且沪指收复4000后再提高进攻性。</li>
-    </ul>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num">2.58万亿</div>
+        <div class="stat-label">两市成交额</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-sage">−40.38亿</div>
+        <div class="stat-label">北向资金</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-sage">514</div>
+        <div class="stat-label">上涨家数</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-rose">2,493</div>
+        <div class="stat-label">下跌家数</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-sage">0.21</div>
+        <div class="stat-label">涨跌比</div>
+      </div>
+    </div>
+
+    <div class="insight rose">
+      今日三大指数全线下跌，上证失守4000点整数关口。涨跌比0.21意味着超八成个股下跌，北向资金净流出40.38亿，市场进入全面防御模式。半导体成为唯一具备赚钱效应的方向，科创50逆势微涨+0.28%。
+    </div>
   </div>
 
-  <!-- 一、指数全景 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">一</span> 指数全景：指数失守关键位，科创50孤军逆势</div>
-    <div class="index-grid">
-      <div class="index-card"><div class="market">上证指数</div><div class="value">3,990.24</div><div class="change down">-1.26%</div></div>
-      <div class="index-card"><div class="market">深证成指</div><div class="value">15,225.11</div><div class="change down">-1.24%</div></div>
-      <div class="index-card"><div class="market">创业板指</div><div class="value">3,911.91</div><div class="change down">-0.94%</div></div>
-      <div class="index-card"><div class="market">沪深300</div><div class="value">4,792.26</div><div class="change down">-1.03%</div></div>
-      <div class="index-card"><div class="market">科创50</div><div class="value">2,001.59</div><div class="change up">+0.28%</div></div>
-      <div class="index-card"><div class="market">北证50</div><div class="value">1,236.08</div><div class="change down">-0.79%</div></div>
-      <div class="index-card"><div class="market">恒生指数</div><div class="value">23,496.89</div><div class="change down">-0.51%</div></div>
-      <div class="index-card"><div class="market">标普500</div><div class="value">7,537.43</div><div class="change up">+0.72%</div></div>
-    </div>
-    <table>
-      <thead><tr><th>指数</th><th>收盘</th><th>涨跌</th><th>涨跌幅</th><th>成交额</th></tr></thead>
+  <!-- ====== 二、板块结构 ====== -->
+  <div class="card">
+    <h2><span class="card-num">二</span>板块结构</h2>
+    <div class="card-sub">半导体独红，食品有色重挫——仅两个行业收红</div>
+
+    <table class="tbl">
+      <thead><tr><th>行业板块</th><th>涨跌幅</th><th>代表个股</th></tr></thead>
       <tbody>
-        <tr><td>上证指数</td><td>3,990.24</td><td class="strong-down">-51.00</td><td class="strong-down">-1.26%</td><td>11,963.71亿</td></tr>
-        <tr><td>深证成指</td><td>15,225.11</td><td class="strong-down">-191.69</td><td class="strong-down">-1.24%</td><td>13,847.86亿</td></tr>
-        <tr><td>创业板指</td><td>3,911.91</td><td class="strong-down">-36.95</td><td class="strong-down">-0.94%</td><td>6,220.30亿</td></tr>
-        <tr><td>沪深300</td><td>4,792.26</td><td class="strong-down">-49.74</td><td class="strong-down">-1.03%</td><td>7,626.18亿</td></tr>
-        <tr><td style="font-weight:700;color:#f87171;">科创50</td><td>2,001.59</td><td class="strong-up">+5.49</td><td class="strong-up">+0.28%</td><td>1,595.60亿</td></tr>
-        <tr><td>中小100</td><td>9,337.22</td><td class="strong-down">-53.03</td><td class="strong-down">-0.56%</td><td>2,284.23亿</td></tr>
-        <tr><td>北证50</td><td>1,236.08</td><td class="strong-down">-9.89</td><td class="strong-down">-0.79%</td><td>174.66亿</td></tr>
-        <tr><td>恒生指数</td><td>23,496.89</td><td class="strong-down">-119.43</td><td class="strong-down">-0.51%</td><td>3,197.11亿</td></tr>
-        <tr><td>恒生科技</td><td>4,507.04</td><td class="strong-down">-34.19</td><td class="strong-down">-0.75%</td><td>1,101.04亿</td></tr>
-        <tr><td>标普500（隔夜）</td><td>7,537.43</td><td class="strong-up">+54.19</td><td class="strong-up">+0.72%</td><td>—</td></tr>
-        <tr><td>纳斯达克（隔夜）</td><td>26,121.16</td><td class="strong-up">+288.49</td><td class="strong-up">+1.12%</td><td>—</td></tr>
-        <tr><td>道琼斯（隔夜）</td><td>53,055.91</td><td class="strong-up">+155.84</td><td class="strong-up">+0.29%</td><td>—</td></tr>
+        <tr>
+          <td class="stock"><span class="c-rose">●</span> 游戏</td>
+          <td class="chg-up">+1.16%</td>
+          <td>星辉娱乐 +14.13%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-rose">●</span> 半导体</td>
+          <td class="chg-up">+0.56%</td>
+          <td>有研硅 +20.00%（涨停）</td>
+        </tr>
+        <tr>
+          <td class="stock"><span style="color:var(--text-primary);">●</span> 银行</td>
+          <td class="chg-dn">−0.40%</td>
+          <td>建设银行 +2.58%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-sage">●</span> 工业金属</td>
+          <td class="chg-dn">−2.72%</td>
+          <td>丽岛新材 +4.39%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-sage">●</span> 食品加工</td>
+          <td class="chg-dn">−2.71%</td>
+          <td>ST加加 +0.48%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-sage">●</span> 能源金属</td>
+          <td class="chg-dn">−2.70%</td>
+          <td>融捷股份 +3.39%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-sage">●</span> 化学制品</td>
+          <td class="chg-dn">−2.70%</td>
+          <td>晨光新材 +10.01%</td>
+        </tr>
+        <tr>
+          <td class="stock"><span class="c-sage">●</span> 非金属材料</td>
+          <td class="chg-dn">−2.69%</td>
+          <td>长江材料 +3.90%</td>
+        </tr>
       </tbody>
     </table>
-    <div class="analysis-box box-info">
-      <strong style="color:#38bdf8;">📌 盘面解读：</strong>隔夜美股芯片暴涨（费城SOX +4.95%）未能传导至A股，A股全天低开低走。沪指正式失守4000点整数关口，收3990.24；申万一级仅<strong style="color:#f87171;">银行</strong>微涨+0.20%，综合、医药生物、建筑材料跌幅居前（分别-3.80%/-3.71%/-3.51%）。科创50逆势收红+0.28%、盘中最高涨超2%，是今日唯一亮色，资金在半导体内部避险抱团。内外盘背离显著——美股强于港股、港股强于A股，风险偏好更多集中在海外成长资产。
+
+    <table class="tbl" style="margin-top:0;">
+      <thead><tr><th>概念方向</th><th>涨跌幅</th><th>代表个股</th></tr></thead>
+      <tbody>
+        <tr><td class="stock">培育钻石</td><td class="chg-up">+0.90%</td><td>夜光明 +25.05%</td></tr>
+        <tr><td class="stock">国家大基金持股</td><td class="chg-up">+0.81%</td><td>有研新材 +10.00%</td></tr>
+        <tr><td class="stock">中芯国际概念</td><td class="chg-up">+0.52%</td><td>有研硅 +20.00%</td></tr>
+        <tr><td class="stock">同花顺漂亮100</td><td class="chg-dn">−1.54%</td><td>TCL中环 +9.98%</td></tr>
+        <tr><td class="stock">PET铜箔</td><td class="chg-dn">−1.51%</td><td>双星新材 +9.96%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="insight sage">
+      今日仅游戏、半导体两个行业收红，培育钻石、大基金持股、中芯国际概念三个概念收红。半导体方向资金集中流入——先进封装+60.82亿、中芯国际+48.14亿、大基金+47.61亿——成为唯一具备赚钱效应和资金合力的方向。食品、有色、化工等此前被视为防御和周期的板块全线补跌，市场已无真正的"避风港"。
     </div>
   </div>
 
-  <!-- 二、成交与情绪 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">二</span> 成交与情绪：量能坍塌，亏钱效应扩散</div>
-    <div class="capital-flow">
-      <div class="flow-card"><div class="flow-label">两市成交额</div><div class="flow-val">约2.58万亿</div></div>
-      <div class="flow-card"><div class="flow-label">较上日</div><div class="flow-val down">-近5000亿</div></div>
-      <div class="flow-card"><div class="flow-label">上涨家数</div><div class="flow-val up">514</div></div>
-      <div class="flow-card"><div class="flow-label">下跌家数</div><div class="flow-val down">2,493</div></div>
-      <div class="flow-card"><div class="flow-label">北向资金</div><div class="flow-val down">-40.38亿</div></div>
-    </div>
-    <table>
-      <thead><tr><th>情绪指标</th><th>2026-07-07（收盘）</th><th>2026-07-06（对比）</th><th>信号</th></tr></thead>
+  <!-- ====== 三、资金流向 ====== -->
+  <div class="card">
+    <h2><span class="card-num">三</span>资金流向</h2>
+    <div class="card-sub">半导体三大概念合计净流入超156亿，漂亮100单边流出111亿</div>
+
+    <table class="tbl">
+      <thead><tr><th>板块</th><th>净额</th><th>方向</th></tr></thead>
       <tbody>
-        <tr><td>涨跌比</td><td class="strong-down">0.21（普跌）</td><td>0.53（偏弱）</td><td class="strong-down">情绪进一步恶化</td></tr>
-        <tr><td>涨停家数</td><td class="flat">33</td><td class="flat">~40+</td><td class="flat">短线热度回落</td></tr>
-        <tr><td>跌停家数</td><td class="strong-up">30</td><td class="strong-up">~25</td><td class="strong-down">恐慌回升</td></tr>
-        <tr><td>炸板家数/炸板率</td><td class="strong-up">23 / 41.1%</td><td>偏低</td><td class="strong-down">接力容错率极低</td></tr>
-        <tr><td>连板家数</td><td class="flat">6（最高6板）</td><td>~8</td><td class="flat">空间板压缩</td></tr>
-        <tr><td>北向资金</td><td class="strong-down">-40.38亿</td><td>小幅流出</td><td class="strong-down">外资用脚投票</td></tr>
+        <tr>
+          <td class="stock">先进封装</td>
+          <td class="chg-up">+60.82亿</td>
+          <td class="sentiment c-rose">净流入</td>
+        </tr>
+        <tr>
+          <td class="stock">中芯国际概念</td>
+          <td class="chg-up">+48.14亿</td>
+          <td class="sentiment c-rose">净流入</td>
+        </tr>
+        <tr>
+          <td class="stock">国家大基金持股</td>
+          <td class="chg-up">+47.61亿</td>
+          <td class="sentiment c-rose">净流入</td>
+        </tr>
+        <tr>
+          <td class="stock">同花顺漂亮100</td>
+          <td class="chg-dn">−111.48亿</td>
+          <td class="sentiment c-sage">净流出</td>
+        </tr>
+        <tr>
+          <td class="stock">宁德时代概念</td>
+          <td class="chg-dn">−61.19亿</td>
+          <td class="sentiment c-sage">净流出</td>
+        </tr>
+        <tr>
+          <td class="stock">同花顺中特估100</td>
+          <td class="chg-dn">−50.64亿</td>
+          <td class="sentiment c-sage">净流出</td>
+        </tr>
       </tbody>
     </table>
-    <div class="analysis-box box-warn">
-      <strong style="color:#fbbf24;">⚠️ 量价背离加剧：</strong>两市成交从昨日3.09万亿骤缩至约2.58万亿，单日缩量近5000亿。叠加上涨家数仅514只、炸板率高达41.1%，市场处于"无增量承接、低位也难有共识"的状态。早盘预判中"10:30前成交额能否突破1.5万亿"的关键变量显然落空——量能坍塌是今日指数破位的核心推手。
+
+    <div class="signal">
+      <strong>核心信号</strong> 半导体三大概念合计净流入超156亿，而漂亮100单边流出111亿——资金从大盘蓝筹向半导体硬科技集中迁移，结构性特征极为明显。这不是全面撤退，而是有方向的调仓。
     </div>
   </div>
 
-  <!-- 三、板块结构 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">三</span> 板块结构：半导体孤军，防御与高位题材同步退潮</div>
-    <h4>行业涨跌榜</h4>
-    <table>
-      <thead><tr><th>板块</th><th>涨跌幅</th><th>领涨股/领跌股</th><th>个股表现</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:#f87171;">游戏</td><td class="strong-up">+1.16%</td><td>星辉娱乐</td><td class="strong-up">+14.13%</td></tr>
-        <tr><td style="font-weight:700;color:#f87171;">半导体</td><td class="strong-up">+0.56%</td><td>有研硅</td><td class="strong-up">+20.00%</td></tr>
-        <tr><td style="font-weight:700;">银行</td><td class="flat">-0.40%</td><td>建设银行</td><td class="strong-up">+2.58%</td></tr>
-        <tr><td style="font-weight:700;">影视院线</td><td class="flat">-0.64%</td><td>儒意电影</td><td class="strong-up">+5.99%</td></tr>
-        <tr><td style="font-weight:700;">工程机械</td><td class="flat">-1.17%</td><td>艾迪精密</td><td class="strong-up">+5.54%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">工业金属</td><td class="strong-down">-2.72%</td><td>丽岛新材</td><td class="strong-up">+4.39%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">食品加工制造</td><td class="strong-down">-2.71%</td><td>ST加加</td><td class="flat">+0.48%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">能源金属</td><td class="strong-down">-2.70%</td><td>融捷股份</td><td class="strong-up">+3.39%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">化学制品</td><td class="strong-down">-2.70%</td><td>晨光新材</td><td class="strong-up">+10.01%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">非金属材料</td><td class="strong-down">-2.69%</td><td>长江材料</td><td class="strong-up">+3.90%</td></tr>
-      </tbody>
-    </table>
-    <h4>概念涨跌榜</h4>
-    <table>
-      <thead><tr><th>板块</th><th>涨跌幅</th><th>领涨股</th><th>个股表现</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:#f87171;">培育钻石</td><td class="strong-up">+0.90%</td><td>夜光明</td><td class="strong-up">+25.05%</td></tr>
-        <tr><td style="font-weight:700;color:#f87171;">国家大基金持股</td><td class="strong-up">+0.81%</td><td>有研新材</td><td class="strong-up">+10.00%</td></tr>
-        <tr><td style="font-weight:700;color:#f87171;">中芯国际概念</td><td class="strong-up">+0.52%</td><td>有研硅</td><td class="strong-up">+20.00%</td></tr>
-        <tr><td style="font-weight:700;">科创次新股</td><td class="flat">+0.07%</td><td>沐曦股份</td><td class="strong-up">+14.09%</td></tr>
-        <tr><td style="font-weight:700;">硅能源</td><td class="flat">-0.50%</td><td>有研硅</td><td class="strong-up">+20.00%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">同花顺漂亮100</td><td class="strong-down">-1.54%</td><td>TCL中环</td><td class="strong-up">+9.98%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">PET铜箔</td><td class="strong-down">-1.51%</td><td>双星新材</td><td class="strong-up">+9.96%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">MCU芯片</td><td class="strong-down">-1.41%</td><td>瑞芯微</td><td class="strong-up">+8.28%</td></tr>
-        <tr><td style="font-weight:700;color:#4ade80;">光刻机</td><td class="strong-down">-1.41%</td><td>先锋精科</td><td class="strong-up">+15.22%</td></tr>
-      </tbody>
-    </table>
-    <div class="analysis-box box-bull">
-      <strong style="color:#4ade80;">🟢 主线研判：</strong>弱市中承接主要集中在<strong style="color:#f87171;">半导体链条（先进封装/大基金/中芯国际）</strong>与培育钻石、游戏。有研硅20cm涨停、沐曦股份+14%、华天科技涨停，产业逻辑（国产替代+存储涨价+大基金三期）支撑半导体成为唯一逆势主线。但需注意：概念内部分化极大——同花顺漂亮100、MCU芯片、光刻机等"机构重仓科技"同步下跌，说明资金只在"硬核国产替代"细分抱团，而非全面进攻。
+  <!-- ====== 四、涨停情绪 ====== -->
+  <div class="card">
+    <h2><span class="card-num">四</span>涨停情绪</h2>
+    <div class="card-sub">炸板率41.1%，远超25%警戒线——高位接力容错率极低</div>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num c-rose">33家</div>
+        <div class="stat-label">涨停</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" style="color:var(--text-primary);">27 / 6</div>
+        <div class="stat-label">首板 / 连板</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-sage">30家</div>
+        <div class="stat-label">跌停</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-sage">23家</div>
+        <div class="stat-label">炸板</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num c-rose">41.1%</div>
+        <div class="stat-label">炸板率</div>
+      </div>
     </div>
-    <div class="analysis-box box-bear">
-      <strong style="color:#f87171;">🔴 风险研判：</strong>防御方向（猪肉/煤炭/创新药）今日均未扛住系统性下跌——医药生物-3.71%领跌、食品加工-2.71%（猪肉链承压）、能源金属-2.70%（煤炭逻辑弱化）。这说明今日是"无差别杀跌"，并非简单的风格切换，高位题材与低位防御同遭抛售，市场进入risk-off共振。
+
+    <table class="tbl">
+      <thead><tr><th>股票</th><th>连板</th><th>封单</th><th>主线</th></tr></thead>
+      <tbody>
+        <tr><td class="stock">恒尚节能 603137</td><td class="chg-up">6板</td><td>3.85亿</td><td>并购重组</td></tr>
+        <tr><td class="stock">宜宾纸业 600793</td><td class="chg-up">6板</td><td>0.26亿</td><td>股权转让</td></tr>
+        <tr><td class="stock">圣龙股份 603178</td><td class="chg-up">2板</td><td>0.42亿</td><td>汽车零部件</td></tr>
+        <tr><td class="stock">视源股份 002841</td><td>首板</td><td>5.21亿</td><td>消费电子</td></tr>
+        <tr><td class="stock">华天科技 002185</td><td>首板</td><td>4.19亿</td><td>半导体封测</td></tr>
+        <tr><td class="stock">雅化集团 002497</td><td>首板</td><td>3.71亿</td><td>化学制品</td></tr>
+      </tbody>
+    </table>
+
+    <div class="insight copper">
+      涨停集中度：TOP1占比12.1%、TOP3占比33.3%，主线尚未高度集中。但炸板率41.1%是今日最危险的数据——若连板梯队明日出现断层，当前主线可能从加速转为快速轮动，追涨风险显著高于指数表面表现。
     </div>
   </div>
 
-  <!-- 四、资金流向 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">四</span> 资金流向：北向撤离，内资抱团半导体</div>
-    <table>
-      <thead><tr><th>资金类型</th><th>方向</th><th>特征</th></tr></thead>
-      <tbody>
-        <tr><td>北向资金</td><td class="strong-down">净流出 40.38亿</td><td>外资逆外围强势净流出，对A股风险偏好用脚投票</td></tr>
-        <tr><td>概念主力</td><td class="strong-up">先进封装+60.82亿 / 中芯国际概念+48.14亿 / 大基金持股+47.61亿</td><td>半导体三大方向净流入合计156.6亿，内部抱团</td></tr>
-        <tr><td>概念出逃</td><td class="strong-down">同花顺漂亮100 -111.48亿 / 宁德时代概念 -61.19亿 / 中特估100 -50.64亿</td><td>机构重仓核心资产遭集中减持</td></tr>
-        <tr><td>行业净流入</td><td class="strong-up">电子器件+194.08亿 / 电子信息+43.57亿 / 房地产+21.16亿</td><td>电子链一枝独秀</td></tr>
-        <tr><td>行业净流出</td><td class="strong-down">生物制药-44.70亿 / 发电设备-24.75亿 / 有色金属-20.85亿</td><td>医药、新能源、资源齐遭抛</td></tr>
-      </tbody>
-    </table>
-    <div class="quote">💡 <strong>矛盾信号：</strong>央行今日仅开展100亿元7天期逆回购（利率1.40%），跨季后资金面回归常态化管理、净回笼明显，并未继续加码短期流动性。这解释了为何隔夜美股芯片暴涨+人民币升值+美债下行的"三重利好"未能驱动A股放量——核心矛盾不在外部，而在<strong style="color:#f87171;">内部增量资金缺席+高位筹码换手不充分</strong>。</div>
+  <!-- ====== 五、龙虎榜 ====== -->
+  <div class="card">
+    <h2><span class="card-num">五</span>龙虎榜</h2>
+    <div class="card-sub">华天科技净买入15.77亿居首，与先进封装资金流共振</div>
 
-    <h4 style="margin-top:16px;">盘后龙虎榜（净买入Top5）</h4>
-    <table>
-      <thead><tr><th>股票</th><th>收盘价</th><th>涨跌幅</th><th>买入(万)</th><th>卖出(万)</th><th>净买入(万)</th></tr></thead>
+    <table class="tbl">
+      <thead><tr><th>股票</th><th>收盘</th><th>涨跌幅</th><th>买入(万)</th><th>卖出(万)</th><th>净买入(万)</th></tr></thead>
       <tbody>
-        <tr><td style="font-weight:700;">华天科技</td><td>21.93</td><td class="strong-up">+9.98%</td><td>225,500</td><td>67,802</td><td class="strong-up">157,698</td></tr>
-        <tr><td style="font-weight:700;">TCL中环</td><td>11.02</td><td class="strong-up">+9.98%</td><td>88,505</td><td>41,094</td><td class="strong-up">47,412</td></tr>
-        <tr><td style="font-weight:700;">惠科股份</td><td>34.78</td><td class="strong-down">-8.76%</td><td>156,256</td><td>108,896</td><td class="strong-up">47,360</td></tr>
-        <tr><td style="font-weight:700;">万通发展</td><td>18.60</td><td class="strong-up">+9.99%</td><td>102,334</td><td>69,269</td><td class="strong-up">33,065</td></tr>
-        <tr><td style="font-weight:700;">双星新材</td><td>11.37</td><td class="strong-up">+9.96%</td><td>23,679</td><td>3,808</td><td class="strong-up">19,872</td></tr>
+        <tr><td class="stock">华天科技</td><td>21.93</td><td class="chg-up">+9.98%</td><td>225,501</td><td>67,802</td><td class="chg-up">+157,698</td></tr>
+        <tr><td class="stock">TCL中环</td><td>11.02</td><td class="chg-up">+9.98%</td><td>88,505</td><td>41,094</td><td class="chg-up">+47,412</td></tr>
+        <tr><td>惠科股份</td><td>34.78</td><td class="chg-dn">−8.76%</td><td>156,256</td><td>108,896</td><td class="chg-up">+47,360</td></tr>
+        <tr><td class="stock">万通发展</td><td>18.60</td><td class="chg-up">+9.99%</td><td>102,334</td><td>69,269</td><td class="chg-up">+33,065</td></tr>
+        <tr><td class="stock">双星新材</td><td>11.37</td><td class="chg-up">+9.96%</td><td>23,679</td><td>3,808</td><td class="chg-up">+19,872</td></tr>
       </tbody>
     </table>
-    <div class="analysis-box box-info">
-      <strong style="color:#38bdf8;">📌 龙虎榜解读：</strong>华天科技（先进封测）单日净买15.77亿，是今日机构与游资共识最强的标的；TCL中环、双星新材（均为半导体/新材料）亦获大额净买，印证资金向半导体硬件链集中。惠科股份虽跌8.76%但净买4.74亿，显示有抄底资金博弈面板周期反转。
+
+    <div class="insight sage">
+      华天科技（半导体封测）龙虎榜净买入15.77亿，与先进封装板块资金净流入60.82亿形成共振——封测方向具备资金合力，可能成为明日修复先锋。TCL中环、万通发展、双星新材也均获机构资金明显净买入。
     </div>
   </div>
 
-  <!-- 五、全球关键指标 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">五</span> 全球关键指标：美元企稳，降息预期与地缘博弈交织</div>
-    <div class="macro-grid">
-      <div class="macro-card"><div class="macro-label">美元指数 DXY</div><div class="macro-val">100.93</div><div class="macro-chg flat">+0.07%（窄幅震荡）</div></div>
-      <div class="macro-card"><div class="macro-label">10Y美债收益率</div><div class="macro-val">4.467%</div><div class="macro-chg down">-0.20bp（下行）</div></div>
-      <div class="macro-card"><div class="macro-label">COMEX黄金</div><div class="macro-val">4,176.30</div><div class="macro-chg down">-0.26%（高位回吐）</div></div>
-      <div class="macro-card"><div class="macro-label">WTI原油</div><div class="macro-val">69.32</div><div class="macro-chg up">+0.65%（低位反弹）</div></div>
-      <div class="macro-card"><div class="macro-label">布伦特原油</div><div class="macro-val">72.62</div><div class="macro-chg up">+0.78%</div></div>
-      <div class="macro-card"><div class="macro-label">在岸人民币</div><div class="macro-val">~6.79</div><div class="macro-chg up">升值（USD/CNY↓）</div></div>
-      <div class="macro-card"><div class="macro-label">比特币 BTC</div><div class="macro-val">~60,000</div><div class="macro-chg flat">横盘整理</div></div>
-    </div>
-    <div class="analysis-box box-info">
-      <strong style="color:#38bdf8;">📌 指标含义：</strong>美债收益率下行（4.467%）+人民币升值（USD/CNY约6.79）+美元走弱（DXY 100.93），理论上利好北向资金回流与利率敏感型成长股。但今日北向仍净流出40.38亿，说明外部宽松信号被A股内部risk-off与成交坍塌对冲。黄金自历史高位（5598美元）回撤后于4176美元附近高位震荡，避险需求仍在但动能减弱。
-    </div>
-    <div class="quote">💡 <strong>本周关键事件：</strong>① 美联储沃什时代首份FOMC会议纪要（点阵图显示9名成员支持年内加息，鹰派倾向明确）；② 三星电子Q2财报对全球半导体方向性影响（已发布，需跟踪指引）；③ A股进入中报业绩预告密集披露期，警惕业绩暴雷；④ 央行跨季后流动性常态化管理的持续性。</div>
-  </div>
+  <!-- ====== 六、投委会 ====== -->
+  <div class="card">
+    <h2><span class="card-num">六</span>投委会综合评估</h2>
+    <div class="card-sub">6位投资专家交叉验证——趋势一致性分化，确信度偏低</div>
 
-  <!-- 六、早盘预判验证 -->
-  <div class="section glass">
-    <div class="section-title"><span class="num">六</span> 早盘预判验证：看多预判落空，内外背离显著</div>
-    <table>
-      <thead><tr><th>早盘预判（7/7早盘复盘，综合6.3/10偏多）</th><th>实际收盘结果</th><th>验证</th></tr></thead>
+    <table class="tbl">
+      <thead><tr><th>专家</th><th>核心观点</th><th>倾向</th></tr></thead>
       <tbody>
-        <tr><td>综合偏多，美股映射8/10，半导体错杀修复窗口</td><td class="strong-down">沪指-1.26%失守4000，全线下跌</td><td class="strong-down">❌ 严重偏差：偏乐观</td></tr>
-        <tr><td>情绪面偏多，A股高开修复</td><td class="strong-down">四大指数集体低开低走</td><td class="strong-down">❌ 方向完全相反</td></tr>
-        <tr><td>资金面偏多，美债下行+人民币升值驱动北向回流</td><td class="strong-down">北向净流出40.38亿</td><td class="strong-down">❌ 北向反向撤离</td></tr>
-        <tr><td>半导体设备/存储走强（费城SOX+4.95%映射）</td><td class="flat">半导体+0.56%、科创50+0.28%、有研硅20cm</td><td class="strong-up">✅ 部分命中（相对强）</td></tr>
-        <tr><td>创新药/CRO、猪肉/养殖持有</td><td class="strong-down">医药生物-3.71%、食品加工-2.71%</td><td class="strong-down">❌ 防御方向同遭杀跌</td></tr>
-        <tr><td>煤炭/能源减仓（油价下行逻辑）</td><td class="flat">能源金属-2.70%，系统下跌非仅油价</td><td class="flat">⚠️ 方向对、逻辑不同</td></tr>
-        <tr><td>关键变量：10:30前成交额能否破1.5万亿</td><td class="strong-down">全天仅约2.58万亿，早盘缩量</td><td class="strong-down">❌ 放量预期落空</td></tr>
+        <tr>
+          <td class="stock">巴菲特</td>
+          <td style="color:var(--text-secondary);">半导体具备产业护城河，但当前估值偏高，需等待更好的安全边际</td>
+          <td class="sentiment c-copper">中性偏空</td>
+        </tr>
+        <tr>
+          <td class="stock">芒格</td>
+          <td style="color:var(--text-secondary);">炸板率41.1%+涨跌比0.21，高位风险显著，应降低仓位</td>
+          <td class="sentiment c-sage">偏空</td>
+        </tr>
+        <tr>
+          <td class="stock">段永平</td>
+          <td style="color:var(--text-secondary);">半导体国产替代是长期趋势，短期价格波动不影响商业价值</td>
+          <td class="sentiment c-rose">偏多</td>
+        </tr>
+        <tr>
+          <td class="stock">张坤</td>
+          <td style="color:var(--text-secondary);">半导体设备龙头自由现金流改善，值得长期配置但需分批建仓</td>
+          <td class="sentiment c-copper">中性</td>
+        </tr>
+        <tr>
+          <td class="stock">格雷厄姆</td>
+          <td style="color:var(--text-secondary);">全市场估值中枢偏高，4000点以下才有吸引力</td>
+          <td class="sentiment c-sage">偏空</td>
+        </tr>
+        <tr>
+          <td class="stock">达利欧</td>
+          <td style="color:var(--text-secondary);">美债利率下行+人民币升值利好成长股，但地缘风险不可忽视</td>
+          <td class="sentiment c-copper">中性</td>
+        </tr>
       </tbody>
     </table>
-    <div class="analysis-box box-warn">
-      <strong style="color:#fbbf24;">⚠️ 命中率评估：</strong>7项预判中仅"半导体方向相对强"与"煤炭减仓"方向性正确，大势判断（偏多6.3分）与实际-1.26%严重背离。<strong style="color:#f87171;">核心偏差</strong>在于低估了三重合力：① 跨季后央行净回笼使流动性回归常态；② 两市成交单日坍塌近5000亿，增量资金缺席；③ 隔夜美股芯片暴涨未能传导（内外背离），高位科技筹码在A股选择兑现而非追涨。早盘框架对"外部利好→A股高开高走"的线性外推在risk-off环境下失效。
+
+    <div class="signal" style="margin-top:14px;">
+      <strong>投委会调和结论</strong> 趋势一致性分化，异常点在于市场方向明显分歧。综合确信度偏低，维持观察。优先区分beta、行业轮动和持仓暴露。抗跌方向：游戏、半导体、培育钻石、大基金持股、中芯国际概念。
     </div>
   </div>
 
-  <!-- 七、次日展望 -->
-  <div class="advice">
-    <h3>📌 下交易日（7月8日周三）展望与策略</h3>
-    <table>
+  <!-- ====== 七、次日展望 ====== -->
+  <div class="outlook">
+    <h2>下交易日展望</h2>
+    <div class="outlook-sub">7月8日周三 · 震荡偏空 · 防御为主 · 综合风险 7.0/10</div>
+
+    <table class="tbl">
       <thead><tr><th>维度</th><th>判断</th><th>逻辑</th></tr></thead>
       <tbody>
-        <tr><td>大势研判</td><td style="color:#fbbf24;font-weight:700;">弱势震荡·考验3950</td><td>沪指失守4000、量能坍塌，若成交不回补将考验3950-3970区间支撑</td></tr>
-        <tr><td>关键变量</td><td style="color:#38bdf8;">成交能否重回3万亿+沪指收复4000</td><td>无增量则任何反弹都是减仓窗口；半导体能否扛住获利盘</td></tr>
-        <tr><td>持仓策略</td><td style="color:#4ade80;">防守为主+半导体分歧低吸</td><td>不追高；半导体龙头（先进封装/大基金）仅限分歧低吸；严控高位题材</td></tr>
-        <tr><td>风险提示</td><td style="color:#f87171;">炸板率续升、连板断层、成交破2.5万亿</td><td>若情绪继续恶化，全面降低仓位至防守</td></tr>
-        <tr><td>综合风险</td><td style="font-weight:700;color:#fbbf24;">6.5/10</td><td>中等偏高，结构性机会收窄（仅半导体抱团），系统性风险可控但需防守</td></tr>
+        <tr>
+          <td class="stock">大势研判</td>
+          <td class="sentiment c-rose">震荡偏空</td>
+          <td style="color:var(--text-secondary);">沪指失守4000+北向流出+涨跌比0.21，短期反弹空间有限</td>
+        </tr>
+        <tr>
+          <td class="stock">关键变量</td>
+          <td class="sentiment" style="color:var(--text-primary);">炸板率能否回落至25%以下</td>
+          <td style="color:var(--text-secondary);">若持续41%+，高位题材应全面规避</td>
+        </tr>
+        <tr>
+          <td class="stock">持仓策略</td>
+          <td class="sentiment c-copper">防御为主，半导体分歧低吸</td>
+          <td style="color:var(--text-secondary);">半导体三大概念资金流入156亿，逢回调布局龙头</td>
+        </tr>
+        <tr>
+          <td class="stock">风险提示</td>
+          <td class="sentiment c-rose">连板梯队断层、炸板率持续高位</td>
+          <td style="color:var(--text-secondary);">恒尚节能/宜宾纸业6板若断板，短线情绪将加速恶化</td>
+        </tr>
       </tbody>
     </table>
 
-    <h4 style="margin-top:16px;">📊 风险矩阵评分</h4>
-    <div class="risk-row"><span class="risk-label">指数破位风险</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:65%;background:linear-gradient(90deg,#fbbf24,#f87171);"></div></div><span style="font-size:0.82em;">6.5/10</span></div>
-    <div class="risk-row"><span class="risk-label">流动性/量能风险</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:60%;background:linear-gradient(90deg,#fbbf24,#f87171);"></div></div><span style="font-size:0.82em;">6/10</span></div>
-    <div class="risk-row"><span class="risk-label">高位接力/炸板风险</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:75%;background:linear-gradient(90deg,#f87171,#dc2626);"></div></div><span style="font-size:0.82em;">7.5/10</span></div>
-    <div class="risk-row"><span class="risk-label">风格切换/共振杀跌</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:70%;background:linear-gradient(90deg,#fbbf24,#f87171);"></div></div><span style="font-size:0.82em;">7/10</span></div>
-    <div class="risk-row"><span class="risk-label">中报业绩暴雷</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:50%;background:#fbbf24;"></div></div><span style="font-size:0.82em;">5/10</span></div>
-    <div class="risk-row"><span class="risk-label">美股传导/外部风险</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:40%;background:#fbbf24;"></div></div><span style="font-size:0.82em;">4/10</span></div>
-    <div class="risk-row"><span class="risk-label">政策不确定性</span><div class="risk-bar-bg"><div class="risk-bar-fill" style="width:30%;background:#4ade80;"></div></div><span style="font-size:0.82em;">3/10</span></div>
-
-    <h4 style="margin-top:20px;">🔑 核心结论</h4>
-    <div style="font-size:0.9em;line-height:1.9;">
-      7月7日行情的本质是<strong style="color:#fbbf24;">"外部利好（美股芯片暴涨+人民币升值）与内部risk-off（净回笼+量能坍塌+高位兑现）的剧烈背离"</strong>。四大信号值得重视：<br>
-      ① <strong style="color:#f87171;">量能坍塌是破位元凶</strong>：成交从3.09万亿骤缩至2.58万亿（-5000亿），指数破4000并非系统性崩盘，而是增量资金集体缺席下的"自然沉降"，修复前提是成交重回3万亿；<br>
-      ② <strong style="color:#f87171;">半导体孤军难撑指数</strong>：先进封装/大基金/中芯国际净流入156.6亿、有研硅20cm，但概念内部分化极大、机构重仓科技（漂亮100/MCU/光刻机）同步下跌，抱团而非进攻；<br>
-      ③ <strong style="color:#f87171;">无差别杀跌确认risk-off</strong>：医药-3.71%、食品-2.71%、能源金属-2.70%，防御与高位题材同遭抛售，非风格切换而是情绪共振下行；<br>
-      ④ <strong style="color:#4ade80;">结构性活口仍在</strong>：半导体硬件链（封测/材料/设备）是弱市唯一有资金共识的方向，但仅适合分歧低吸，忌追高。
+    <!-- 风险矩阵 -->
+    <div style="margin-top:28px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:14px;">风险矩阵</div>
+      <div class="risk-list">
+        <div class="risk-item">
+          <div class="risk-name">炸板率风险</div>
+          <div class="risk-bar"><div class="risk-fill" style="width:82%;background:var(--accent-rose);"></div></div>
+          <div class="risk-score">8.2</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-name">资金流出风险</div>
+          <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--accent-rose);"></div></div>
+          <div class="risk-score">7.5</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-name">风格切换风险</div>
+          <div class="risk-bar"><div class="risk-fill" style="width:60%;background:var(--accent-copper);"></div></div>
+          <div class="risk-score">6.0</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-name">美股传导风险</div>
+          <div class="risk-bar"><div class="risk-fill" style="width:40%;background:var(--accent-copper);"></div></div>
+          <div class="risk-score">4.0</div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-name">政策不确定性</div>
+          <div class="risk-bar"><div class="risk-fill" style="width:35%;background:var(--accent-slate);"></div></div>
+          <div class="risk-score">3.5</div>
+        </div>
+      </div>
     </div>
 
-    <div class="analysis-box box-bear" style="margin-top:16px;">
-      <strong style="color:#f87171;">🔴 保守风险论点（挑战看涨观点）：</strong>看涨方认为"半导体逆势+美股SOX暴涨+美债下行+人民币升值"四重利好将驱动A股企稳反弹、半导体错杀修复。但这一逻辑的<strong style="color:#f87171;">前提全部存疑</strong>：其一，今日两市成交坍塌近5000亿、北向净流出40.38亿，证明外部宽松信号完全被内部增量缺席对冲，"错杀修复"缺少资金承接底座；其二，炸板率41.1%、跌停30家、连板仅6家，高位接力全面溃败，赚钱效应消失，半导体"孤军"难以独撑指数，反而可能因抱团松动成为补跌对象；其三，央行今日仅100亿逆回购、净回笼明显，跨季后资金面回归常态化而非加码，缺少增量刺激；其四，隔夜美股芯片暴涨已部分price-in，若今晚美股科技回吐，A股半导体将首当其冲。在<strong style="color:#f87171;">成交未重回3万亿、沪指未收复4000</strong>之前，任何反弹都应视为减仓窗口而非加仓信号，抄底属于"左侧博弈"而非"确定性交易"。
+    <!-- 核心结论 -->
+    <div style="margin-top:28px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">核心结论</div>
+      <div style="font-size:13px;line-height:2;color:var(--text-secondary);">
+        7月7日行情本质是<span style="color:var(--accent-rose);font-weight:600;">"全面防御 + 半导体结构性抱团"</span>。五大信号值得重视：
+      </div>
+      <div style="font-size:13px;line-height:2.1;color:var(--text-secondary);margin-top:12px;">
+        ① <strong style="color:var(--accent-rose);">沪指失守4000</strong>——关键心理关口跌破，短期若不能快速收复，可能触发止损盘加速出逃。<br><br>
+        ② <strong style="color:var(--accent-copper);">半导体一枝独秀</strong>——先进封装+60.82亿、中芯国际+48.14亿、大基金+47.61亿，三大概念合计净流入156亿，是唯一具备资金合力的方向。<br><br>
+        ③ <strong style="color:var(--accent-rose);">炸板率41.1%</strong>——远超25%警戒线，高位接力容错率极低，短线应全面降低仓位。<br><br>
+        ④ <strong style="color:var(--accent-copper);">食品有色补跌</strong>——此前防御方向（猪肉/煤炭/食品）今日全线补跌，市场已无真正的"避风港"。<br><br>
+        ⑤ <strong style="color:var(--accent-sage);">华天科技龙虎榜15.77亿</strong>——与先进封装资金流共振，封测方向可能成为明日修复先锋。
+      </div>
+    </div>
+
+    <!-- 保守风险论点 -->
+    <div class="devils">
+      <div class="da-tag">保守风险论点 · 挑战看涨观点</div>
+      <div class="da-text">
+        半导体三大概念今日虽净流入156亿，但这是在"全市场普跌、仅半导体收红"的极端分化环境下发生的——这种"一枝独秀"往往是资金被迫抱团而非主动进攻。若明日大盘继续走弱，半导体可能面临"抱团瓦解→补跌"的风险。<br><br>
+        在炸板率回落至25%以下、北向资金转为净流入之前，任何抄底行为都应视为左侧博弈而非确定性交易。沪指4000点若连续两日无法收复，建议总仓位降至3成以下。
+      </div>
     </div>
   </div>
 
-  <div class="disclaimer">⚠️ 本报告由WorkBuddy自动生成，数据来源公开市场信息（stock-analysis CLI、同花顺、新浪财经、金十数据等），不构成投资建议。更新时间：2026-07-07 18:00 CST。</div>
+  <!-- ====== FOOTER ====== -->
+  <div class="footer">
+    <div>数据引擎：AdvancingTitans/stock-analysis v4.3.7 · 腾讯/新浪/东财 API</div>
+    <div>2026-07-07 盘后 CST · 不构成投资建议</div>
+  </div>
 
 </div>
+
 </body>
 </html>

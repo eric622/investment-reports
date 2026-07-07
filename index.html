@@ -5,315 +5,482 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>投资研究报告库</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e0e0; min-height: 100vh;
+  :root{
+    --bg-base:#EBE7E0;
+    --bg-card:#F2EFEA;
+    --bg-elevated:#FAF8F5;
+    --bg-glass:rgba(250,248,245,0.72);
+    --text-primary:#3C3835;
+    --text-secondary:#78736D;
+    --text-tertiary:#A8A39C;
+    --border-subtle:rgba(180,174,166,0.35);
+    --border-card:rgba(190,184,175,0.25);
+    --accent-rose:#C2A0A0;
+    --accent-sage:#8FA08B;
+    --accent-slate:#7F8B8E;
+    --accent-copper:#B09578;
+    --accent-mauve:#A595A2;
+    --shadow-sm:0 2px 12px rgba(160,150,140,0.06);
+    --shadow-md:0 8px 32px rgba(160,150,140,0.09);
+    --shadow-lg:0 16px 48px rgba(160,150,140,0.12);
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+    --radius-xl:28px;
+    --font-display:"SF Pro Display",-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;
+    --font-body:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   }
-  .container { max-width: 900px; margin: 0 auto; padding: 60px 24px 80px; }
-  .hero {
-    text-align: center; padding: 48px 32px; margin-bottom: 48px;
-    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 70% 50%, rgba(168,85,247,0.12) 0%, transparent 50%);
-  }
-  .hero h1 {
-    font-size: 2em; font-weight: 700;
-    background: linear-gradient(135deg, #38bdf8, #a855f7);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    position: relative; z-index: 1; margin-bottom: 12px;
-  }
-  .hero .subtitle { color: rgba(255,255,255,0.4); font-size: 0.9em; position: relative; z-index: 1; }
-  .hero .stat { margin-top: 20px; position: relative; z-index: 1; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-  .hero .stat-item { text-align: center; }
-  .hero .stat-num { font-size: 1.8em; font-weight: 800; color: #38bdf8; }
-  .hero .stat-label { font-size: 0.8em; color: rgba(255,255,255,0.4); }
 
-  .section-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; margin-top: 40px;
-  }
-  .section-header:first-of-type { margin-top: 0; }
-  .section-header .section-icon {
-    width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;
-  }
-  .section-header .section-label { font-size: 1.15em; font-weight: 700; color: #fff; }
-  .section-header .section-desc { font-size: 0.8em; color: rgba(255,255,255,0.35); margin-left: auto; }
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-  .recap-zone {
-    padding: 24px; margin-bottom: 32px;
-    background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(56,189,248,0.06));
-    border: 1px solid rgba(34,197,94,0.2); border-radius: 16px;
+  body{
+    font-family:var(--font-body);
+    background:var(--bg-base);
+    color:var(--text-primary);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
   }
-  .recap-zone .section-icon { background: rgba(34,197,94,0.15); }
-  .recap-zone .section-label { color: #22c55e; }
-  .recap-latest {
-    margin-top: 16px; padding: 16px 20px;
-    background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.15);
-    border-radius: 12px; display: flex; align-items: center; gap: 16px;
-    text-decoration: none; color: inherit; transition: all 0.2s;
-  }
-  .recap-latest:hover {
-    background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3);
-    transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.1);
-  }
-  .recap-latest .latest-icon { font-size: 2em; flex-shrink: 0; }
-  .recap-latest .latest-info { flex: 1; }
-  .recap-latest .latest-date { font-size: 0.78em; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
-  .recap-latest .latest-title { font-size: 1em; font-weight: 700; color: #fff; }
-  .recap-latest .latest-summary { font-size: 0.82em; color: rgba(255,255,255,0.5); margin-top: 4px; }
-  .recap-latest .latest-arrow { color: rgba(255,255,255,0.2); font-size: 1.4em; transition: all 0.2s; }
-  .recap-latest:hover .latest-arrow { color: #22c55e; transform: translateX(4px); }
 
-  /* 盘后专区紫色主题：用class替代内联style，规避legacy Pages构建器对内联rgba样式的解析失败 */
-  .recap-zone.purple {
-    background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(56,189,248,0.06));
-    border-color: rgba(168,85,247,0.25);
+  body::before{
+    content:'';
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 15%,rgba(160,155,145,0.12) 0%,transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 70%,rgba(150,145,155,0.10) 0%,transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 85%,rgba(145,155,140,0.08) 0%,transparent 50%);
   }
-  .recap-zone.purple .section-icon { background: rgba(168,85,247,0.15); }
-  .recap-zone.purple .section-label { color: #a855f7; }
-  .recap-latest.purple {
-    background: rgba(168,85,247,0.08); border-color: rgba(168,85,247,0.15);
-  }
-  .recap-latest.purple:hover {
-    background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.3);
-    transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,85,247,0.1);
-  }
-  .recap-latest.purple .latest-arrow { color: rgba(168,85,247,0.4); }
-  .recap-latest.purple:hover .latest-arrow { color: #a855f7; transform: translateX(4px); }
-  .recap-zone.purple .recap-history-item .hist-arrow { color: rgba(168,85,247,0.35); }
 
-  .recap-history { margin-top: 16px; }
-  .recap-history-title { font-size: 0.82em; color: rgba(255,255,255,0.35); margin-bottom: 8px; font-weight: 600; }
-  .recap-history-item {
-    display: flex; align-items: center; gap: 12px; padding: 10px 14px;
-    text-decoration: none; color: inherit; border-radius: 8px; transition: all 0.15s;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
+  .page{
+    position:relative;z-index:1;
+    max-width:980px;
+    margin:0 auto;
+    padding:64px 32px 100px;
   }
-  .recap-history-item:hover { background: rgba(255,255,255,0.05); }
-  .recap-history-item .hist-date { font-size: 0.82em; color: rgba(255,255,255,0.4); width: 85px; flex-shrink: 0; }
-  .recap-history-item .hist-title { font-size: 0.88em; color: rgba(255,255,255,0.65); flex: 1; }
-  .recap-history-item .hist-arrow { color: rgba(255,255,255,0.15); font-size: 0.9em; }
 
-  .report-list { display: flex; flex-direction: column; gap: 16px; }
-  .report-card {
-    display: flex; align-items: center; gap: 20px; padding: 20px 24px;
-    background: rgba(255,255,255,0.05); backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px; text-decoration: none; color: inherit;
-    transition: all 0.25s ease; cursor: pointer;
+  /* ===== 导航栏 ===== */
+  .navbar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 20px;margin-bottom:48px;
+    background:var(--bg-glass);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm);
   }
-  .report-card:hover {
-    background: rgba(255,255,255,0.1); border-color: rgba(56,189,248,0.3);
-    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.1);
+  .nav-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;border-radius:var(--radius-sm);
+    font-size:13px;font-weight:600;
+    text-decoration:none;color:var(--text-secondary);
+    transition:all 0.25s;
+    border:1px solid transparent;
   }
-  .report-card .icon {
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.4em; flex-shrink: 0;
+  .nav-btn:hover{
+    color:var(--text-primary);
+    background:rgba(200,195,188,0.12);
+    border-color:var(--border-card);
   }
-  .report-card .info { flex: 1; }
-  .report-card .title { font-size: 1.05em; font-weight: 600; color: #fff; margin-bottom: 4px; }
-  .report-card .meta { font-size: 0.82em; color: rgba(255,255,255,0.4); display: flex; gap: 16px; flex-wrap: wrap; }
-  .report-card .arrow { color: rgba(255,255,255,0.2); font-size: 1.2em; transition: all 0.2s; }
-  .report-card:hover .arrow { color: #38bdf8; transform: translateX(4px); }
+  .nav-btn.active{
+    color:var(--text-primary);
+    background:rgba(200,195,188,0.15);
+    border-color:var(--border-card);
+  }
+  .nav-spacer{flex:1;}
+  .nav-breadcrumb{
+    font-size:12px;color:var(--text-tertiary);
+    display:flex;align-items:center;gap:6px;
+  }
+  .nav-breadcrumb a{color:var(--text-secondary);text-decoration:none;}
+  .nav-breadcrumb a:hover{color:var(--accent-sage);}
+  .nav-breadcrumb .sep{color:var(--text-tertiary);}
 
-  .tag {
-    display: inline-block; padding: 2px 10px; border-radius: 20px;
-    font-size: 0.75em; font-weight: 600;
+  /* ===== 头部 Hero ===== */
+  .header{
+    margin-bottom:48px;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--border-subtle);
   }
-  .tag-stock { background: rgba(56,189,248,0.15); color: #38bdf8; }
-  .tag-industry { background: rgba(168,85,247,0.15); color: #a855f7; }
-  .tag-macro { background: rgba(74,222,128,0.15); color: #4ade80; }
-  .tag-strategy { background: rgba(251,191,36,0.15); color: #fbbf24; }
-  .tag-recap { background: rgba(34,197,94,0.12); color: #22c55e; }
-
-  .footer { text-align: center; margin-top: 60px; padding: 20px; color: rgba(255,255,255,0.2); font-size: 0.8em; }
-
-  /* 导航栏 */
-  .navbar {
-    display: flex; align-items: center; gap: 8px; padding: 14px 20px; margin-bottom: 32px;
-    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px;
+  .header .eyebrow{
+    font-size:11px;font-weight:600;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--text-tertiary);
+    margin-bottom:10px;
   }
-  .nav-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 16px; border-radius: 10px; font-size: 0.85em; font-weight: 600;
-    text-decoration: none; color: rgba(255,255,255,0.6); transition: all 0.2s;
-    border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
-    cursor: pointer;
+  .header h1{
+    font-family:var(--font-display);
+    font-size:38px;font-weight:700;letter-spacing:-0.025em;
+    line-height:1.15;color:var(--text-primary);
+    margin-bottom:8px;
   }
-  .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.08); border-color: rgba(56,189,248,0.3); }
-  .nav-btn.active { color: #38bdf8; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3); }
-  .nav-spacer { flex: 1; }
-  .nav-breadcrumb { font-size: 0.82em; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 6px; }
-  .nav-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
-  .nav-breadcrumb a:hover { color: #38bdf8; }
-  .nav-breadcrumb .sep { color: rgba(255,255,255,0.2); }
+  .header .meta{
+    font-size:14px;color:var(--text-secondary);
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .header .meta .dot{
+    width:4px;height:4px;border-radius:50%;background:var(--text-tertiary);
+  }
+  .header .stats{
+    display:flex;gap:48px;margin-top:24px;
+  }
+  .header .stat-item{
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .header .stat-num{
+    font-family:var(--font-display);
+    font-size:32px;font-weight:700;letter-spacing:-0.02em;
+    line-height:1;color:var(--text-primary);
+  }
+  .header .stat-label{
+    font-size:11px;color:var(--text-tertiary);font-weight:500;
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
 
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 1.4em; }
-    .report-card { flex-direction: column; align-items: flex-start; }
-    .report-card .arrow { display: none; }
-    .recap-latest { flex-direction: column; align-items: flex-start; }
-    .recap-latest .latest-arrow { display: none; }
+  /* ===== 模块卡片 ===== */
+  .card{
+    position:relative;
+    background:var(--bg-glass);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-xl);
+    padding:32px 30px;
+    margin-bottom:24px;
+    box-shadow:var(--shadow-md);
+    transition:box-shadow 0.3s,transform 0.3s;
+  }
+  .card:hover{
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-1px);
+  }
+  .card-header{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:6px;
+  }
+  .card-icon{
+    width:36px;height:36px;border-radius:var(--radius-sm);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;flex-shrink:0;
+  }
+  .card-icon.sage{background:rgba(143,160,139,0.18);color:var(--accent-sage);}
+  .card-icon.mauve{background:rgba(165,149,162,0.18);color:var(--accent-mauve);}
+  .card-icon.copper{background:rgba(176,149,120,0.18);color:var(--accent-copper);}
+  .card-title{
+    font-family:var(--font-display);
+    font-size:18px;font-weight:700;letter-spacing:-0.015em;
+    color:var(--text-primary);
+  }
+  .card-desc{
+    font-size:12px;color:var(--text-tertiary);
+    margin-left:auto;font-weight:500;
+    letter-spacing:0.04em;
+  }
+
+  /* ===== 最新报告条 ===== */
+  .latest-link{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 20px;margin-top:18px;
+    background:var(--bg-elevated);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-md);
+    text-decoration:none;color:inherit;
+    transition:all 0.25s;
+    box-shadow:var(--shadow-sm);
+  }
+  .latest-link:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-md);
+    border-color:rgba(180,174,166,0.5);
+  }
+  .latest-link .latest-icon{
+    font-size:24px;flex-shrink:0;
+  }
+  .latest-link .latest-info{flex:1;}
+  .latest-link .latest-date{
+    font-size:11px;color:var(--text-tertiary);
+    margin-bottom:3px;letter-spacing:0.04em;
+  }
+  .latest-link .latest-title{
+    font-size:14px;font-weight:700;color:var(--text-primary);
+    line-height:1.4;
+  }
+  .latest-link .latest-summary{
+    font-size:12px;color:var(--text-secondary);
+    margin-top:4px;line-height:1.5;
+  }
+  .latest-link .latest-arrow{
+    color:var(--text-tertiary);font-size:18px;
+    transition:all 0.2s;flex-shrink:0;
+  }
+  .latest-link:hover .latest-arrow{
+    color:var(--accent-sage);transform:translateX(4px);
+  }
+
+  /* ===== 历史列表 ===== */
+  .history-section{margin-top:16px;}
+  .history-title{
+    font-size:11px;font-weight:600;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--text-tertiary);
+    margin-bottom:8px;
+  }
+  .history-item{
+    display:flex;align-items:center;gap:14px;
+    padding:10px 14px;
+    text-decoration:none;color:inherit;
+    border-radius:var(--radius-sm);
+    transition:background 0.15s;
+    border-bottom:1px solid rgba(200,195,188,0.12);
+  }
+  .history-item:last-child{border-bottom:none;}
+  .history-item:hover{background:rgba(210,205,198,0.12);}
+  .history-item .hist-date{
+    font-size:12px;color:var(--text-tertiary);
+    width:80px;flex-shrink:0;font-weight:500;
+    letter-spacing:0.04em;
+  }
+  .history-item .hist-title{
+    font-size:13px;color:var(--text-secondary);
+    flex:1;line-height:1.4;
+  }
+  .history-item:hover .hist-title{color:var(--text-primary);}
+  .history-item .hist-arrow{
+    color:var(--text-tertiary);font-size:14px;
+    opacity:0.5;transition:all 0.2s;
+  }
+  .history-item:hover .hist-arrow{
+    opacity:1;color:var(--accent-sage);
+  }
+
+  /* ===== 深度报告列表 ===== */
+  .report-list{
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .report-card{
+    display:flex;align-items:center;gap:18px;
+    padding:20px 22px;
+    background:var(--bg-elevated);
+    border:1px solid var(--border-card);
+    border-radius:var(--radius-lg);
+    text-decoration:none;color:inherit;
+    transition:all 0.25s;
+    box-shadow:var(--shadow-sm);
+  }
+  .report-card:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-md);
+    border-color:rgba(180,174,166,0.5);
+  }
+  .report-card .report-icon{
+    width:44px;height:44px;border-radius:var(--radius-md);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;flex-shrink:0;
+  }
+  .report-card .report-info{flex:1;}
+  .report-card .report-title{
+    font-size:15px;font-weight:700;color:var(--text-primary);
+    margin-bottom:5px;
+  }
+  .report-card .report-meta{
+    font-size:12px;color:var(--text-tertiary);
+    display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  }
+  .report-card .report-arrow{
+    color:var(--text-tertiary);font-size:18px;
+    transition:all 0.2s;flex-shrink:0;
+  }
+  .report-card:hover .report-arrow{
+    color:var(--accent-sage);transform:translateX(4px);
+  }
+
+  /* ===== 标签 ===== */
+  .tag{
+    display:inline-block;padding:2px 10px;
+    border-radius:12px;
+    font-size:10px;font-weight:600;
+    letter-spacing:0.04em;
+  }
+  .tag-sage{background:rgba(143,160,139,0.18);color:var(--accent-sage);}
+  .tag-mauve{background:rgba(165,149,162,0.18);color:var(--accent-mauve);}
+  .tag-slate{background:rgba(127,139,142,0.18);color:var(--accent-slate);}
+  .tag-copper{background:rgba(176,149,120,0.18);color:var(--accent-copper);}
+  .tag-rose{background:rgba(194,160,160,0.18);color:var(--accent-rose);}
+
+  /* ===== 页脚 ===== */
+  .footer{
+    margin-top:56px;padding-top:20px;
+    border-top:1px solid var(--border-subtle);
+    text-align:center;
+    font-size:12px;color:var(--text-tertiary);
+  }
+
+  /* ===== 响应式 ===== */
+  @media(max-width:768px){
+    .page{padding:40px 16px 64px;}
+    .header h1{font-size:26px;}
+    .header .stats{gap:24px;flex-wrap:wrap;}
+    .header .stat-num{font-size:24px;}
+    .card{padding:24px 18px;}
+    .latest-link{flex-direction:column;align-items:flex-start;}
+    .latest-link .latest-arrow{display:none;}
+    .report-card{flex-direction:column;align-items:flex-start;}
+    .report-card .report-arrow{display:none;}
   }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page">
 
-  <!-- 导航栏 -->
+  <!-- ====== 导航栏 ====== -->
   <div class="navbar">
-    <a class="nav-btn active" href="index.html">🏠 首页</a>
-    <a class="nav-btn" href="market-recap/latest.html">📈 早盘复盘</a>
-    <a class="nav-btn" href="market-recap/latest-after.html">📊 盘后复盘</a>
+    <a class="nav-btn active" href="index.html">首页</a>
+    <a class="nav-btn" href="market-recap/latest.html">早盘复盘</a>
+    <a class="nav-btn" href="market-recap/latest-after.html">盘后复盘</a>
     <div class="nav-spacer"></div>
     <div class="nav-breadcrumb">
-      <a href="index.html">🏠 首页</a>
+      <a href="index.html">首页</a>
     </div>
   </div>
 
-  <div class="hero">
-    <h1>📊 投资研究报告库</h1>
-    <div class="subtitle">workbuddy · eric622 · 自动生成</div>
-    <div class="stat">
+  <!-- ====== 头部 ====== -->
+  <div class="header">
+    <div class="eyebrow">Investment Research Library</div>
+    <h1>投资研究报告库</h1>
+    <div class="meta">
+      <span>WorkBuddy · eric622</span>
+      <span class="dot"></span>
+      <span>自动生成</span>
+    </div>
+    <div class="stats">
       <div class="stat-item">
         <div class="stat-num" id="reportCount">2</div>
         <div class="stat-label">深度报告</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" style="color:#22c55e;" id="recapCount">2</div>
+        <div class="stat-num" id="recapCount" style="color:var(--accent-sage);">5</div>
         <div class="stat-label">复盘次数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" style="color:#a855f7;">2026.07</div>
+        <div class="stat-num" style="color:var(--accent-copper);">2026.07</div>
         <div class="stat-label">最新更新</div>
       </div>
     </div>
   </div>
 
-  <!-- ========== 全球股市复盘（早盘）专区 ========== -->
-  <div class="recap-zone">
-    <div class="section-header">
-      <div class="section-icon">🌐</div>
-      <div class="section-label">全球股市复盘（早盘）</div>
-      <div class="section-desc">每个交易日 7:30 自动更新</div>
+  <!-- ====== 全球股市复盘（早盘）====== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon sage">🌐</div>
+      <div class="card-title">全球股市复盘（早盘）</div>
+      <div class="card-desc">每个交易日 7:30 自动更新</div>
     </div>
 
-    <a class="recap-latest" href="market-recap/latest.html">
+    <a class="latest-link" href="market-recap/latest.html">
       <div class="latest-icon">📈</div>
       <div class="latest-info">
         <div class="latest-date">2026-07-07（周二）</div>
-        <div class="latest-title">全球股市早盘复盘：美股芯片暴涨4%+道指历史新高，半导体修复窗口打开</div>
+        <div class="latest-title">美股芯片暴涨4%+道指历史新高，半导体修复窗口打开</div>
         <div class="latest-summary">费城SOX +4.95%、AMD +10%、人民币升值、三星Q2财报催化、A股半导体错杀修复机会</div>
       </div>
       <div class="latest-arrow">→</div>
     </a>
 
-    <div class="recap-history">
-      <div class="recap-history-title">📅 历史复盘</div>
-      <div id="recapHistory">
-        <a class="recap-history-item" href="market-recap/2026-07-07.html">
-          <span class="hist-date">2026-07-07</span>
-          <span class="hist-title">全球股市早盘复盘：费城半导体暴涨4.95%，道指首破53000</span>
-          <span class="hist-arrow">→</span>
-        </a>
-        <a class="recap-history-item" href="market-recap/2026-07-04.html">
-          <span class="hist-date">2026-07-04</span>
-          <span class="hist-title">全球股市早盘复盘：道指新高、黄金创纪录、非农爆冷</span>
-          <span class="hist-arrow">→</span>
-        </a>
-      </div>
+    <div class="history-section">
+      <div class="history-title">历史复盘</div>
+      <a class="history-item" href="market-recap/2026-07-07.html">
+        <span class="hist-date">2026-07-07</span>
+        <span class="hist-title">费城半导体暴涨4.95%，道指首破53000</span>
+        <span class="hist-arrow">→</span>
+      </a>
+      <a class="history-item" href="market-recap/2026-07-04.html">
+        <span class="hist-date">2026-07-04</span>
+        <span class="hist-title">道指新高、黄金创纪录、非农爆冷</span>
+        <span class="hist-arrow">→</span>
+      </a>
     </div>
   </div>
 
-  <!-- ========== A股盘后深度复盘专区 ========== -->
-  <div class="recap-zone purple">
-    <div class="section-header">
-      <div class="section-icon">🔍</div>
-      <div class="section-label">A股盘后深度复盘</div>
-      <div class="section-desc">每个交易日 18:00 自动更新</div>
+  <!-- ====== A股盘后深度复盘 ====== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon mauve">🔍</div>
+      <div class="card-title">A股盘后深度复盘</div>
+      <div class="card-desc">每个交易日 18:00 自动更新</div>
     </div>
 
-    <a class="recap-latest purple" href="market-recap/latest-after.html">
+    <a class="latest-link" href="market-recap/latest-after.html">
       <div class="latest-icon">📊</div>
       <div class="latest-info">
         <div class="latest-date">2026-07-07（周二）</div>
-        <div class="latest-title">A股盘后深度复盘：沪指失守4000，半导体孤军</div>
+        <div class="latest-title">沪指失守4000，半导体孤军</div>
         <div class="latest-summary">沪指-1.26%失守4000、炸板率41.1%、半导体三大概念净流入156亿、华天科技龙虎榜15.77亿</div>
       </div>
       <div class="latest-arrow">→</div>
     </a>
 
-    <div class="recap-history">
-      <div class="recap-history-title">📅 历史复盘</div>
-      <div id="afterHistory">
-        <a class="recap-history-item" href="market-recap/2026-07-07-after.html">
-          <span class="hist-date">2026-07-07</span>
-          <span class="hist-title">沪指失守4000，半导体孤军——炸板率41.1%全面防御</span>
-          <span class="hist-arrow">→</span>
-        </a>
-        <a class="recap-history-item" href="market-recap/2026-07-06-after.html">
-          <span class="hist-date">2026-07-06</span>
-          <span class="hist-title">A股盘后深度复盘：猪肉煤炭领涨防御，机器人PCB高位兑现</span>
-          <span class="hist-arrow">→</span>
-        </a>
-        <a class="recap-history-item" href="market-recap/2026-07-03-after.html">
-          <span class="hist-date">2026-07-03</span>
-          <span class="hist-title">A股盘后深度复盘：机器人涨停潮VS半导体跌停潮</span>
-          <span class="hist-arrow">→</span>
-        </a>
-      </div>
+    <div class="history-section">
+      <div class="history-title">历史复盘</div>
+      <a class="history-item" href="market-recap/2026-07-07-after.html">
+        <span class="hist-date">2026-07-07</span>
+        <span class="hist-title">沪指失守4000，半导体孤军——炸板率41.1%全面防御</span>
+        <span class="hist-arrow">→</span>
+      </a>
+      <a class="history-item" href="market-recap/2026-07-06-after.html">
+        <span class="hist-date">2026-07-06</span>
+        <span class="hist-title">猪肉煤炭领涨防御，机器人PCB高位兑现</span>
+        <span class="hist-arrow">→</span>
+      </a>
+      <a class="history-item" href="market-recap/2026-07-03-after.html">
+        <span class="hist-date">2026-07-03</span>
+        <span class="hist-title">机器人涨停潮VS半导体跌停潮</span>
+        <span class="hist-arrow">→</span>
+      </a>
     </div>
   </div>
 
-  <!-- ========== 深度研究报告 ========== -->
-  <div class="section-header">
-    <div class="section-icon" style="background:rgba(168,85,247,0.12);">📝</div>
-    <div class="section-label">深度研究报告</div>
+  <!-- ====== 深度研究报告 ====== -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon copper">📝</div>
+      <div class="card-title">深度研究报告</div>
+    </div>
+
+    <div class="report-list" style="margin-top:18px;">
+      <a class="report-card" href="2026-07-06-ai-application-industry-chain.html">
+        <div class="report-icon" style="background:rgba(165,149,162,0.18);">🤖</div>
+        <div class="report-info">
+          <div class="report-title">AI应用产业链全景深度解析</div>
+          <div class="report-meta">
+            <span>2026-07-06</span>
+            <span class="tag tag-mauve">行业分析</span>
+            <span class="tag tag-slate">全球竞争</span>
+          </div>
+        </div>
+        <div class="report-arrow">→</div>
+      </a>
+
+      <a class="report-card" href="2026-07-06-power-storage-stocks.html">
+        <div class="report-icon" style="background:rgba(127,139,142,0.18);">⚡</div>
+        <div class="report-info">
+          <div class="report-title">算力回归电力与存储：长逻辑核心标的挖掘报告</div>
+          <div class="report-meta">
+            <span>2026-07-06</span>
+            <span class="tag tag-slate">个股研究</span>
+            <span class="tag tag-mauve">行业分析</span>
+          </div>
+        </div>
+        <div class="report-arrow">→</div>
+      </a>
+    </div>
   </div>
 
-  <div class="report-list" id="reportList">
-    <a class="report-card" href="2026-07-06-ai-application-industry-chain.html">
-      <div class="icon" style="background:rgba(168,85,247,0.12);">🤖</div>
-      <div class="info">
-        <div class="title">AI应用产业链全景深度解析</div>
-        <div class="meta">
-          <span>2026-07-06</span>
-          <span class="tag tag-industry">行业分析</span>
-          <span class="tag tag-macro">全球竞争</span>
-        </div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-
-    <a class="report-card" href="2026-07-06-power-storage-stocks.html">
-      <div class="icon" style="background:rgba(56,189,248,0.12);">⚡</div>
-      <div class="info">
-        <div class="title">算力回归电力与存储：长逻辑核心标的挖掘报告</div>
-        <div class="meta">
-          <span>2026-07-06</span>
-          <span class="tag tag-stock">个股研究</span>
-          <span class="tag tag-industry">行业分析</span>
-        </div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-  </div>
-
-  <div class="footer">由 WorkBuddy 自动生成 · 最后更新：2026-07-07</div>
+  <div class="footer">由 WorkBuddy 自动生成 · 最后更新：2026-07-08</div>
 </div>
 
 <script>
   document.getElementById('reportCount').textContent = document.querySelectorAll('.report-card').length;
-  document.getElementById('recapCount').textContent = document.querySelectorAll('.recap-history-item').length;
+  document.getElementById('recapCount').textContent = document.querySelectorAll('.history-item').length;
 </script>
 
 </body>
