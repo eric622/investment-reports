@@ -20,13 +20,13 @@
     --accent-slate:#7F8B8E;
     --accent-copper:#B09578;
     --accent-mauve:#A595A2;
-    --shadow-sm:0 2px 12px rgba(160,150,140,0.06);
-    --shadow-md:0 8px 32px rgba(160,150,140,0.09);
-    --shadow-lg:0 16px 48px rgba(160,150,140,0.12);
-    --radius-sm:8px;
-    --radius-md:14px;
-    --radius-lg:22px;
-    --radius-xl:28px;
+    --shadow-sm:none;
+    --shadow-md:0 1px 40px rgba(160,150,140,0.05);
+    --shadow-lg:0 1px 60px rgba(160,150,140,0.07);
+    --radius-sm:4px;
+    --radius-md:6px;
+    --radius-lg:8px;
+    --radius-xl:8px;
     --font-display:"SF Pro Display",-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;
     --font-body:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   }
@@ -90,13 +90,9 @@
   .kpi-strip{
     display:flex;gap:0;
     margin-bottom:48px;
-    border:1px solid var(--border-card);
-    border-radius:var(--radius-lg);
+    border-top:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border-subtle);
     overflow:hidden;
-    background:var(--bg-glass);
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-    box-shadow:var(--shadow-sm);
   }
   .kpi-item{
     flex:1;padding:20px 16px;text-align:center;
@@ -117,27 +113,25 @@
   .kpi-down{color:var(--accent-sage);}
   .kpi-up{color:var(--accent-rose);}
 
-  /* ===== 模块卡片 ===== */
+  /* ===== 通栏模块（替代卡片） ===== */
   .card{
     position:relative;
-    background:var(--bg-glass);
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-    border:1px solid var(--border-card);
-    border-radius:var(--radius-xl);
-    padding:36px 34px;
-    margin-bottom:28px;
-    box-shadow:var(--shadow-md);
-    transition:box-shadow 0.3s,transform 0.3s;
+    padding:40px 0 0;
+    margin-bottom:0;
+    box-shadow:none;
+    transition:none;
+  }
+  .card:first-of-type{
+    padding-top:0;
   }
   .card:hover{
-    box-shadow:var(--shadow-lg);
-    transform:translateY(-1px);
+    box-shadow:none;
+    transform:none;
   }
   .card .card-num{
     display:inline-flex;align-items:center;justify-content:center;
     width:28px;height:28px;border-radius:var(--radius-sm);
-    background:rgba(160,155,148,0.15);
+    background:rgba(160,155,148,0.12);
     color:var(--text-secondary);
     font-size:11px;font-weight:700;
     margin-right:12px;flex-shrink:0;
@@ -153,28 +147,33 @@
     font-size:13px;color:var(--text-secondary);
     margin-bottom:28px;
   }
+  /* 模块间用细线+留白分割 */
+  .card + .card{
+    margin-top:0;
+    padding-top:48px;
+    border-top:1px solid var(--border-subtle);
+    margin-bottom:0;
+  }
 
-  /* ===== 指数网格（layered cards） ===== */
+  /* ===== 指数网格（细线分割，无卡片） ===== */
   .index-row{
     display:grid;
     grid-template-columns:repeat(6,1fr);
-    gap:10px;
+    gap:0;
     margin-bottom:24px;
+    border-top:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border-subtle);
   }
   .index-tile{
     position:relative;
     padding:18px 12px;
     text-align:center;
-    background:var(--bg-elevated);
-    border:1px solid var(--border-card);
-    border-radius:var(--radius-md);
-    box-shadow:var(--shadow-sm);
-    transition:all 0.25s;
+    border-right:1px solid var(--border-card);
+    transition:background 0.2s;
   }
+  .index-tile:last-child{border-right:none;}
   .index-tile:hover{
-    transform:translateY(-2px);
-    box-shadow:var(--shadow-md);
-    border-color:rgba(180,174,166,0.5);
+    background:rgba(210,205,198,0.10);
   }
   .index-tile .idx-name{
     font-size:11px;color:var(--text-tertiary);font-weight:500;
@@ -193,10 +192,9 @@
   .stat-row{
     display:flex;gap:0;
     margin:20px 0;
-    border:1px solid var(--border-card);
-    border-radius:var(--radius-md);
+    border-top:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border-subtle);
     overflow:hidden;
-    background:var(--bg-elevated);
   }
   .stat-cell{
     flex:1;padding:14px 12px;text-align:center;
@@ -248,12 +246,12 @@
   .insight.sage{border-left-color:var(--accent-sage);}
   .insight.copper{border-left-color:var(--accent-copper);}
 
-  /* ===== 引用信号 ===== */
+  /* ===== 信号块 ===== */
   .signal{
     margin:20px 0;
     padding:16px 20px;
-    background:rgba(200,195,188,0.12);
-    border-radius:var(--radius-md);
+    background:rgba(200,195,188,0.08);
+    border-radius:var(--radius-sm);
     font-size:13px;line-height:1.8;color:var(--text-secondary);
   }
   .signal strong{color:var(--text-primary);}
@@ -261,12 +259,10 @@
   /* ===== 展望区 ===== */
   .outlook{
     position:relative;
-    background:rgba(210,205,198,0.18);
-    border:1px solid var(--border-card);
-    border-radius:var(--radius-xl);
-    padding:34px;
-    margin-bottom:28px;
-    box-shadow:var(--shadow-md);
+    padding-top:40px;
+    margin-top:40px;
+    border-top:1px solid var(--border-subtle);
+    box-shadow:none;
   }
   .outlook h2{
     font-family:var(--font-display);
@@ -309,9 +305,9 @@
   .devils{
     margin:28px 0 0;
     padding:18px 20px;
-    background:rgba(200,180,175,0.15);
-    border:1px solid rgba(194,160,160,0.2);
-    border-radius:var(--radius-md);
+    background:rgba(200,180,175,0.10);
+    border-left:2px solid var(--accent-rose);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
   }
   .devils .da-tag{
     font-size:10px;font-weight:700;letter-spacing:0.12em;
