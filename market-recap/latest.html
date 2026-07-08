@@ -53,6 +53,40 @@
       radial-gradient(ellipse 50% 40% at 50% 85%,rgba(145,155,140,0.08) 0%,transparent 50%);
   }
 
+  /* ===== 导航栏 ===== */
+  .navbar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 0;margin-bottom:48px;
+    border-bottom:1px solid var(--border-subtle);
+  }
+  .nav-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;border-radius:var(--radius-sm);
+    font-size:14px;font-weight:500;
+    color:var(--text-secondary);
+    text-decoration:none;
+    transition:all 0.2s ease;
+    border:1px solid transparent;
+  }
+  .nav-btn:hover{
+    color:var(--text-primary);
+    background:rgba(200,195,188,0.12);
+    border-color:var(--border-card);
+  }
+  .nav-btn.active{
+    color:var(--text-primary);
+    background:rgba(200,195,188,0.15);
+    border-color:var(--border-card);
+  }
+  .nav-spacer{flex:1;}
+  .nav-breadcrumb{
+    font-size:12px;color:var(--text-tertiary);
+    display:flex;align-items:center;gap:6px;
+  }
+  .nav-breadcrumb a{color:var(--text-secondary);text-decoration:none;}
+  .nav-breadcrumb a:hover{color:var(--accent-sage);}
+  .nav-breadcrumb .sep{color:var(--text-tertiary);}
+
   /* ===== 主容器 ===== */
   .page{
     position:relative;z-index:1;
@@ -354,6 +388,17 @@
 <body>
 
 <div class="page">
+
+  <!-- ====== 导航栏 ====== -->
+  <div class="navbar">
+    <a class="nav-btn" href="../index.html">首页</a>
+    <a class="nav-btn active" href="latest.html">早盘复盘</a>
+    <a class="nav-btn" href="latest-after.html">盘后复盘</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-breadcrumb">
+      <a href="../index.html">首页</a><span class="sep">/</span><span>早盘复盘</span><span class="sep">/</span><span>2026-07-08</span>
+    </div>
+  </div>
 
   <!-- ====== HEADER ====== -->
   <div class="header">
