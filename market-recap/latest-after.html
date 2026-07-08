@@ -15,8 +15,10 @@
     --text-tertiary:#A8A39C;
     --border-subtle:rgba(180,174,166,0.35);
     --border-card:rgba(190,184,175,0.25);
-    --accent-rose:#C2A0A0;
-    --accent-sage:#8FA08B;
+    --accent-up:#D95555;
+    --accent-down:#5DA06E;
+    --accent-up-bg:rgba(217,85,85,0.07);
+    --accent-down-bg:rgba(93,160,110,0.07);
     --accent-slate:#7F8B8E;
     --accent-copper:#B09578;
     --accent-mauve:#A595A2;
@@ -83,7 +85,7 @@
     display:flex;align-items:center;gap:6px;
   }
   .nav-breadcrumb a{color:var(--text-secondary);text-decoration:none;}
-  .nav-breadcrumb a:hover{color:var(--accent-sage);}
+  .nav-breadcrumb a:hover{color:var(--accent-down);}
   .nav-breadcrumb .sep{color:var(--text-tertiary);}
 
   /* ===== 主容器 ===== */
@@ -143,8 +145,8 @@
     font-size:11px;color:var(--text-tertiary);font-weight:500;
     letter-spacing:0.06em;text-transform:uppercase;
   }
-  .kpi-down{color:var(--accent-sage);}
-  .kpi-up{color:var(--accent-rose);}
+  .kpi-down{color:var(--accent-down);}
+  .kpi-up{color:var(--accent-up);}
 
   /* ===== 通栏模块（替代卡片） ===== */
   .card{
@@ -264,8 +266,8 @@
   .tbl tbody td:last-child{text-align:right;}
   .tbl tbody tr:hover td{background:rgba(210,205,198,0.12);}
   .tbl .stock{font-weight:600;}
-  .tbl .chg-up{color:var(--accent-rose);font-weight:600;}
-  .tbl .chg-dn{color:var(--accent-sage);font-weight:600;}
+  .tbl .chg-up{color:var(--accent-up);font-weight:600;}
+  .tbl .chg-dn{color:var(--accent-down);font-weight:600;}
   .tbl .sentiment{font-weight:600;font-size:12px;}
 
   /* ===== 分析条 ===== */
@@ -275,8 +277,8 @@
     border-left:2px solid var(--accent-slate);
     font-size:13px;line-height:1.85;color:var(--text-secondary);
   }
-  .insight.rose{border-left-color:var(--accent-rose);}
-  .insight.sage{border-left-color:var(--accent-sage);}
+  .insight.up{border-left-color:var(--accent-up);}
+  .insight.down{border-left-color:var(--accent-down);}
   .insight.copper{border-left-color:var(--accent-copper);}
 
   /* ===== 信号块 ===== */
@@ -339,12 +341,12 @@
     margin:28px 0 0;
     padding:18px 20px;
     background:rgba(200,180,175,0.10);
-    border-left:2px solid var(--accent-rose);
+    border-left:2px solid var(--accent-up);
     border-radius:0 var(--radius-sm) var(--radius-sm) 0;
   }
   .devils .da-tag{
     font-size:10px;font-weight:700;letter-spacing:0.12em;
-    text-transform:uppercase;color:var(--accent-rose);
+    color:var(--accent-up);
     margin-bottom:8px;
   }
   .devils .da-text{
@@ -360,8 +362,8 @@
   }
 
   /* ===== 颜色工具 ===== */
-  .c-rose{color:var(--accent-rose);}
-  .c-sage{color:var(--accent-sage);}
+  .c-up{color:var(--accent-up);}
+  .c-down{color:var(--accent-down);}
   .c-slate{color:var(--accent-slate);}
   .c-copper{color:var(--accent-copper);}
   .c-mauve{color:var(--accent-mauve);}
@@ -427,7 +429,7 @@
       <div class="kpi-label">涨跌比 514 / 2,493</div>
     </div>
     <div class="kpi-item">
-      <div class="kpi-val" style="color:var(--accent-rose);">41.1%</div>
+      <div class="kpi-val" style="color:var(--accent-up);">41.1%</div>
       <div class="kpi-label">炸板率 33涨停 / 23炸板</div>
     </div>
   </div>
@@ -760,12 +762,12 @@
       <div class="risk-list">
         <div class="risk-item">
           <div class="risk-name">炸板率风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:82%;background:var(--accent-rose);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:82%;background:var(--accent-up);"></div></div>
           <div class="risk-score">8.2</div>
         </div>
         <div class="risk-item">
           <div class="risk-name">资金流出风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--accent-rose);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--accent-up);"></div></div>
           <div class="risk-score">7.5</div>
         </div>
         <div class="risk-item">
@@ -790,14 +792,14 @@
     <div style="margin-top:28px;">
       <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">核心结论</div>
       <div style="font-size:13px;line-height:2;color:var(--text-secondary);">
-        7月7日行情本质是<span style="color:var(--accent-rose);font-weight:600;">"全面防御 + 半导体结构性抱团"</span>。五大信号值得重视：
+        7月7日行情本质是<span style="color:var(--accent-up);font-weight:600;">"全面防御 + 半导体结构性抱团"</span>。五大信号值得重视：
       </div>
       <div style="font-size:13px;line-height:2.1;color:var(--text-secondary);margin-top:12px;">
-        ① <strong style="color:var(--accent-rose);">沪指失守4000</strong>——关键心理关口跌破，短期若不能快速收复，可能触发止损盘加速出逃。<br><br>
+        ① <strong style="color:var(--accent-up);">沪指失守4000</strong>——关键心理关口跌破，短期若不能快速收复，可能触发止损盘加速出逃。<br><br>
         ② <strong style="color:var(--accent-copper);">半导体一枝独秀</strong>——先进封装+60.82亿、中芯国际+48.14亿、大基金+47.61亿，三大概念合计净流入156亿，是唯一具备资金合力的方向。<br><br>
-        ③ <strong style="color:var(--accent-rose);">炸板率41.1%</strong>——远超25%警戒线，高位接力容错率极低，短线应全面降低仓位。<br><br>
+        ③ <strong style="color:var(--accent-up);">炸板率41.1%</strong>——远超25%警戒线，高位接力容错率极低，短线应全面降低仓位。<br><br>
         ④ <strong style="color:var(--accent-copper);">食品有色补跌</strong>——此前防御方向（猪肉/煤炭/食品）今日全线补跌，市场已无真正的"避风港"。<br><br>
-        ⑤ <strong style="color:var(--accent-sage);">华天科技龙虎榜15.77亿</strong>——与先进封装资金流共振，封测方向可能成为明日修复先锋。
+        ⑤ <strong style="color:var(--accent-down);">华天科技龙虎榜15.77亿</strong>——与先进封装资金流共振，封测方向可能成为明日修复先锋。
       </div>
     </div>
 
