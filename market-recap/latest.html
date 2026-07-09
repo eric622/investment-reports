@@ -6,38 +6,33 @@
 <title>全球股市早盘复盘 · 2026年7月9日</title>
 <style>
   :root{
-    --bg-base:#EBE7E0;
-    --bg-card:#F2EFEA;
-    --bg-elevated:#FAF8F5;
-    --bg-glass:rgba(250,248,245,0.72);
-    --text-primary:#3C3835;
-    --text-secondary:#78736D;
-    --text-tertiary:#A8A39C;
-    --border-subtle:rgba(180,174,166,0.35);
-    --border-card:rgba(190,184,175,0.25);
-    --accent-up:#D95555;
-    --accent-down:#5DA06E;
-    --accent-up-bg:rgba(217,85,85,0.07);
-    --accent-down-bg:rgba(93,160,110,0.07);
-    --accent-slate:#7F8B8E;
-    --accent-copper:#B09578;
-    --accent-mauve:#A595A2;
-    --shadow-sm:none;
-    --shadow-md:0 1px 40px rgba(160,150,140,0.05);
-    --shadow-lg:0 1px 60px rgba(160,150,140,0.07);
-    --radius-sm:4px;
-    --radius-md:6px;
-    --radius-lg:8px;
-    --radius-xl:8px;
-    --font-display:"SF Pro Display",-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;
-    --font-body:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    --bg:#0E0F12;
+    --bg-elevated:#16181D;
+    --bg-hover:#1C1F26;
+    --bg-signal:#1A1D24;
+    --text-primary:#E8E6E3;
+    --text-secondary:#9B9B9F;
+    --text-tertiary:#5C5E66;
+    --border:rgba(255,255,255,0.06);
+    --border-strong:rgba(255,255,255,0.12);
+    --up:#E5484D;
+    --down:#46A758;
+    --up-glow:rgba(229,72,77,0.12);
+    --down-glow:rgba(70,167,88,0.12);
+    --amber:#F5A623;
+    --slate:#7B8FA0;
+    --copper:#B09578;
+    --mauve:#A595A2;
+    --mono:"SF Mono","JetBrains Mono",monospace;
+    --sans:"SF Pro Display",-apple-system,"PingFang SC",sans-serif;
+    --text:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
 
   body{
     font-family:var(--font-body);
-    background:var(--bg-base);
+    background:var(--bg);
     color:var(--text-primary);
     line-height:1.75;
     -webkit-font-smoothing:antialiased;
@@ -45,25 +40,25 @@
     min-height:100vh;
   }
 
-  /* ===== 背景水彩纹理层 ===== */
+  /* ===== 终端网格背景 ===== */
   body::before{
     content:'';
     position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 15%,rgba(160,155,145,0.12) 0%,transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 70%,rgba(150,145,155,0.10) 0%,transparent 60%),
-      radial-gradient(ellipse 50% 40% at 50% 85%,rgba(145,155,140,0.08) 0%,transparent 50%);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+    background-size:48px 48px;
   }
 
   /* ===== 导航栏 ===== */
   .navbar{
     display:flex;align-items:center;gap:8px;
     padding:12px 0;margin-bottom:48px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .nav-btn{
     display:inline-flex;align-items:center;gap:6px;
-    padding:8px 16px;border-radius:var(--radius-sm);
+    padding:8px 16px;border-radius:6px;
     font-size:13px;font-weight:600;
     text-decoration:none;color:var(--text-secondary);
     transition:all 0.2s;
@@ -71,13 +66,13 @@
   }
   .nav-btn:hover{
     color:var(--text-primary);
-    background:rgba(200,195,188,0.12);
-    border-color:var(--border-card);
+    background:rgba(255,255,255,0.12);
+    border-color:var(--border);
   }
   .nav-btn.active{
     color:var(--text-primary);
-    background:rgba(200,195,188,0.15);
-    border-color:var(--border-card);
+    background:rgba(255,255,255,0.15);
+    border-color:var(--border);
   }
   .nav-spacer{flex:1;}
   .nav-breadcrumb{
@@ -85,7 +80,7 @@
     display:flex;align-items:center;gap:6px;
   }
   .nav-breadcrumb a{color:var(--text-secondary);text-decoration:none;}
-  .nav-breadcrumb a:hover{color:var(--accent-down);}
+  .nav-breadcrumb a:hover{color:var(--down);}
   .nav-breadcrumb .sep{color:var(--text-tertiary);}
 
   /* ===== 主容器 ===== */
@@ -100,7 +95,7 @@
   .header{
     margin-bottom:56px;
     padding-bottom:32px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .header .eyebrow{
     font-size:11px;font-weight:600;letter-spacing:0.15em;
@@ -125,17 +120,17 @@
   .kpi-strip{
     display:flex;gap:0;
     margin-bottom:48px;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
     overflow:hidden;
   }
   .kpi-item{
     flex:1;padding:20px 16px;text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
     transition:background 0.2s;
   }
   .kpi-item:last-child{border-right:none;}
-  .kpi-item:hover{background:rgba(200,195,188,0.08);}
+  .kpi-item:hover{background:rgba(255,255,255,0.08);}
   .kpi-item .kpi-val{
     font-family:var(--font-display);
     font-size:28px;font-weight:700;letter-spacing:-0.02em;
@@ -145,8 +140,8 @@
     font-size:11px;color:var(--text-tertiary);font-weight:500;
     letter-spacing:0.06em;text-transform:uppercase;
   }
-  .kpi-down{color:var(--accent-down);}
-  .kpi-up{color:var(--accent-up);}
+  .kpi-down{color:var(--down);}
+  .kpi-up{color:var(--up);}
 
   /* ===== 通栏模块（替代卡片） ===== */
   .card{
@@ -165,8 +160,8 @@
   }
   .card .card-num{
     display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:var(--radius-sm);
-    background:rgba(160,155,148,0.12);
+    width:28px;height:28px;border-radius:6px;
+    background:rgba(255,255,255,0.12);
     color:var(--text-secondary);
     font-size:11px;font-weight:700;
     margin-right:12px;flex-shrink:0;
@@ -186,7 +181,7 @@
   .card + .card{
     margin-top:0;
     padding-top:48px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     margin-bottom:0;
   }
 
@@ -196,19 +191,19 @@
     grid-template-columns:repeat(6,1fr);
     gap:0;
     margin-bottom:24px;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
   }
   .index-tile{
     position:relative;
     padding:18px 12px;
     text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
     transition:background 0.2s;
   }
   .index-tile:last-child{border-right:none;}
   .index-tile:hover{
-    background:rgba(210,205,198,0.10);
+    background:rgba(255,255,255,0.10);
   }
   .index-tile .idx-name{
     font-size:11px;color:var(--text-tertiary);font-weight:500;
@@ -227,13 +222,13 @@
   .stat-row{
     display:flex;gap:0;
     margin:20px 0;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
     overflow:hidden;
   }
   .stat-cell{
     flex:1;padding:14px 12px;text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
   }
   .stat-cell:last-child{border-right:none;}
   .stat-cell .stat-num{
@@ -255,38 +250,38 @@
     font-size:10px;font-weight:600;color:var(--text-tertiary);
     text-transform:uppercase;letter-spacing:0.08em;
     text-align:left;padding:0 0 10px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .tbl thead th:last-child{text-align:right;}
   .tbl tbody td{
     padding:9px 0;
-    border-bottom:1px solid rgba(200,195,188,0.15);
+    border-bottom:1px solid rgba(255,255,255,0.15);
     color:var(--text-primary);
   }
   .tbl tbody td:last-child{text-align:right;}
-  .tbl tbody tr:hover td{background:rgba(210,205,198,0.12);}
+  .tbl tbody tr:hover td{background:rgba(255,255,255,0.12);}
   .tbl .stock{font-weight:600;}
-  .tbl .chg-up{color:var(--accent-up);font-weight:600;}
-  .tbl .chg-dn{color:var(--accent-down);font-weight:600;}
+  .tbl .chg-up{color:var(--up);font-weight:600;}
+  .tbl .chg-dn{color:var(--down);font-weight:600;}
   .tbl .sentiment{font-weight:600;font-size:12px;}
 
   /* ===== 分析条 ===== */
   .insight{
     margin:20px 0 0;
     padding:0 0 0 14px;
-    border-left:2px solid var(--accent-slate);
+    border-left:2px solid var(--slate);
     font-size:13px;line-height:1.85;color:var(--text-secondary);
   }
-  .insight.up{border-left-color:var(--accent-up);}
-  .insight.down{border-left-color:var(--accent-down);}
-  .insight.copper{border-left-color:var(--accent-copper);}
+  .insight.up{border-left-color:var(--up);}
+  .insight.down{border-left-color:var(--down);}
+  .insight.copper{border-left-color:var(--copper);}
 
   /* ===== 信号块 ===== */
   .signal{
     margin:20px 0;
     padding:16px 20px;
-    background:rgba(200,195,188,0.08);
-    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,0.08);
+    border-radius:6px;
     font-size:13px;line-height:1.8;color:var(--text-secondary);
   }
   .signal strong{color:var(--text-primary);}
@@ -296,7 +291,7 @@
     position:relative;
     padding-top:40px;
     margin-top:40px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     box-shadow:none;
   }
   .outlook h2{
@@ -314,7 +309,7 @@
   .risk-list{margin:20px 0;}
   .risk-item{
     display:flex;align-items:center;padding:10px 0;
-    border-bottom:1px solid rgba(200,195,188,0.12);
+    border-bottom:1px solid rgba(255,255,255,0.12);
     gap:14px;
   }
   .risk-item .risk-name{
@@ -324,7 +319,7 @@
   }
   .risk-item .risk-bar{
     flex:1;height:4px;
-    background:rgba(200,195,188,0.2);
+    background:rgba(255,255,255,0.2);
     border-radius:2px;overflow:hidden;
   }
   .risk-item .risk-fill{
@@ -341,12 +336,12 @@
     margin:28px 0 0;
     padding:18px 20px;
     background:rgba(200,180,175,0.10);
-    border-left:2px solid var(--accent-up);
-    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    border-left:2px solid var(--up);
+    border-radius:0 6px 6px 0;
   }
   .devils .da-tag{
     font-size:10px;font-weight:700;letter-spacing:0.12em;
-    color:var(--accent-up);
+    color:var(--up);
     margin-bottom:8px;
   }
   .devils .da-text{
@@ -356,27 +351,27 @@
   /* ===== 页脚 ===== */
   .footer{
     margin-top:48px;padding-top:20px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     display:flex;justify-content:space-between;
     font-size:11px;color:var(--text-tertiary);
   }
 
   /* ===== 颜色工具 ===== */
-  .c-up{color:var(--accent-up);}
-  .c-down{color:var(--accent-down);}
-  .c-slate{color:var(--accent-slate);}
-  .c-copper{color:var(--accent-copper);}
-  .c-mauve{color:var(--accent-mauve);}
+  .c-up{color:var(--up);}
+  .c-down{color:var(--down);}
+  .c-slate{color:var(--slate);}
+  .c-copper{color:var(--copper);}
+  .c-mauve{color:var(--mauve);}
 
   /* ===== 响应式 ===== */
   @media(max-width:768px){
     .page{padding:40px 16px 64px;}
     .header h1{font-size:26px;}
     .kpi-strip{flex-wrap:wrap;}
-    .kpi-item{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .kpi-item{flex:1 1 33%;border-bottom:1px solid var(--border);}
     .index-row{grid-template-columns:repeat(3,1fr);}
     .stat-row{flex-wrap:wrap;}
-    .stat-cell{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .stat-cell{flex:1 1 33%;border-bottom:1px solid var(--border);}
     .card{padding:24px 18px;}
     .risk-item .risk-name{width:80px;font-size:11px;}
   }
@@ -429,7 +424,7 @@
       <div class="kpi-label">纳斯达克 25,870.65</div>
     </div>
     <div class="kpi-item">
-      <div class="kpi-val" style="color:var(--accent-up);">+5.93%</div>
+      <div class="kpi-val" style="color:var(--up);">+5.93%</div>
       <div class="kpi-label">WTI原油 $73.04</div>
     </div>
   </div>
@@ -659,11 +654,11 @@
 
     <div class="stat-row">
       <div class="stat-cell">
-        <div class="stat-num" style="color:var(--accent-up);">$73.04</div>
+        <div class="stat-num" style="color:var(--up);">$73.04</div>
         <div class="stat-label">WTI原油 +5.93%</div>
       </div>
       <div class="stat-cell">
-        <div class="stat-num" style="color:var(--accent-up);">$78.88</div>
+        <div class="stat-num" style="color:var(--up);">$78.88</div>
         <div class="stat-label">布伦特原油 +3.87%</div>
       </div>
       <div class="stat-cell">
@@ -760,35 +755,35 @@
         <tr>
           <td class="stock">半导体</td>
           <td class="chg-dn">闪迪盘前−5%、美光−4%</td>
-          <td style="color:var(--accent-up);">三星−6.25%、SK海力士−5.68%</td>
-          <td style="color:var(--accent-down);">科技主线逆势领涨</td>
+          <td style="color:var(--up);">三星−6.25%、SK海力士−5.68%</td>
+          <td style="color:var(--down);">科技主线逆势领涨</td>
           <td class="sentiment c-up">强负共振</td>
         </tr>
         <tr>
           <td class="stock">AI/云计算</td>
-          <td style="color:var(--accent-down);">纳指+0.20%尾盘翻红</td>
-          <td style="color:var(--accent-down);">恒生科技+4.97%</td>
-          <td style="color:var(--accent-down);">国资云+3.03%、华为欧拉+2.13%</td>
+          <td style="color:var(--down);">纳指+0.20%尾盘翻红</td>
+          <td style="color:var(--down);">恒生科技+4.97%</td>
+          <td style="color:var(--down);">国资云+3.03%、华为欧拉+2.13%</td>
           <td class="sentiment c-down">正共振</td>
         </tr>
         <tr>
           <td class="stock">能源/石化</td>
-          <td style="color:var(--accent-down);">油价飙升利好能源股</td>
-          <td style="color:var(--accent-down);">—</td>
-          <td style="color:var(--accent-down);">油气开采+3.52%领涨</td>
+          <td style="color:var(--down);">油价飙升利好能源股</td>
+          <td style="color:var(--down);">—</td>
+          <td style="color:var(--down);">油气开采+3.52%领涨</td>
           <td class="sentiment c-down">正共振</td>
         </tr>
         <tr>
           <td class="stock">金融/银行</td>
           <td class="chg-up">金融板块−1.92%</td>
-          <td style="color:var(--accent-up);">德意志银行−4.3%</td>
-          <td style="color:var(--accent-down);">银行+0.72%抗跌</td>
+          <td style="color:var(--up);">德意志银行−4.3%</td>
+          <td style="color:var(--down);">银行+0.72%抗跌</td>
           <td class="sentiment c-up">弱负共振</td>
         </tr>
         <tr>
           <td class="stock">汽车</td>
-          <td style="color:var(--accent-up);">—</td>
-          <td style="color:var(--accent-up);">雷诺−4.3%</td>
+          <td style="color:var(--up);">—</td>
+          <td style="color:var(--up);">雷诺−4.3%</td>
           <td class="chg-up">汽车整车−1.38%</td>
           <td class="sentiment c-up">弱负共振</td>
         </tr>
@@ -941,37 +936,37 @@
         <tr>
           <td class="stock">韩国KOSPI暴跌5.35%</td>
           <td class="sentiment c-up">偏空</td>
-          <td style="color:var(--accent-up);">★★★★☆</td>
+          <td style="color:var(--up);">★★★★☆</td>
           <td style="color:var(--text-secondary);">亚太情绪传导，半导体板块承压最重</td>
         </tr>
         <tr>
           <td class="stock">美伊冲突升级</td>
           <td class="sentiment c-up">偏空</td>
-          <td style="color:var(--accent-up);">★★★★★</td>
+          <td style="color:var(--up);">★★★★★</td>
           <td style="color:var(--text-secondary);">油价飙升推升通胀预期，全球风险偏好骤降</td>
         </tr>
         <tr>
           <td class="stock">欧股暴跌</td>
           <td class="sentiment c-up">偏空</td>
-          <td style="color:var(--accent-up);">★★★☆☆</td>
+          <td style="color:var(--up);">★★★☆☆</td>
           <td style="color:var(--text-secondary);">间接传导，A股与欧股相关性弱于美股</td>
         </tr>
         <tr>
           <td class="stock">港股逆势大涨+2.99%</td>
           <td class="sentiment c-down">偏多</td>
-          <td style="color:var(--accent-down);">★★★★☆</td>
+          <td style="color:var(--down);">★★★★☆</td>
           <td style="color:var(--text-secondary);">资金从日韩轮动至中港，提供关键缓冲</td>
         </tr>
         <tr>
           <td class="stock">油价飙升+5.93%</td>
           <td style="color:var(--text-primary);">分化</td>
-          <td style="color:var(--accent-copper);">★★★☆☆</td>
+          <td style="color:var(--copper);">★★★☆☆</td>
           <td style="color:var(--text-secondary);">利好石化/油气板块，利空航空/化工下游</td>
         </tr>
         <tr>
           <td class="stock">科技主线资金合力</td>
           <td class="sentiment c-down">偏多</td>
-          <td style="color:var(--accent-down);">★★★★☆</td>
+          <td style="color:var(--down);">★★★★☆</td>
           <td style="color:var(--text-secondary);">AI/信创方向资金持续流入，结构性机会存在</td>
         </tr>
       </tbody>
@@ -983,10 +978,10 @@
 
     <div class="signal">
       <strong>重点关注方向</strong>
-      <br>① <strong style="color:var(--accent-up);">油气/石化板块</strong>——油价飙升最直接受益者，昨日已+3.52%领涨，今日有望延续。关注科力股份、石化油服等。
-      <br>② <strong style="color:var(--accent-down);">科技/信创主线</strong>——国资云+3.03%、华为欧拉+2.13%，资金合力明确。关注浪潮信息（龙虎榜净买7.31亿）、绿盟科技（20%涨停）、深信服（20%涨停）。
-      <br>③ <strong style="color:var(--accent-copper);">黄金/避险资产</strong>——虽昨日金价承压，但若恐慌情绪蔓延至A股，黄金股可能逆势走强。
-      <br>④ <strong style="color:var(--accent-up);">规避方向</strong>——半导体（受韩国暴跌情绪传导）、汽车（全球汽车股同步走弱）、航空（油价飙升利空）。
+      <br>① <strong style="color:var(--up);">油气/石化板块</strong>——油价飙升最直接受益者，昨日已+3.52%领涨，今日有望延续。关注科力股份、石化油服等。
+      <br>② <strong style="color:var(--down);">科技/信创主线</strong>——国资云+3.03%、华为欧拉+2.13%，资金合力明确。关注浪潮信息（龙虎榜净买7.31亿）、绿盟科技（20%涨停）、深信服（20%涨停）。
+      <br>③ <strong style="color:var(--copper);">黄金/避险资产</strong>——虽昨日金价承压，但若恐慌情绪蔓延至A股，黄金股可能逆势走强。
+      <br>④ <strong style="color:var(--up);">规避方向</strong>——半导体（受韩国暴跌情绪传导）、汽车（全球汽车股同步走弱）、航空（油价飙升利空）。
     </div>
   </div>
 
@@ -998,27 +993,27 @@
     <div class="risk-list">
       <div class="risk-item">
         <div class="risk-name">地缘冲突风险</div>
-        <div class="risk-bar"><div class="risk-fill" style="width:90%;background:var(--accent-up);"></div></div>
+        <div class="risk-bar"><div class="risk-fill" style="width:90%;background:var(--up);"></div></div>
         <div class="risk-score">9.0</div>
       </div>
       <div class="risk-item">
         <div class="risk-name">全球恐慌传导</div>
-        <div class="risk-bar"><div class="risk-fill" style="width:85%;background:var(--accent-up);"></div></div>
+        <div class="risk-bar"><div class="risk-fill" style="width:85%;background:var(--up);"></div></div>
         <div class="risk-score">8.5</div>
       </div>
       <div class="risk-item">
         <div class="risk-name">油价飙升风险</div>
-        <div class="risk-bar"><div class="risk-fill" style="width:80%;background:var(--accent-up);"></div></div>
+        <div class="risk-bar"><div class="risk-fill" style="width:80%;background:var(--up);"></div></div>
         <div class="risk-score">8.0</div>
       </div>
       <div class="risk-item">
         <div class="risk-name">半导体补跌风险</div>
-        <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--accent-copper);"></div></div>
+        <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--copper);"></div></div>
         <div class="risk-score">7.5</div>
       </div>
       <div class="risk-item">
         <div class="risk-name">人民币贬值压力</div>
-        <div class="risk-bar"><div class="risk-fill" style="width:50%;background:var(--accent-slate);"></div></div>
+        <div class="risk-bar"><div class="risk-fill" style="width:50%;background:var(--slate);"></div></div>
         <div class="risk-score">5.0</div>
       </div>
     </div>

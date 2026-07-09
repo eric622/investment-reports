@@ -6,38 +6,33 @@
 <title>A股盘后深度复盘 · 2026年7月8日</title>
 <style>
   :root{
-    --bg-base:#EBE7E0;
-    --bg-card:#F2EFEA;
-    --bg-elevated:#FAF8F5;
-    --bg-glass:rgba(250,248,245,0.72);
-    --text-primary:#3C3835;
-    --text-secondary:#78736D;
-    --text-tertiary:#A8A39C;
-    --border-subtle:rgba(180,174,166,0.35);
-    --border-card:rgba(190,184,175,0.25);
-    --accent-up:#D95555;
-    --accent-down:#5DA06E;
-    --accent-up-bg:rgba(217,85,85,0.07);
-    --accent-down-bg:rgba(93,160,110,0.07);
-    --accent-slate:#7F8B8E;
-    --accent-copper:#B09578;
-    --accent-mauve:#A595A2;
-    --shadow-sm:none;
-    --shadow-md:0 1px 40px rgba(160,150,140,0.05);
-    --shadow-lg:0 1px 60px rgba(160,150,140,0.07);
-    --radius-sm:4px;
-    --radius-md:6px;
-    --radius-lg:8px;
-    --radius-xl:8px;
-    --font-display:"SF Pro Display",-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;
-    --font-body:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    --bg:#0E0F12;
+    --bg-elevated:#16181D;
+    --bg-hover:#1C1F26;
+    --bg-signal:#1A1D24;
+    --text-primary:#E8E6E3;
+    --text-secondary:#9B9B9F;
+    --text-tertiary:#5C5E66;
+    --border:rgba(255,255,255,0.06);
+    --border-strong:rgba(255,255,255,0.12);
+    --up:#E5484D;
+    --down:#46A758;
+    --up-glow:rgba(229,72,77,0.12);
+    --down-glow:rgba(70,167,88,0.12);
+    --amber:#F5A623;
+    --slate:#7B8FA0;
+    --copper:#B09578;
+    --mauve:#A595A2;
+    --mono:"SF Mono","JetBrains Mono",monospace;
+    --sans:"SF Pro Display",-apple-system,"PingFang SC",sans-serif;
+    --text:"SF Pro Text",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
 
   body{
     font-family:var(--font-body);
-    background:var(--bg-base);
+    background:var(--bg);
     color:var(--text-primary);
     line-height:1.75;
     -webkit-font-smoothing:antialiased;
@@ -45,25 +40,25 @@
     min-height:100vh;
   }
 
-  /* ===== 背景水彩纹理层 ===== */
+  /* ===== 终端网格背景 ===== */
   body::before{
     content:'';
     position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 15%,rgba(160,155,145,0.12) 0%,transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 70%,rgba(150,145,155,0.10) 0%,transparent 60%),
-      radial-gradient(ellipse 50% 40% at 50% 85%,rgba(145,155,140,0.08) 0%,transparent 50%);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+    background-size:48px 48px;
   }
 
   /* ===== 导航栏 ===== */
   .navbar{
     display:flex;align-items:center;gap:8px;
     padding:12px 0;margin-bottom:48px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .nav-btn{
     display:inline-flex;align-items:center;gap:6px;
-    padding:8px 16px;border-radius:var(--radius-sm);
+    padding:8px 16px;border-radius:6px;
     font-size:13px;font-weight:600;
     text-decoration:none;color:var(--text-secondary);
     transition:all 0.2s;
@@ -71,13 +66,13 @@
   }
   .nav-btn:hover{
     color:var(--text-primary);
-    background:rgba(200,195,188,0.12);
-    border-color:var(--border-card);
+    background:rgba(255,255,255,0.12);
+    border-color:var(--border);
   }
   .nav-btn.active{
     color:var(--text-primary);
-    background:rgba(200,195,188,0.15);
-    border-color:var(--border-card);
+    background:rgba(255,255,255,0.15);
+    border-color:var(--border);
   }
   .nav-spacer{flex:1;}
   .nav-breadcrumb{
@@ -85,7 +80,7 @@
     display:flex;align-items:center;gap:6px;
   }
   .nav-breadcrumb a{color:var(--text-secondary);text-decoration:none;}
-  .nav-breadcrumb a:hover{color:var(--accent-down);}
+  .nav-breadcrumb a:hover{color:var(--down);}
   .nav-breadcrumb .sep{color:var(--text-tertiary);}
 
   /* ===== 主容器 ===== */
@@ -100,7 +95,7 @@
   .header{
     margin-bottom:56px;
     padding-bottom:32px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .header .eyebrow{
     font-size:11px;font-weight:600;letter-spacing:0.15em;
@@ -125,17 +120,17 @@
   .kpi-strip{
     display:flex;gap:0;
     margin-bottom:48px;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
     overflow:hidden;
   }
   .kpi-item{
     flex:1;padding:20px 16px;text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
     transition:background 0.2s;
   }
   .kpi-item:last-child{border-right:none;}
-  .kpi-item:hover{background:rgba(200,195,188,0.08);}
+  .kpi-item:hover{background:rgba(255,255,255,0.08);}
   .kpi-item .kpi-val{
     font-family:var(--font-display);
     font-size:28px;font-weight:700;letter-spacing:-0.02em;
@@ -145,8 +140,8 @@
     font-size:11px;color:var(--text-tertiary);font-weight:500;
     letter-spacing:0.06em;text-transform:uppercase;
   }
-  .kpi-down{color:var(--accent-down);}
-  .kpi-up{color:var(--accent-up);}
+  .kpi-down{color:var(--down);}
+  .kpi-up{color:var(--up);}
 
   /* ===== 通栏模块（替代卡片） ===== */
   .card{
@@ -165,8 +160,8 @@
   }
   .card .card-num{
     display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:var(--radius-sm);
-    background:rgba(160,155,148,0.12);
+    width:28px;height:28px;border-radius:6px;
+    background:rgba(255,255,255,0.12);
     color:var(--text-secondary);
     font-size:11px;font-weight:700;
     margin-right:12px;flex-shrink:0;
@@ -186,7 +181,7 @@
   .card + .card{
     margin-top:0;
     padding-top:48px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     margin-bottom:0;
   }
 
@@ -196,19 +191,19 @@
     grid-template-columns:repeat(6,1fr);
     gap:0;
     margin-bottom:24px;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
   }
   .index-tile{
     position:relative;
     padding:18px 12px;
     text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
     transition:background 0.2s;
   }
   .index-tile:last-child{border-right:none;}
   .index-tile:hover{
-    background:rgba(210,205,198,0.10);
+    background:rgba(255,255,255,0.10);
   }
   .index-tile .idx-name{
     font-size:11px;color:var(--text-tertiary);font-weight:500;
@@ -227,13 +222,13 @@
   .stat-row{
     display:flex;gap:0;
     margin:20px 0;
-    border-top:1px solid var(--border-subtle);
-    border-bottom:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
     overflow:hidden;
   }
   .stat-cell{
     flex:1;padding:14px 12px;text-align:center;
-    border-right:1px solid var(--border-card);
+    border-right:1px solid var(--border);
   }
   .stat-cell:last-child{border-right:none;}
   .stat-cell .stat-num{
@@ -255,38 +250,38 @@
     font-size:10px;font-weight:600;color:var(--text-tertiary);
     text-transform:uppercase;letter-spacing:0.08em;
     text-align:left;padding:0 0 10px;
-    border-bottom:1px solid var(--border-subtle);
+    border-bottom:1px solid var(--border);
   }
   .tbl thead th:last-child{text-align:right;}
   .tbl tbody td{
     padding:9px 0;
-    border-bottom:1px solid rgba(200,195,188,0.15);
+    border-bottom:1px solid rgba(255,255,255,0.15);
     color:var(--text-primary);
   }
   .tbl tbody td:last-child{text-align:right;}
-  .tbl tbody tr:hover td{background:rgba(210,205,198,0.12);}
+  .tbl tbody tr:hover td{background:rgba(255,255,255,0.12);}
   .tbl .stock{font-weight:600;}
-  .tbl .chg-up{color:var(--accent-up);font-weight:600;}
-  .tbl .chg-dn{color:var(--accent-down);font-weight:600;}
+  .tbl .chg-up{color:var(--up);font-weight:600;}
+  .tbl .chg-dn{color:var(--down);font-weight:600;}
   .tbl .sentiment{font-weight:600;font-size:12px;}
 
   /* ===== 分析条 ===== */
   .insight{
     margin:20px 0 0;
     padding:0 0 0 14px;
-    border-left:2px solid var(--accent-slate);
+    border-left:2px solid var(--slate);
     font-size:13px;line-height:1.85;color:var(--text-secondary);
   }
-  .insight.up{border-left-color:var(--accent-up);}
-  .insight.down{border-left-color:var(--accent-down);}
-  .insight.copper{border-left-color:var(--accent-copper);}
+  .insight.up{border-left-color:var(--up);}
+  .insight.down{border-left-color:var(--down);}
+  .insight.copper{border-left-color:var(--copper);}
 
   /* ===== 信号块 ===== */
   .signal{
     margin:20px 0;
     padding:16px 20px;
-    background:rgba(200,195,188,0.08);
-    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,0.08);
+    border-radius:6px;
     font-size:13px;line-height:1.8;color:var(--text-secondary);
   }
   .signal strong{color:var(--text-primary);}
@@ -296,7 +291,7 @@
     position:relative;
     padding-top:40px;
     margin-top:40px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     box-shadow:none;
   }
   .outlook h2{
@@ -314,7 +309,7 @@
   .risk-list{margin:20px 0;}
   .risk-item{
     display:flex;align-items:center;padding:10px 0;
-    border-bottom:1px solid rgba(200,195,188,0.12);
+    border-bottom:1px solid rgba(255,255,255,0.12);
     gap:14px;
   }
   .risk-item .risk-name{
@@ -324,7 +319,7 @@
   }
   .risk-item .risk-bar{
     flex:1;height:4px;
-    background:rgba(200,195,188,0.2);
+    background:rgba(255,255,255,0.2);
     border-radius:2px;overflow:hidden;
   }
   .risk-item .risk-fill{
@@ -341,12 +336,12 @@
     margin:28px 0 0;
     padding:18px 20px;
     background:rgba(200,180,175,0.10);
-    border-left:2px solid var(--accent-up);
-    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    border-left:2px solid var(--up);
+    border-radius:0 6px 6px 0;
   }
   .devils .da-tag{
     font-size:10px;font-weight:700;letter-spacing:0.12em;
-    color:var(--accent-up);
+    color:var(--up);
     margin-bottom:8px;
   }
   .devils .da-text{
@@ -356,27 +351,27 @@
   /* ===== 页脚 ===== */
   .footer{
     margin-top:48px;padding-top:20px;
-    border-top:1px solid var(--border-subtle);
+    border-top:1px solid var(--border);
     display:flex;justify-content:space-between;
     font-size:11px;color:var(--text-tertiary);
   }
 
   /* ===== 颜色工具 ===== */
-  .c-up{color:var(--accent-up);}
-  .c-down{color:var(--accent-down);}
-  .c-slate{color:var(--accent-slate);}
-  .c-copper{color:var(--accent-copper);}
-  .c-mauve{color:var(--accent-mauve);}
+  .c-up{color:var(--up);}
+  .c-down{color:var(--down);}
+  .c-slate{color:var(--slate);}
+  .c-copper{color:var(--copper);}
+  .c-mauve{color:var(--mauve);}
 
   /* ===== 响应式 ===== */
   @media(max-width:768px){
     .page{padding:40px 16px 64px;}
     .header h1{font-size:26px;}
     .kpi-strip{flex-wrap:wrap;}
-    .kpi-item{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .kpi-item{flex:1 1 33%;border-bottom:1px solid var(--border);}
     .index-row{grid-template-columns:repeat(3,1fr);}
     .stat-row{flex-wrap:wrap;}
-    .stat-cell{flex:1 1 33%;border-bottom:1px solid var(--border-card);}
+    .stat-cell{flex:1 1 33%;border-bottom:1px solid var(--border);}
     .card{padding:24px 18px;}
     .risk-item .risk-name{width:80px;font-size:11px;}
   }
@@ -429,7 +424,7 @@
       <div class="kpi-label">涨跌比 1,192 / 1,374</div>
     </div>
     <div class="kpi-item">
-      <div class="kpi-val" style="color:var(--accent-up);">23.0%</div>
+      <div class="kpi-val" style="color:var(--up);">23.0%</div>
       <div class="kpi-label">炸板率 47涨停 / 41跌停</div>
     </div>
   </div>
@@ -576,7 +571,7 @@
       </tbody>
     </table>
 
-    <div class="insight sage">
+    <div class="insight down">
       科技主线清晰且成体系：国资云+3.03%、华为欧拉+2.13%、财税数字化+2.09%、数据安全+2.08%、网络安全+2.06%——华为生态与信创/数据安全方向共振，并与涨停集中（软件开发5家、计算机设备4家、消费电子4家）相互印证。油气开采及服务+3.52%受美伊冲突地缘驱动；旅游及酒店+1.68%则受国务院《旅游强国建设"十五五"规划》（国函〔2026〕61号）政策催化，到2030年目标国内出游83亿人次、文旅花费7.7万亿。
     </div>
   </div>
@@ -623,7 +618,7 @@
     </table>
 
     <div class="signal">
-      <strong>核心信号</strong> 概念层面科技获资金净流入（AI智能体+54.77亿、云计算+50.84亿、网络安全+46.82亿），但<strong style="color:var(--accent-up);">国资云概念却净流出−27.21亿、AIGC净流出−23.70亿</strong>——资金在科技内部出现明显的高低切换与分歧，并非全面进攻。行业层面电子信息净流入+124.18亿为全市场最强承接方向，金融+24.27亿、房地产+10.44亿次之；机械−55.71亿、电子器件−55.35亿、化工−54.19亿居流出前列。注：以上为同花顺/新浪概念板块资金流，不等同于全市场主力净流入。
+      <strong>核心信号</strong> 概念层面科技获资金净流入（AI智能体+54.77亿、云计算+50.84亿、网络安全+46.82亿），但<strong style="color:var(--up);">国资云概念却净流出−27.21亿、AIGC净流出−23.70亿</strong>——资金在科技内部出现明显的高低切换与分歧，并非全面进攻。行业层面电子信息净流入+124.18亿为全市场最强承接方向，金融+24.27亿、房地产+10.44亿次之；机械−55.71亿、电子器件−55.35亿、化工−54.19亿居流出前列。注：以上为同花顺/新浪概念板块资金流，不等同于全市场主力净流入。
     </div>
   </div>
 
@@ -691,7 +686,7 @@
       </tbody>
     </table>
 
-    <div class="insight sage">
+    <div class="insight down">
       龙虎榜净额集中科技：浪潮信息（AI服务器）净买7.31亿、网宿科技（AI智能体/算力）5.87亿、深信服（网络安全）3.88亿，三者合计超17亿，与板块资金流（AI智能体+54.77亿、云计算+50.84亿、网络安全+46.82亿净流入）形成共振——机构资金在科技硬方向主动加仓。东岳硅材（有机硅）净买4.64亿属周期弹性品种。
     </div>
   </div>
@@ -779,27 +774,27 @@
       <div class="risk-list">
         <div class="risk-item">
           <div class="risk-name">美伊地缘风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--accent-up);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:75%;background:var(--up);"></div></div>
           <div class="risk-score">7.5</div>
         </div>
         <div class="risk-item">
           <div class="risk-name">炸板/断层风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:65%;background:var(--accent-up);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:65%;background:var(--up);"></div></div>
           <div class="risk-score">6.5</div>
         </div>
         <div class="risk-item">
           <div class="risk-name">资金流出风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:60%;background:var(--accent-copper);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:60%;background:var(--copper);"></div></div>
           <div class="risk-score">6.0</div>
         </div>
         <div class="risk-item">
           <div class="risk-name">风格切换风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:55%;background:var(--accent-copper);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:55%;background:var(--copper);"></div></div>
           <div class="risk-score">5.5</div>
         </div>
         <div class="risk-item">
           <div class="risk-name">美股传导风险</div>
-          <div class="risk-bar"><div class="risk-fill" style="width:45%;background:var(--accent-slate);"></div></div>
+          <div class="risk-bar"><div class="risk-fill" style="width:45%;background:var(--slate);"></div></div>
           <div class="risk-score">4.5</div>
         </div>
       </div>
@@ -809,14 +804,14 @@
     <div style="margin-top:28px;">
       <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px;">核心结论</div>
       <div style="font-size:13px;line-height:2;color:var(--text-secondary);">
-        7月8日行情本质是<span style="color:var(--accent-up);font-weight:600;">"指数弱、结构强、科技独舞"</span>。五大信号值得重视：
+        7月8日行情本质是<span style="color:var(--up);font-weight:600;">"指数弱、结构强、科技独舞"</span>。五大信号值得重视：
       </div>
       <div style="font-size:13px;line-height:2.1;color:var(--text-secondary);margin-top:12px;">
-        ① <strong style="color:var(--accent-down);">沪指微跌−0.49%守住3970</strong>——但深证−1.87%、中小100−2.02%、北证50−2.59%重挫，市场极端分化，广度虽回暖（涨跌比0.87）仍未多头占优。<br><br>
-        ② <strong style="color:var(--accent-up);">科创50逆势+0.73%</strong>——科技（国资云+3.03%、华为欧拉+2.13%、网络安全+2.06%）成为唯一具备资金合力的主线，并与涨停集中（软件/计算机/消费电子）共振。<br><br>
-        ③ <strong style="color:var(--accent-copper);">港股强势切换</strong>——恒生+2.99%、恒生科技+4.97%，中国资产内部强弱切换，南向与政策预期驱动。<br><br>
-        ④ <strong style="color:var(--accent-copper);">美伊冲突主导全球</strong>——WTI原油+6.03%至74.69美元、美元指数重回101上方、黄金−1.22%至4,117美元，能源冲击与全球risk-off并存。<br><br>
-        ⑤ <strong style="color:var(--accent-down);">龙虎榜科技共振</strong>——浪潮信息/网宿科技/深信服净买入合计超17亿，机构主动加仓科技硬方向。
+        ① <strong style="color:var(--down);">沪指微跌−0.49%守住3970</strong>——但深证−1.87%、中小100−2.02%、北证50−2.59%重挫，市场极端分化，广度虽回暖（涨跌比0.87）仍未多头占优。<br><br>
+        ② <strong style="color:var(--up);">科创50逆势+0.73%</strong>——科技（国资云+3.03%、华为欧拉+2.13%、网络安全+2.06%）成为唯一具备资金合力的主线，并与涨停集中（软件/计算机/消费电子）共振。<br><br>
+        ③ <strong style="color:var(--copper);">港股强势切换</strong>——恒生+2.99%、恒生科技+4.97%，中国资产内部强弱切换，南向与政策预期驱动。<br><br>
+        ④ <strong style="color:var(--copper);">美伊冲突主导全球</strong>——WTI原油+6.03%至74.69美元、美元指数重回101上方、黄金−1.22%至4,117美元，能源冲击与全球risk-off并存。<br><br>
+        ⑤ <strong style="color:var(--down);">龙虎榜科技共振</strong>——浪潮信息/网宿科技/深信服净买入合计超17亿，机构主动加仓科技硬方向。
       </div>
     </div>
 
@@ -824,7 +819,7 @@
     <div class="devils">
       <div class="da-tag">保守风险论点 · 挑战看涨观点</div>
       <div class="da-text">
-        科技主线今日虽领涨，但<strong style="color:var(--accent-up);">国资云概念资金净流出−27.21亿、炸板率23%仍处高位、跌停41家</strong>——说明资金在科技内部高低切、并非全面进攻，更多是风险偏好收缩下的结构性抱团。更关键的是，美伊冲突若进一步外溢（霍尔木兹海峡实质封锁），油价飙涨将推升通胀预期、抬升美债收益率，A股科技估值将面临分母端压力，且今日"科技独红"在系统性risk-off中往往最易补跌。<br><br>
+        科技主线今日虽领涨，但<strong style="color:var(--up);">国资云概念资金净流出−27.21亿、炸板率23%仍处高位、跌停41家</strong>——说明资金在科技内部高低切、并非全面进攻，更多是风险偏好收缩下的结构性抱团。更关键的是，美伊冲突若进一步外溢（霍尔木兹海峡实质封锁），油价飙涨将推升通胀预期、抬升美债收益率，A股科技估值将面临分母端压力，且今日"科技独红"在系统性risk-off中往往最易补跌。<br><br>
         在北向资金转为净流入、炸板率稳定回落至20%以下之前，任何"科技主升"判断都应保留左侧博弈的谨慎。连板高标（兴业科技8板、恒尚节能7板）若断板，短线情绪可能快速退潮，建议总仓位维持中性偏防御。
       </div>
     </div>
