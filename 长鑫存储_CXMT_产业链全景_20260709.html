@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>长鑫存储(CXMT) 产业链全景 · A股标的系统梳理</title>
+<style>
+:root {--bg:#0E0F12;--card:#16181D;--border:rgba(255,255,255,0.06);--text:#C8CCD4;--muted:#7B8190;--accent:#5B9BD5;--up:#E5484D;--down:#46A758;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'SF Mono','Cascadia Code','JetBrains Mono','Fira Code',monospace;line-height:1.7;min-height:100vh;}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:48px 48px;}
+.container{max-width:1400px;margin:0 auto;padding:40px 32px;position:relative;z-index:1;}
+
+/* hero */
+.hero{text-align:center;padding:60px 0 40px;border-bottom:1px solid var(--border);margin-bottom:40px;}
+.hero h1{font-size:28px;font-weight:700;color:#E8ECF1;letter-spacing:-0.5px;margin-bottom:8px;}
+.hero .subtitle{font-size:14px;color:var(--muted);letter-spacing:1px;}
+.hero .meta-strip{display:flex;justify-content:center;gap:32px;margin-top:20px;font-size:12px;color:var(--muted);}
+
+/* sections */
+.section{margin-bottom:48px;}
+.section-title{font-size:20px;font-weight:700;color:#E8ECF1;padding-bottom:12px;border-bottom:2px solid var(--accent);margin-bottom:24px;letter-spacing:-0.3px;display:flex;align-items:center;gap:10px;}
+.section-title .icon{font-size:22px;}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:20px;}
+.card h3{font-size:16px;font-weight:600;color:#D0D5DD;margin-bottom:12px;}
+
+/* cxmt overview grid */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:24px;}
+.ov-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.ov-item .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.ov-item .value{font-size:14px;color:#D0D5DD;line-height:1.6;}
+
+/* fin table in overview */
+.ov-fin-table{width:100%;border-collapse:collapse;font-size:12px;}
+.ov-fin-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;text-align:right;font-weight:500;border-bottom:1px solid var(--border);}
+.ov-fin-table th:first-child{text-align:left;}
+.ov-fin-table td{padding:8px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,0.03);color:#C8CCD4;}
+.ov-fin-table td:first-child{text-align:left;color:var(--muted);}
+
+/* chain segment */
+.segment-header{font-size:17px;font-weight:700;color:#E8ECF1;margin:32px 0 16px;padding:8px 0;display:flex;align-items:center;gap:8px;}
+.segment-desc{font-size:13px;color:var(--muted);margin-bottom:16px;padding-left:28px;}
+.segment-badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;padding:2px 8px;border-radius:3px;margin-right:6px;}
+
+/* stock card */
+.stock-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:14px;}
+.stock-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.stock-name{font-size:16px;font-weight:700;color:#E8ECF1;}
+.stock-code{font-size:12px;color:var(--muted);margin-left:8px;}
+.stock-vitals{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+.stock-relation{font-size:13px;color:#A0A8B4;background:rgba(91,155,213,0.08);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 6px 6px 0;margin:10px 0;line-height:1.6;}
+
+/* fin mini table */
+.fin-mini{width:100%;border-collapse:collapse;font-size:11px;margin:10px 0;}
+.fin-mini th{background:rgba(255,255,255,0.03);color:var(--muted);padding:6px 8px;text-align:right;font-weight:500;border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.fin-mini th:first-child{text-align:left;}
+.fin-mini td{padding:6px 8px;text-align:right;border-bottom:1px solid rgba(255,255,255,0.02);font-size:11px;color:#C8CCD4;}
+.fin-mini td:first-child{text-align:left;color:var(--muted);}
+
+/* catalyst & risk strip */
+.cat-risk{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;}
+.cat-box,.risk-box{flex:1;min-width:220px;padding:10px 14px;border-radius:6px;font-size:12px;line-height:1.6;}
+.cat-box{background:rgba(70,167,88,0.06);border:1px solid rgba(70,167,88,0.15);color:#46A758;}
+.risk-box{background:rgba(229,72,77,0.06);border:1px solid rgba(229,72,77,0.15);color:#E5484D;}
+.cat-box .label,.risk-box .label{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600;}
+
+/* valuation chips */
+.val-strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:11px;}
+.val-chip{background:rgba(255,255,255,0.04);padding:3px 10px;border-radius:4px;color:#A0A8B4;}
+.val-chip b{color:#D0D5DD;}
+
+/* supplementary */
+.supp-table{width:100%;border-collapse:collapse;font-size:12px;}
+.supp-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:10px 12px;text-align:left;font-weight:500;border-bottom:1px solid var(--border);}
+.supp-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);color:#C8CCD4;vertical-align:top;}
+.supp-table td:first-child{color:var(--accent);font-weight:600;white-space:nowrap;}
+
+/* context cards */
+.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.context-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;}
+.context-card .ctx-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.context-card .ctx-value{font-size:14px;color:#D0D5DD;line-height:1.7;}
+
+/* risk matrix summary */
+.risk-summary{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.risk-chip{padding:4px 12px;border-radius:4px;font-size:11px;font-weight:600;}
+.risk-high{background:rgba(229,72,77,0.12);color:#E5484D;}
+.risk-mid{background:rgba(240,185,11,0.12);color:#F0B90B;}
+.risk-low{background:rgba(70,167,88,0.12);color:#46A758;}
+
+/* disclaimer */
+.disclaimer{margin-top:60px;padding:20px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.8;text-align:center;}
+
+/* fade reveal */
+.fade{opacity:0;transform:translateY(12px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade.in{opacity:1;transform:translateY(0);}
+
+@media (max-width:768px){
+  .container{padding:20px 16px;}
+  .hero h1{font-size:22px;}
+  .overview-grid{grid-template-columns:1fr;}
+  .cat-risk{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero fade">
+  <h1>长鑫存储(CXMT) 产业链全景</h1>
+  <div class="subtitle">A股标的系统梳理 · 上游设备/材料 → 中游制造 → 下游模组/封测/分销</div>
+  <div class="meta-strip">
+    <span>数据日期: 2026年7月9日</span><span>•</span>
+    <span>覆盖标的: 26只核心 + 9只关联</span><span>•</span>
+    <span>单位: 亿元（人民币）</span>
+  </div>
+</div>
+
+<!-- CXMT OVERVIEW -->
+<div class="section fade">
+  <div class="section-title"><span class="icon">🏭</span> 长鑫存储基本面概览</div>
+  <div class="overview-grid">
+    <div class="ov-item"><div class="label">公司全称</div><div class="value">长鑫科技集团股份有限公司（ChangXin Memory Technologies, CXMT）</div></div>
+    <div class="ov-item"><div class="label">曾用名 / 成立时间</div><div class="value">睿力集成电路有限公司 · 2016年6月13日</div></div>
+    <div class="ov-item"><div class="label">总部</div><div class="value">安徽合肥经济技术开发区</div></div>
+    <div class="ov-item"><div class="label">核心人物</div><div class="value">董事长朱一明（兼兆易创新董事长），法定代表人赵纶，员工约1.53万人（2025年）</div></div>
+    <div class="ov-item"><div class="label">股东结构</div><div class="value">合肥国资系为核心股东（合肥建投持股约21.67%为大股东），兆易创新持股约1.88%，董事长朱一明深度绑定</div></div>
+    <div class="ov-item"><div class="label">技术节点</div><div class="value">采用'跳代研发'策略，从第一代到第四代工艺平台量产迭代。主力量产节点17nm（良率超80%），采用4F²+CBA工艺+DUV多重曝光，不依赖EUV。DDR5/LPDDR5X基于17nm。HBM3基于16nm(g4制程)，12层堆叠。</div></div>
+    <div class="ov-item"><div class="label">主要产品线</div><div class="value">DDR4（服务器/PC/笔记本） · DDR5（速率8000Mbps，单颗最大24Gb，服务器/PC） · LPDDR4X（手机/平板） · LPDDR5/5X（速率10667Mbps，手机/可穿戴/汽车） · HBM3（2025年9月向华为交付工程样品，2026年底计划量产）</div></div>
+    <div class="ov-item"><div class="label">产能</div><div class="value">3座12英寸晶圆厂（合肥2座+北京1座），合肥一期设计产能12万片/月，产能利用率95.73%以上</div></div>
+    <div class="ov-item"><div class="label">全球市占</div><div class="value">2025年Q4全球DRAM销售额份额7.67%，中国第一、全球第四（仅次于三星、SK海力士、美光）</div></div>
+    <div class="ov-item"><div class="label">IPO状态</div><div class="value">科创板IPO，2025年12月30日申请获受理（科创板首单'预先审阅'试点），2026年5月27日上会，拟募资295亿元，用于存储器晶圆制造量产线升级、DRAM技术升级、前瞻技术研发，总投资345亿元</div></div>
+    <div class="ov-item"><div class="label">主要客户</div><div class="value">小米 · OPPO · vivo · 传音 · 联想 · 阿里云 · 字节跳动 · 腾讯 · 华为（HBM）</div></div>
+    <div class="ov-item"><div class="label">融资历程</div><div class="value">2018-2025年累计完成9轮融资，投资方包括大基金二期、阿里巴巴、腾讯、小米产投、招银国际、人保资本、建信金融、国调基金、君联资本、安徽省投等。累计融资数百亿元，估值超千亿。</div></div>
+  </div>
+
+  <!-- CXMT Financials -->
+  <div class="card">
+    <h3>📊 长鑫存储财务数据</h3>
+    <table class="ov-fin-table">
+      <tr><th>期间</th><th>营收(亿元)</th><th>营收同比</th><th>净利润(亿元)</th><th>净利同比</th><th>备注</th></tr>
+<tr><td>2023年</td><td>约24.6亿元</td><td>—</td><td>亏损</td><td>—</td><td style='text-align:left;font-size:11px;'>—</td></tr><tr><td>2024年</td><td>约206.6亿元</td><td>—</td><td>亏损78.70亿元</td><td>—</td><td style='text-align:left;font-size:11px;'>累计亏损366.5亿元</td></tr><tr><td>2025年</td><td>617.99亿元</td><td>+155%</td><td>18.75亿元</td><td>—</td><td style='text-align:left;font-size:11px;'>实现历史性扭亏为盈</td></tr><tr><td>2026Q1</td><td>508亿元</td><td>+719.13%</td><td>247.62亿元</td><td>扭亏</td><td style='text-align:left;font-size:11px;'>单季利润在科创板所有公司中排名第一</td></tr><tr><td>2026H1指引</td><td>1100-1200亿元</td><td>+612.53%~677.31%</td><td>500-570亿元</td><td>—</td><td style='text-align:left;font-size:11px;'>—</td></tr>
+    </table>
+  </div>
+
+  <!-- Gap analysis -->
+  <div class="card" style="margin-top:16px;">
+    <h3>📏 与国际巨头差距分析</h3>
+    <div style="font-size:13px;color:#A0A8B4;line-height:1.8;">
+技术节点方面，三星/海力士/美光已量产1a/1b nm级（10nm级）DRAM并大规模量产HBM3E，长鑫主力量产17nm，差距约1-2代。长鑫跳过HBM2E直接做HBM3，追赶速度加快。产能方面，三巨头合计占全球90%+，长鑫约7-8%，但增速远超同行。成本方面，DUV多重曝光导致成本略高于EUV方案，但规避了地缘风险。整体差距正在快速缩小，尤其在DDR5/LPDDR5X领域已接近国际先进水平。
+    </div>
+  </div>
+</div>
+
+<!-- CHAIN SEGMENTS -->
+<div class="section fade">
+  <div class="section-title"><span class="icon">🔗</span> 产业链分层图谱</div>
+
+  <div class="segment-header"><span class="segment-badge">上游</span> 上游-半导体设备</div>
+  <div class="segment-desc">长鑫存储扩产的核心'卖铲人'，涵盖刻蚀、薄膜沉积、CMP、清洗、检测等关键工艺设备。长鑫3座12英寸晶圆厂扩产直接拉动设备采购需求。</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">北方华创</span><span class="stock-code">002371.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>62</b></span>
+        <span>PB: <b>9.0</b></span>
+        <span>市值: <b>约6100亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>长鑫刻蚀/薄膜沉积/热处理/湿法等设备核心供应商，长鑫设备采购占比约45%，2025年新增订单25-30亿元，是长鑫最大的国产设备供应商</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>集成电路刻蚀、薄膜沉积（PVD/CVD/ALD）、热处理、湿法清洗等工艺设备，国内半导体设备龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>298.4</td><td>+35.1%</td><td>56.21</td><td>+44.2%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>393.53</td><td>+30.85%</td><td>55.22</td><td>-1.77%</td><td style='text-align:left;font-size:10px;'>增收不增利，研发费用大增46.96%至72.77亿元</td></tr><tr><td>2026Q1</td><td>103.23</td><td>+25.80%</td><td>暂无公开数据</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫IPO募资295亿扩产、国产设备替代加速、HBM产线建设、新签订单持续增长</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>利润增速放缓（2025年净利微降）、高估值回调风险、研发投入侵蚀短期利润、行业竞争加剧</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">中微公司</span><span class="stock-code">688012.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>95</b></span>
+        <span>PB: <b>8.8</b></span>
+        <span>市值: <b>约2000亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>5nm刻蚀机进入长鑫产线，2025年新增订单5-7亿元，为长鑫提供CCP/ICP刻蚀设备</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>介质刻蚀设备（CCP）、硅刻蚀设备（ICP）、MOCVD设备，国内刻蚀设备龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>90.65</td><td>+44.73%</td><td>16.16</td><td>-9.53%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>123.85</td><td>+约36.6%</td><td>21.11</td><td>+约30.6%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫扩产+先进制程需求、刻蚀设备国产替代、拟收购杭州众硅拓展布局、存储周期上行</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>净利润波动较大、估值偏高、海外竞争（泛林半导体等）、研发投入持续高增</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">拓荆科技</span><span class="stock-code">688072.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>126</b></span>
+        <span>PB: <b>17.7</b></span>
+        <span>市值: <b>约800亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供薄膜沉积设备（PECVD/SACVD/ALD等），存储芯片制造关键设备供应商，产品应用于存储芯片制造和3D集成领域</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>PECVD、SACVD、ALD等薄膜沉积设备及先进键合设备，国内唯一PECVD产业化企业</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>41.03</td><td>+51.7%</td><td>6.88</td><td>+3.86%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>65.19</td><td>+58.87%</td><td>9.29</td><td>+35.05%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫扩产+HBM产线建设、薄膜沉积设备国产替代率提升、先进键合设备放量、2024年出货超1000腔</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>PE估值极高（126倍）、经营现金流为负、存货和应收账款风险、行业周期波动</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">华海清科</span><span class="stock-code">688120.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>63</b></span>
+        <span>PB: <b>9.1</b></span>
+        <span>市值: <b>约700亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>12英寸CMP设备核心供应商，市占率超60%，HBM产线核心供应商，2025年营收或增8-10亿元来自长鑫扩产</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>化学机械抛光（CMP）设备、减薄装备、清洗装备、晶圆再生、CDS/SDS，国内CMP设备龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>34.14</td><td>+36.12%</td><td>10.2</td><td>+40.99%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>46.48</td><td>+36.46%</td><td>10.86</td><td>+6.07%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫HBM产线建设（CMP为HBM核心设备）、12英寸CMP国产替代、减薄设备放量、平台化布局</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2025年净利润增速仅6%，增收不增利、CMP设备单一品类依赖、估值偏高</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">精测电子</span><span class="stock-code">300567.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>883</b></span>
+        <span>PB: <b>18.42</b></span>
+        <span>市值: <b>约769亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供半导体量检测设备，存储芯片制造过程检测关键供应商</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>半导体前道量检测设备（电子束检测、光学检测）、显示面板检测设备</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>25.65</td><td>+5.59%</td><td>-0.98</td><td>-165.02%</td><td style='text-align:left;font-size:10px;'>由盈转亏</td></tr><tr><td>2025</td><td>暂无完整公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>半导体量检测设备国产替代、长鑫扩产拉动检测设备需求、存储周期上行</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2024年亏损、PE极高（883倍）、半导体检测设备验证周期长、显示面板业务拖累</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">至纯科技</span><span class="stock-code">603690.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>亏损（按扣非）</b></span>
+        <span>PB: <b>约3-4</b></span>
+        <span>市值: <b>约125亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供湿法清洗设备和高纯工艺系统，28nm制程全工序覆盖，长鑫湿法设备供应商之一</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>高纯工艺系统（国内市占率近50%）、湿法清洗设备、半导体材料（光刻胶等）</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>36.05</td><td>+14.40%</td><td>0.24</td><td>-93.75%</td><td style='text-align:left;font-size:10px;'>扣非亏损5740.7万元</td></tr><tr><td>2025</td><td>暂无完整公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫扩产拉动湿法设备采购、2024年新增订单55.77亿元、单片SPM设备国内领先</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2024年净利润暴跌93.75%、扣非亏损、经营现金流为负、被美国列入实体清单风险</div>
+    </div>
+  </div>
+
+  <div class="segment-header"><span class="segment-badge">上游</span> 上游-半导体材料</div>
+  <div class="segment-desc">长鑫存储制造DRAM芯片所需的核心耗材，包括前驱体、CMP抛光液/抛光垫、光刻胶、硅片、靶材、电子特气等。长鑫扩产直接拉动材料需求量增长，且国产替代加速提升份额。</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">雅克科技</span><span class="stock-code">002409.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约40-50</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约1000亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>长鑫baseline级材料核心供应商，覆盖前驱体（份额超60%，采购占比15-20%）、CMP抛光液（市占约30%）、KrF光刻胶（认证中）。2025年订单目标15亿元，与长鑫联合开发HBM3材料。是长鑫最核心的材料供应商之一。</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>半导体前驱体材料（收购韩国UP Chemical）、CMP抛光液、光刻胶（源自LG化学）、LNG保温绝热板材、阻燃剂</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>68.62</td><td>+44.84%</td><td>8.72</td><td>+50.41%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>86.11</td><td>+25.49%</td><td>10.3</td><td>+约18.1%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫HBM3量产（2026年Q2）新增营收2-3亿、前驱体绑定17nm及HBM、KrF光刻胶国产化率从10%提至30%、宜兴+韩国双基地扩产</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>光刻胶认证进度不确定、HBM3材料量产时间不确定、半导体材料竞争加剧、估值较高</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">安集科技</span><span class="stock-code">688019.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约55-65</b></span>
+        <span>PB: <b>约8-9</b></span>
+        <span>市值: <b>约400亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>长鑫CMP抛光液核心供应商，2025年供货金额超8亿元，与雅克科技形成双寡头格局</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>化学机械抛光液（CMP抛光液）、功能性湿电子化学品，国内CMP抛光液龙头，2025年全球市占率约13%</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>18.35</td><td>+48.24%</td><td>5.34</td><td>+32.51%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>25.04</td><td>+36.46%</td><td>暂无公开数据</td><td>—</td><td style='text-align:left;font-size:10px;'>CMP抛光液收入20.40亿元</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫扩产+HBM拉动CMP抛光液需求、全球市占率从13%持续提升、国产替代加速</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>全球市占率仍不足15%、估值偏高、CMP抛光液单一品类依赖、海外龙头竞争</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">鼎龙股份</span><span class="stock-code">300054.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>122</b></span>
+        <span>PB: <b>约8-9</b></span>
+        <span>市值: <b>约450亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>CMP抛光垫通过长鑫认证并供货，国产替代加速。2025年CMP抛光垫单品收入10.91亿元（+52.34%），国内市占70%、全球12%</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>CMP抛光垫（国内唯一全套核心技术量产）、CMP抛光液、清洗液、光刻胶（ArF/KrF全制程覆盖）、OLED功能材料、打印耗材</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>33.38</td><td>+25.14%</td><td>5.21</td><td>+134.54%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>约36.6</td><td>+约9.6%</td><td>暂无公开数据</td><td>—</td><td style='text-align:left;font-size:10px;'>半导体板块收入20.86亿元（+37.27%），占比57%</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>CMP抛光垫国内市占70%持续放量、向抛光液/清洗液拓展、光刻胶ArF/KrF全制程突破、长鑫扩产+HBM需求</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>PE估值极高（122倍）、打印耗材业务占比仍较高、CMP材料竞争激烈</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">晶瑞电材</span><span class="stock-code">300655.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>207</b></span>
+        <span>PB: <b>9.06</b></span>
+        <span>市值: <b>约233亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供高纯化学品（双氧水、氨水等）和光刻胶材料，半导体材料供应商之一</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>高纯双氧水、氨水、盐酸、硝酸、异丙醇等湿电子化学品，i线/KrF光刻胶，锂电池材料</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>14.35</td><td>+10.44%</td><td>-1.80</td><td>-1311.61%</td><td style='text-align:left;font-size:10px;'>大额商誉减值导致亏损</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>高毛利产品占比提升、毛利率从19.23%升至25.53%、湖北晶瑞产能释放、光刻胶国产替代</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2024年大额商誉减值、PE极高（207倍）、湿电子化学品竞争激烈、现金流压力</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">江丰电子</span><span class="stock-code">300666.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>90</b></span>
+        <span>PB: <b>约10</b></span>
+        <span>市值: <b>约727亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供超高纯金属靶材（铜、钽、铝等），DRAM制造中金属化工艺的关键材料供应商</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>超高纯金属靶材（铜/钽/铝/钛等）、精密零部件，国内半导体靶材龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>36.05</td><td>+38.57%</td><td>2.74</td><td>+24.15%</td><td style='text-align:left;font-size:10px;'>扣非净利3.04亿元（+94.92%）</td></tr><tr><td>2025</td><td>46.04</td><td>+27.7%</td><td>4.81</td><td>+约75.5%</td><td style='text-align:left;font-size:10px;'>2025年业绩预告净利4.81亿元</td></tr><tr><td>2026Q1</td><td>13.06</td><td>—</td><td>2.10</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>靶材国产替代加速、长鑫扩产+先进制程需求、精密零部件业务放量、2026年预期PE约90倍</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>PE估值偏高（90倍）、靶材品类相对单一、原材料价格波动、经营现金流为负</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">沪硅产业</span><span class="stock-code">688126.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>亏损</b></span>
+        <span>PB: <b>约4-5</b></span>
+        <span>市值: <b>约400亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>12英寸硅片批量供应长鑫，受益长鑫产能扩张。300mm硅片国内市占超50%，全球市占3%</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>300mm半导体硅片（12英寸）、200mm及以下硅片、SOI硅片，国内大硅片国产化标杆企业</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>33.88</td><td>+6.18%</td><td>-9.71</td><td>-620.3%</td><td style='text-align:left;font-size:10px;'>300mm硅片销量同比+70%，总产能突破65万片/月</td></tr><tr><td>2025</td><td>37.16</td><td>+9.69%</td><td>-15.08</td><td>-55.33%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫扩产拉动大硅片需求、300mm硅片销量大增、2025年收购子公司少数股权整合、硅片行业价格回暖预期</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>持续亏损（2025年亏15亿）、行业硅片价格承压、盈利拐点不确定、产能利用率不足</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">神工股份</span><span class="stock-code">688233.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约80-100</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约100亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>硅零部件产品已进入长江存储、北方华创等存储厂商和设备厂商，终端存储业务占比高，未来或进入长鑫配套</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>大直径硅材料（硅电极、硅环等硅零部件）、半导体硅材料</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>3.03</td><td>+124.19%</td><td>0.41</td><td>扭亏</td><td style='text-align:left;font-size:10px;'>上年亏损6910.98万元</td></tr><tr><td>2025</td><td>4.38</td><td>+44.68%</td><td>1.02</td><td>+147.96%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>大直径硅材料需求回暖、硅零部件新增需求、豪掷11.3亿扩产硅材料、进入存储厂供应链</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>营收规模小（不到5亿）、估值偏高、客户集中度风险、扩产项目资金压力</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">有研新材</span><span class="stock-code">600206.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>77</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约273亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>为长鑫提供半导体靶材（铜/钴/钽/贵金属靶材），12英寸高端靶材供应商。薄膜材料（靶材）2024年营收+46.53%</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>半导体靶材（全球第三大，市占约20%）、高端稀土功能材料、特种红外光学材料、生物医用材料，央企新材料平台</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>91.46</td><td>—</td><td>1.48</td><td>-34.78%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>95.42</td><td>+约4.3%</td><td>2.65</td><td>+79.29%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>29.57</td><td>+60.72%</td><td>0.88</td><td>+31%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>靶材国产替代+AI算力需求、2026Q1营收暴增60.72%、靶材板块收入+44%、12英寸高端靶材垄断地位</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>PE偏高（77倍）、低毛利、现金流恶化、增收不增利隐忧、稀土/红外业务拖累</div>
+    </div>
+  </div>
+
+  <div class="segment-header"><span class="segment-badge">下游</span> 下游-存储模组与封测</div>
+  <div class="segment-desc">长鑫存储DRAM芯片的下游应用环节，包括存储模组（内存条/嵌入式存储/SSD）、存储芯片封测（封装测试）、以及终端应用。长鑫产能释放和存储涨价周期直接利好下游模组和封测厂商。</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">深科技</span><span class="stock-code">000021.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约30-35</b></span>
+        <span>PB: <b>约3-4</b></span>
+        <span>市值: <b>约350亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>承接长鑫约50%封测订单，核心封测供应商。旗下沛顿科技/合肥沛顿深度绑定长鑫存储、长江存储。2024年存储板块营收35.2亿元（占比23.75%），2025年升至40.91亿元。HBM3良率达标。</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>高端存储芯片封测（DRAM/NAND/先进封装）、硬盘磁头制造、电子产品制造，国内存储封测龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>148.27</td><td>+3.94%</td><td>9.30</td><td>+44.33%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>157.47</td><td>+6.21%</td><td>11.36</td><td>+22.07%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>37.24</td><td>+10.67%</td><td>2.42</td><td>—</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫HBM量产拉动先进封装需求、14.7亿加码高端封测产能、合肥沛顿满产扩产、存储周期上行</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>封测净利率较低（约4.8%）、客户集中度风险、封测行业竞争、资本开支压力</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">佰维存储</span><span class="stock-code">688525.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约15-20（动态）</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约1000亿元以上（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>长鑫存储芯片核心代理商/模组合作伙伴，深度绑定存储产品线。采购长鑫DRAM晶圆进行模组封装和销售</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>存储模组（嵌入式存储/SSD/内存条）、先进封测服务、IC设计，存储模组头部企业</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>66.95</td><td>+约85.8%</td><td>1.61</td><td>扭亏</td><td style='text-align:left;font-size:10px;'>上年亏损6.24亿元</td></tr><tr><td>2025</td><td>113.02</td><td>+68.82%</td><td>8.53</td><td>+429.07%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>68.14</td><td>+341.53%</td><td>28.99</td><td>扭亏</td><td style='text-align:left;font-size:10px;'>创单季历史新高</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>存储涨价周期+AI需求爆发、2026Q1净利暴增、先进封测产能投产、存货78.68亿元锁定低成本</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>存储价格周期波动、存货跌价风险、模组竞争激烈、PE波动大</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">江波龙</span><span class="stock-code">301308.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约15-20（动态）</b></span>
+        <span>PB: <b>约6-7</b></span>
+        <span>市值: <b>约2941亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>与长鑫合资设厂做DDR5模组，2025年新增营收4-6亿元。采购长鑫DRAM晶圆，全球第二大独立存储模组厂商</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>嵌入式存储、固态硬盘（SSD）、移动存储、内存条四大产品线，旗下FORESEE（B2B）和雷克沙（Lexar，高端消费）双品牌</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>174.64</td><td>+72.48%</td><td>4.34</td><td>扭亏</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>约175</td><td>+约0.2%</td><td>14.23</td><td>+约228%</td><td style='text-align:left;font-size:10px;'>利润大幅改善</td></tr><tr><td>2026Q1</td><td>99.09</td><td>+132.79%</td><td>38.62</td><td>+2644.05%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>2026H1净利预增622-744倍、企业级SSD/HBM放量、存储涨价周期、AI服务器存储需求</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>存储周期波动风险、存货85亿元跌价风险、高估值回调风险、上半年利润集中在涨价周期</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">德明利</span><span class="stock-code">001309.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约10-15（动态）</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约1000亿元以上（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>存储模组厂商，采购长鑫等DRAM/NAND晶圆进行模组设计、封装和销售，全自研主控芯片</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>存储模组（固态硬盘、嵌入式存储）、自研存储主控芯片，国内存储模组核心厂商</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>47.73</td><td>+168.74%</td><td>3.51</td><td>+1302.30%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>约103-113</td><td>+115.82%~136.77%</td><td>6.5-8.0</td><td>+85.42%~128.21%</td><td style='text-align:left;font-size:10px;'>业绩预告</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>31.5-36.5</td><td>暴增</td><td style='text-align:left;font-size:10px;'>Q4净利6.77-8.27亿，Q1更爆发</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>2026H1净利预增10500%~11500%、AI驱动存储需求爆发、自研主控芯片壁垒、企业级存储布局</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2025年毛利率下降2.94pct、经营现金流-22.41亿元、存货70.58亿元、利润集中在Q4、周期波动风险</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">协创数据</span><span class="stock-code">300857.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约30-40</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约400亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>数据存储产品供应商，采购存储芯片（含长鑫等国产芯片）制造存储产品和AIoT终端</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>数据存储、AIoT终端、绿色算力三大业务，从消费电子代工向智能时代生态企业转型</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>74.10</td><td>—</td><td>6.92</td><td>+137.16%~189.86%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>122.36</td><td>+65.13%</td><td>11.64</td><td>+68.32%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>暂无公开数据</td><td>—</td><td>—</td><td>—</td><td style='text-align:left;font-size:10px;'>2025Q4净利4.66亿（+246.15%）</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>AI算力+存储需求、营收高增65%、绿色算力布局、从代工向生态企业转型</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>代工模式利润率偏低、存储芯片采购成本波动、业务多元但聚焦度不足</div>
+    </div>
+  </div>
+
+  <div class="segment-header"><span class="segment-badge">下游</span> 下游-存储芯片分销与应用</div>
+  <div class="segment-desc">长鑫存储DRAM芯片的代理商和分销商，以及终端应用环节。这些公司代理长鑫国产存储颗粒，受益于国产存储替代和存储涨价周期。</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">香农芯创</span><span class="stock-code">300475.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约15-20（动态）</b></span>
+        <span>PB: <b>约4-5</b></span>
+        <span>市值: <b>约300亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>长鑫存储官方授权一级代理商，分销子公司联合创泰代理长鑫DRAM。2024年国产存储采购额同比+140%，国产存储营收占比从12%提升至28%，长鑫DRAM是国产采购核心货源</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>电子元器件分销（SK海力士/联发科/长鑫存储等代理）、存储产品（企业级SSD等）</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>242.71</td><td>+115.40%</td><td>2.64</td><td>-30.08%</td><td style='text-align:left;font-size:10px;'>增收不增利</td></tr><tr><td>2025</td><td>352.51</td><td>+45.24%</td><td>5.44</td><td>+106.06%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>237.65</td><td>+200.6%</td><td>13.27</td><td>+7835.06%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>2026Q1净利暴增78倍、国产存储替代加速、企业级存储业务占比45%、海普存储量产</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>供应商依赖（SK海力士）、分销业务毛利率低、存储价格波动、2024年增收不增利</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">雅创电子</span><span class="stock-code">301099.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约30-35</b></span>
+        <span>PB: <b>约4.1</b></span>
+        <span>市值: <b>约150亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>手握长江存储、长鑫存储国产双雄核心代理权，代理长鑫DRAM存储芯片，精准卡位AI服务器与智能汽车存储赛道</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>电子元器件分销（存储芯片/MCU/模拟芯片等）、自研芯片设计，分销+自研双轮驱动</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>36.10</td><td>+46.1%</td><td>1.24</td><td>+132.8%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>约66</td><td>+约83.16%</td><td>暂无公开数据</td><td>—</td><td style='text-align:left;font-size:10px;'>营收增速14家分销商中领跑</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫/长江存储双代理权、2025年营收增速83%领跑分销商、AI服务器+车规存储双赛道、收购威雅利并表</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>分销业务毛利薄、自研芯片尚处投入期、经营现金流为负、估值较同行折价</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">商络电子</span><span class="stock-code">300975.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>55</b></span>
+        <span>PB: <b>10.87</b></span>
+        <span>市值: <b>约289亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>代理长鑫存储等品牌存储芯片，覆盖AI服务器、存储、汽车电子等应用领域。与长鑫保持供应/合作关系</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>电子元器件分销（TDK/三星电机/国巨/长鑫/铠侠等），覆盖被动元件、半导体、存储等</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>65.46</td><td>—</td><td>0.71</td><td>+108.28%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>约85.5</td><td>+30.59%</td><td>3.03</td><td>+327.78%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>2025年净利暴增328%、长鑫存储代理、AI服务器存储需求、股价创历史新高</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>PE偏高（55倍）、PB极高（10.87倍）、经营现金流为负、分销业务毛利率低</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">好上好</span><span class="stock-code">001298.SZ</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约30-40</b></span>
+        <span>PB: <b>约4-5</b></span>
+        <span>市值: <b>约120亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>代理长鑫存储等国产存储芯片，存储芯片分销是核心业务。2024年存储芯片分销营收14.17亿元占比78.5%</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>电子元器件分销（存储芯片/MCU/模拟芯片等），存储芯片分销为核心业务</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>暂无精确公开数据</td><td>—</td><td>0.25-0.33</td><td>-40.94%~-55.26%</td><td style='text-align:left;font-size:10px;'>业绩预告下降；另一来源2024年净利2.92亿+705%或有数据差异</td></tr><tr><td>2025</td><td>暂无公开数据</td><td>—</td><td>3.41</td><td>+152.79%</td><td style='text-align:left;font-size:10px;'>2025年净利预计3.41亿元</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>存储涨价周期+DDR4价格暴涨90%、HBM需求激增65%、2025年净利+153%、存储分销占比78.5%</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2024年业绩数据有分歧（预告下降vs实际大增）、分销毛利薄、存储周期波动、规模较小</div>
+    </div>
+  </div>
+
+  <div class="segment-header"><span class="segment-badge">生态</span> 生态-持股关联与设计服务</div>
+  <div class="segment-desc">与长鑫存储存在股权投资关系或深度业务绑定的A股公司，包括持股方、IP/设计服务合作方等。这些公司受益于长鑫IPO带来的股权增值和业务协同。</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">兆易创新</span><span class="stock-code">603986.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>约70-80</b></span>
+        <span>PB: <b>约8-10</b></span>
+        <span>市值: <b>约4600亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>核心参股方+深度业务绑定：1）持股长鑫科技约1.88%（增资15亿元）；2）DRAM独家代工+代销，2025年关联交易预计11.61亿元，2026上半年预计2.21亿美元；3）董事长朱一明兼任长鑫董事长，股权+业务+人事三重绑定。是A股与长鑫绑定最深的公司。</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>存储器（NOR Flash/利基DRAM/NAND）、微控制器（MCU）、传感器，国内存储芯片设计龙头</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>73.56</td><td>+约27%</td><td>11.03</td><td>+576.43%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>92.03</td><td>+25.12%</td><td>16.48</td><td>+49.47%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2026Q1</td><td>41.88</td><td>+119.38%</td><td>14.61</td><td>+522.79%</td><td style='text-align:left;font-size:10px;'>—</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>长鑫IPO股权增值（1.88%持股潜在价值数百亿）、2026Q1净利暴增523%、存储周期上行、利基DRAM自产+代销长鑫双驱动</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>高估值回调风险（PE 70-80倍）、存储周期波动、代销长鑫业务毛利率低、NOR Flash竞争加剧</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">国芯科技</span><span class="stock-code">688262.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>亏损</b></span>
+        <span>PB: <b>约3-4</b></span>
+        <span>市值: <b>约80亿元（2026年7月，估算）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>与长鑫存储在IP/定制芯片设计服务方面存在合作，为存储相关应用提供IP和芯片设计服务</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>自主嵌入式CPU IP、定制芯片设计服务、自主芯片及模组产品（汽车电子/存储/边缘计算等）</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>5.74</td><td>+27.78%</td><td>-1.81</td><td>亏损扩大</td><td style='text-align:left;font-size:10px;'>汽车电子芯片收入+71.38%</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>汽车电子芯片高增、CPU IP国产替代、存储相关IP需求</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>持续亏损（2024年亏1.81亿）、2025Q1营收腰斩、定制芯片毛利率下降、规模小</div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div><span class="stock-name">灿芯股份</span><span class="stock-code">688691.SH</span></div>
+      <div class="stock-vitals">
+        <span>PE(TTM): <b>亏损</b></span>
+        <span>PB: <b>约5-6</b></span>
+        <span>市值: <b>约127亿元（2026年7月）</b></span>
+        <span>数据: 2026年7月</span>
+      </div>
+    </div>
+    <div class="stock-relation">🔗 <b>与长鑫关系：</b>提供一站式芯片定制服务，与长鑫存储在芯片设计服务方面存在潜在合作（主要为IP和设计服务配套）</div>
+    <div style="font-size:13px;color:#A0A8B4;margin:8px 0;">📌 <b>主营业务：</b>一站式芯片定制服务（ASIC设计服务、芯片量产业务），中芯国际关联企业</div>
+
+    <table class="fin-mini">
+      <tr><th>期间</th><th>营收(亿)</th><th>营收YoY</th><th>净利(亿)</th><th>净利YoY</th><th>备注</th></tr>
+<tr><td>2024</td><td>10.90</td><td>-18.77%</td><td>0.61</td><td>-64.19%</td><td style='text-align:left;font-size:10px;'>—</td></tr><tr><td>2025</td><td>暂无公开数据</td><td>—</td><td>亏损</td><td>由盈转亏</td><td style='text-align:left;font-size:10px;'>2025年由盈转亏，芯片量产业务营收腰斩</td></tr>
+    </table>
+
+    <div class="cat-risk">
+      <div class="cat-box"><div class="label">🚀 催化剂</div>芯片设计服务需求回暖、中芯国际生态协同、IP积累</div>
+      <div class="risk-box"><div class="label">⚠️ 风险点</div>2025年由盈转亏、芯片量产业务营收腰斩、研发费用增40%、现金流紧张</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section fade">
+  <div class="section-title"><span class="icon">🔍</span> 其他关联标的</div>
+  <table class="supp-table">
+    <tr><th>代码</th><th>名称</th><th>与长鑫关系</th></tr>
+<tr><td>002208</td><td>合肥城建</td><td>母公司合肥建投持股长鑫科技21.67%为第一大股东，长鑫IPO直接受益资产重估</td></tr><tr><td>000333</td><td>美的集团</td><td>直接持股长鑫科技约0.76%，财务+产业双布局</td></tr><tr><td>000672</td><td>上峰水泥</td><td>通过产业基金间接持股长鑫科技</td></tr><tr><td>603726</td><td>朗迪集团</td><td>通过产业基金间接持股长鑫科技</td></tr><tr><td>000685</td><td>中山公用</td><td>通过产业基金间接持股长鑫科技</td></tr><tr><td>603459</td><td>红板科技</td><td>长鑫存储正式供应商，2026年5月起批量供应DDR5内存及SSD芯片FC-BGA高端IC载板，国产IC载板采购份额约30%</td></tr><tr><td>002409</td><td>麦捷科技（另注）</td><td>与长鑫保持供应或合作关系</td></tr><tr><td>002185</td><td>华天科技</td><td>与长鑫保持供应或合作关系（封测）</td></tr><tr><td>002605</td><td>柏诚股份</td><td>与长鑫保持供应或合作关系（洁净室工程）</td></tr>
+  </table>
+</div>
+
+<!-- Industry Context -->
+<div class="section fade">
+  <div class="section-title"><span class="icon">🌐</span> 行业背景与投资逻辑</div>
+  <div class="context-grid">
+
+    <div class="context-card"><div class="ctx-label">DRAM市场规模</div><div class="ctx-value">2025年全球DRAM市场规模约1000亿美元，三星/SK海力士/美光合计占90%+，长鑫约7-8%</div></div>
+    <div class="context-card"><div class="ctx-label">价格周期</div><div class="ctx-value">2025年下半年起DRAM价格大幅上涨，DDR4/DDR5现货价格累计涨幅超300%，主因AI算力需求爆发+三大厂转产HBM导致通用DRAM供给紧张</div></div>
+    <div class="context-card"><div class="ctx-label">HBM趋势</div><div class="ctx-value">HBM需求2025年同比激增65%，长鑫跳过HBM2E直接做HBM3，2026年底计划量产，向华为交付工程样品</div></div>
+    <div class="context-card"><div class="ctx-label">国家战略定位</div><div class="ctx-value">长鑫是国产DRAM替代唯一主体，大基金二期+合肥国资+互联网巨头（阿里/腾讯/小米）战略投资，科创板IPO募资295亿</div></div>
+
+  </div>
+</div>
+
+<!-- Risk Summary -->
+<div class="section fade">
+  <div class="section-title"><span class="icon">⚖️</span> 投资逻辑小结</div>
+  <div class="card">
+    <h3>核心逻辑</h3>
+    <div style="font-size:13px;color:#A0A8B4;line-height:1.8;">
+      <p><b>1. 国产替代确定性最高：</b>长鑫是中国唯一DRAM量产企业，全球市占从0→7.67%，扩产+IPO募资295亿将加速设备/材料国产化，上游设备（北方华创、华海清科）和材料（雅克科技、安集科技）最先受益。</p>
+      <p><b>2. 存储涨价周期仍在早期：</b>AI算力需求+HBM挤占通用DRAM产能，DDR4/DDR5价格暴涨300%+，下游模组厂商（江波龙、佰维存储、德明利）2026Q1利润暴增数十倍甚至百倍，但涨价红利已部分price in。</p>
+      <p><b>3. HBM是最强边际增量：</b>长鑫跳过HBM2E直接做HBM3，2026年底量产，华为工程样品已交付。设备（华海清科CMP）、材料（雅克前驱体）、封测（深科技先进封装）均受益。</p>
+      <p><b>4. 估值分化严重：</b>上游设备PE普遍50-120倍（高成长溢价），材料30-100倍（分化大），模组分销10-40倍（业绩爆发但周期性强）。兆易创新PE 70-80倍但有长鑫IPO股权增值预期。</p>
+      <p><b>5. 关键风险：</b>存储周期反转（涨价不可持续）、长鑫技术追赶不及预期（HBM量产延迟）、地缘制裁（美国限制设备/材料出口）、部分标的基本面较差（持续亏损/高估值无业绩支撑）。</p>
+    </div>
+  </div>
+
+  <div class="risk-summary">
+    <span class="risk-chip risk-high">⚠ 高风险注意: 精测电子(PE 883x亏损)、至纯科技(扣非亏损)、沪硅产业(连亏)、晶瑞电材(PE 207x)</span>
+    <span class="risk-chip risk-mid">📊 业绩暴增关注: 江波龙(净利+2644%)、香农芯创(+7835%)、德明利(万倍预增)、佰维存储(扭亏至29亿)</span>
+    <span class="risk-chip risk-low">✅ 基本面稳健: 北方华创、雅克科技、深科技、兆易创新</span>
+  </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  <p>{safe(meta['disclaimer'])}</p>
+  <p style="margin-top:8px;">数据来源: 公司年报/季报/公告、Wind、东方财富、同花顺、公开财经媒体。部分数据为估算值，以各公司正式披露为准。</p>
+  <p>报告生成时间: 2026年7月9日 · WorkBuddy 投研终端</p>
+</div>
+
+</div><!-- container -->
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.fade');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.04});
+  els.forEach(function(e){ io.observe(e); });
+  setTimeout(function(){ els.forEach(function(e){ e.classList.add('in'); }); }, 1500);
+})();
+</script>
+</body>
+</html>
